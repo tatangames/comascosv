@@ -75,6 +75,8 @@ return [
             'model' => App\Models\Administrador::class,
         ],
 
+
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
