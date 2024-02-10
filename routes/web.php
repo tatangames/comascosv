@@ -5,19 +5,18 @@ use App\Http\Controllers\Frontend\Login\LoginController;
 
 use App\Http\Controllers\Backend\Admin\Dashboard\DashboardAdminController;
 use App\Http\Controllers\Backend\Cliente\Dashboard\DashboardClienteController;
+use App\Http\Controllers\Frontend\Recursos\FrontendController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
-Route::get('/', [LoginController::class,'index'])->name('login');
+
+Route::get('/', [FrontendController::class,'vistaInicio'])->name('inicio');
+
+
+
+
+
+
+
 Route::post('/admin/login', [LoginController::class, 'login']);
 
 
