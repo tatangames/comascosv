@@ -4,12 +4,17 @@
 
 
 
-<!-- STAR HEADER SEARCH -->
-<section id="hero-area1" class="parallax-searchs home15 overlay thome-6 thome-12" data-stellar-background-ratio="0.5">
-    <div class="hero-main22">
-        <div class="container" data-aos="zoom-in">
-            <div class="row">
 
+
+
+<!-- STAR HEADER SEARCH -->
+<section id="hero-area" class="parallax-searchs home17 overlay" data-stellar-background-ratio="0.5">
+    <div class="hero-main">
+        <div class="container" data-aos="zoom-in">
+            <div class="banner-inner-wrap">
+                <div class="row">
+
+                </div>
             </div>
         </div>
     </div>
@@ -17,13 +22,15 @@
 <!-- END HEADER SEARCH -->
 
 
+
+
+
+
+
+
+
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
+@include("frontend.menu.final")
 
 
-
-    </div>
-<!-- Wrapper / End -->
-</body>
-
-</html>

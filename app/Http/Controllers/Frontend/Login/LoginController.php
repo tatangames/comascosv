@@ -13,7 +13,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => ['logout']]);
     }
 
-    public function index(){
+    public function indexIniciarSesion(){
 
         /*if (Auth::guard('admin')->check()) {
             return "ya iniciado sesion";
@@ -21,7 +21,9 @@ class LoginController extends Controller
             return "mmm";
         }*/
 
-        return view('frontend.login.vistalogin');
+        $tipoBody = 2;
+
+        return view('frontend.paginas.login.vistalogin', compact('tipoBody'));
     }
 
 

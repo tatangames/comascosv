@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/fontawesome-5-all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
     <!-- ARCHIVES CSS -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/search-form.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/search.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/aos.css') }}">
@@ -29,13 +30,24 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/maps.css') }}">
     <link rel="stylesheet" href="">
 
 
-    <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/pink.css') }}">
+    <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/black.css') }}">
 </head>
 
-<body class="homepage-9 hp-6 homepage-1 mh">
+<!-- TIPO DE ESTADOS SEGUN VISTA -->
+  @if($tipoBody == 1)
+      <!-- PARA VISTA INICIO -->
+      <body class="homepage-5 the-search hd-white">
+  @elseif($tipoBody == 2)
+      <!-- PARA VISTA LOGIN -->
+      <body class="inner-pages hd-white">
+  @endif
+
+    <!-- Wrapper -->
+    <div id="wrapper">
