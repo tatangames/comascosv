@@ -16,10 +16,34 @@ class AdministradorSeeder extends Seeder
     {
         Administrador::create([
             'nombre' => 'Jonathan',
+            'apellido' => 'Moran',
+            'usuario' => 'tatan',
             'password' => Hash::make('1234'),
-            'email' => 't@gmail.com',
+            'correo' => 'tatangamess@gmail.com',
             'token_correo' => null,
             'token_fecha' => null
         ])->assignRole('admin');
+
+        Administrador::create([
+            'nombre' => 'Editor',
+            'apellido' => 'Moran',
+            'usuario' => 'editor',
+            'password' => Hash::make('1234'),
+            'correo' => 'editor@gmail.com',
+            'token_correo' => null,
+            'token_fecha' => null
+        ])->assignRole('editor');
+
+        Administrador::create([
+            'nombre' => 'Cliente',
+            'apellido' => 'Moran',
+            'usuario' => 'cliente',
+            'password' => Hash::make('1234'),
+            'correo' => 'cliente@gmail.com',
+            'token_correo' => null,
+            'token_fecha' => null
+        ])->assignRole('cliente');
     }
 }
+
+

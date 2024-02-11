@@ -34,7 +34,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/maps.css') }}">
-    <link rel="stylesheet" href="">
 
 
     <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/black.css') }}">

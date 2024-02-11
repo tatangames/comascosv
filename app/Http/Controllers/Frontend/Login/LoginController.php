@@ -15,12 +15,11 @@ class LoginController extends Controller
 
     public function indexIniciarSesion(){
 
-        /*if (Auth::guard('admin')->check()) {
-            return "ya iniciado sesion";
-        }else{
-            return "mmm";
-        }*/
+        if (Auth::guard('admin')->check()) {
+            return redirect('/panel');
+        }
 
+        // para la plantilla
         $tipoBody = 2;
 
         return view('frontend.paginas.login.vistalogin', compact('tipoBody'));
@@ -30,7 +29,7 @@ class LoginController extends Controller
     public function login(Request $request){
 
         $rules = array(
-            'email' => 'required',
+            'usuario' => 'required',
             'password' => 'required',
         );
 
@@ -40,13 +39,19 @@ class LoginController extends Controller
             return ['success' => 0];
         }
 
-        $credentials = request()->only('email', 'password');
+        $credentials = request()->only('usuario', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            //return redirect()->route('admin.index');
             return ['success'=> 1, 'ruta'=> route('admin.panel')];
         } else {
             return ['success' => 2];
         }
     }
+
+
+    public function logout(Request $request){
+        Auth::guard('admin')->logout();
+        return redirect('/');
+    }
+
 }

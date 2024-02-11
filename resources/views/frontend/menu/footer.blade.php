@@ -8,8 +8,7 @@
                         <a href="{{ route('inicio') }}" class="logo">
                             <img src="{{ asset('images/logocomasco.png') }}" style="width: 65px !important; height: 65px !important;" alt="Comascosv">
                         </a>
-                        <p>Esta web es una herramienta hecha a tu necesidad.
-                            - Vendes sin pagar altos precios de comisión.
+                        <p>Esta web es una herramienta hecha a tu necesidad. Vendes sin pagar altos precios de comisión.
                         </p>
                     </div>
                     <div class="contactus">
@@ -24,7 +23,7 @@
                                 <div class="info">
 
                                     <i class="fa fa-phone" aria-hidden="true"></i>
-                                    <p class="in-p"><a href="https://wa.me/50372068714">+503 7206-8714 </a></p>
+                                    <p class="in-p"><a href="https://wa.me/50372068714" style="color: #484545 !important;">+503 7206-8714 </a></p>
 
                                 </div>
                             </li>
