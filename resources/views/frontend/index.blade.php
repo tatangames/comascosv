@@ -74,7 +74,7 @@
                         <h3>Como unirte a Comascosv</h3>
                     </div>
                     <div class="service-text-p">
-                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px" alt="whatsapp"></p>
+                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <a href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px" alt="whatsapp"></a></p>
                     </div>
                 </div>
             </article>
