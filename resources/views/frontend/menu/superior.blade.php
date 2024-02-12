@@ -9,7 +9,7 @@
     <meta name="author" content="Comascosv">
     <title>Comascosv</title>
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/iconlogo.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">
 
     <!-- GOOGLE FONTS -->
