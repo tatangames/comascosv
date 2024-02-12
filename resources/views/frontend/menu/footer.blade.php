@@ -71,7 +71,7 @@
                                         <i class="fa fa-check" aria-hidden="true"></i>
                                     </div>
                                     <div class="text">
-                                        <h5> Tu anuncio estará  visible nacional e internacional..</h5>
+                                        <h5> Tu anuncio estará  visible nacional e internacional.</h5>
                                     </div>
                                 </div>
                                 <div class="single-item">
@@ -102,9 +102,9 @@
         <div class="container">
             <p>2024 © Copyright - Comascosv.</p>
             <ul class="netsocials">
-                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 45px !important; margin: 0 10px 0 10px" alt="Logo de Ejemplo.com"> </a></li>
-                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/facebook.png') }}" style=" height: 38px !important; width: 38px !important; margin: 0 10px 0 10px" alt="Logo de Ejemplo.com"> </a></li>
-                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/youtube.png') }}" style=" height: 38px !important; width: 38px !important; margin: 0 10px 0 10px" alt="Logo de Ejemplo.com"> </a></li>
+                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 45px !important; margin: 0 10px 0 10px" alt="whatsapp"> </a></li>
+                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/facebook.png') }}" style=" height: 38px !important; width: 38px !important; margin: 0 10px 0 10px" alt="Facebook"> </a></li>
+                <li><a href="https://wa.me/50372068714">   <img src="{{ asset('images/youtube.png') }}" style=" height: 38px !important; width: 38px !important; margin: 0 10px 0 10px" alt="Youtube"> </a></li>
 
             </ul>
         </div>
