@@ -1,15 +1,13 @@
 @include('frontend.menu.superior')
+@include("frontend.menu.body.bodynormal")
 @include("frontend.menu.navbar")
-
 
 
 <!-- PORTADA -->
 <div id="container">
-    <img style="width: 100%;"  src="{{ asset('images/portada.jpg') }}">
+    <img style="width: 100%;" src="{{ asset('images/portada.jpg') }}">
 </div>
 <!-- END PORTADA -->
-
-
 
 
 <!-- SECCION - PORQUE ESCOGERNOS-->
@@ -26,7 +24,8 @@
                         <h3>¿Que hacemos?</h3>
                     </div>
                     <div class="service-text-p">
-                        <p class="text-center">Comascosv ofrece servicios de promoción de inmuebles y crea pequeños proyectos inmobiliarios.</p>
+                        <p class="text-center">Comascosv ofrece servicios de promoción de inmuebles y crea pequeños
+                            proyectos inmobiliarios.</p>
                     </div>
                 </div>
             </article>
@@ -62,7 +61,10 @@
                         <h3>Como unirte a Comascosv</h3>
                     </div>
                     <div class="service-text-p">
-                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <a href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px" alt="whatsapp"></a></p>
+                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <a
+                                href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}"
+                                                                       style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                       alt="whatsapp"></a></p>
                     </div>
                 </div>
             </article>
@@ -70,13 +72,6 @@
     </div>
 </section>
 <!-- END SECCION - PORQUE ESCOGERNOS-->
-
-
-
-
-
-
-
 
 
 <!-- START SECTION FEATURED PROPERTIES -->
@@ -99,7 +94,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -158,7 +154,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -217,7 +214,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -276,7 +274,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -335,7 +334,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -394,7 +394,8 @@
                         </div>
                         <div class="button-effect">
                             <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
                             <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
                         </div>
                     </div>
@@ -449,11 +450,6 @@
     </div>
 </section>
 <!-- END SECTION FEATURED PROPERTIES -->
-
-
-
-
-
 
 
 <!-- START SECTION POPULAR PLACES -->
@@ -517,40 +513,11 @@
             </div>
 
 
-
         </div>
         <!-- /row -->
     </div>
 </section>
 <!-- END SECTION POPULAR PLACES -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @include("frontend.menu.footer")

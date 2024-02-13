@@ -39,14 +39,3 @@
     <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/black.css') }}">
 </head>
 
-<!-- TIPO DE ESTADOS SEGUN VISTA -->
-  @if($tipoBody == 1)
-      <!-- PARA VISTA INICIO -->
-      <body class="homepage-9 hp-6 homepage-1 mh">
-  @elseif($tipoBody == 2)
-      <!-- PARA VISTA LOGIN -->
-      <body class="inner-pages hd-white">
-  @endif
-
-    <!-- Wrapper -->
-    <div id="wrapper">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Roles\PermisoController;
 use App\Http\Controllers\Backend\Dashboard\ClienteDashboardController;
 use App\Http\Controllers\Backend\Dashboard\EditorDashboardController;
 use App\Http\Controllers\Backend\Sistema\PerfilController;
+use App\Http\Controllers\Frontend\Recursos\RecursosController;
 
 
 
@@ -66,6 +67,36 @@ Route::get('/editor/dashboard/index', [EditorDashboardController::class,'indexDa
 
 // --- DASHBOARD CLIENTE ---
 Route::get('/cliente/dashboard/index', [ClienteDashboardController::class,'indexDashboard'])->name('cliente.dashboard.index');
+
+
+
+
+// --- DUDAS FAQ ---
+Route::get('/dudas-faq', [RecursosController::class,'vistaFaq'])->name('preguntas.frecuentes');
+
+// --- CONTACTO ---
+Route::get('/contacto', [RecursosController::class,'vistaContacto'])->name('contacto');
+
+// --- QUIENES SOMOS ---
+Route::get('/quienes-somos', [RecursosController::class,'vistaQuienesSomos'])->name('quienes.somos');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
