@@ -6951,15 +6951,16 @@ a.button,
 
 /*---------------------------------------*/
 /*--- 19. HOME 5 IMAGE  ---*/
+/*--- ESTA ES LA IMAGEN DE PORTADA DE INICIO  ---*/
 /*---------------------------------------*/
 .homepage-5 .parallax-searchs.home17 {
-  background: url(../../images/portada.jpg) no-repeat center top;
+  /*background: url(../../images/portada.jpg) no-repeat center top;
   background-size: cover;
   background-attachment: scroll !important;
   width: 100%;
   height: 70vh;
   position: relative;
-  z-index: 99;
+  z-index: 99;*/
 }
 
 .homepage-5 .banner-inner-wrap {
@@ -7196,7 +7197,7 @@ a.button,
 
 .homepage-5 .info-help.h17 {
   padding: 9rem 0;
-  background: url(../../images/portada.jpg) no-repeat scroll center center;
+  background: url(../../images/potada.jpg) no-repeat scroll center center;
   background-size: cover;
   position: relative;
   z-index: 0 !important;
@@ -10498,8 +10499,8 @@ a.button {
 }
 
 .parallax-searchs.home15.thome-6 {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../../images/portada.jpg) no-repeat center top;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../images/portada.jpg) no-repeat center top;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url(../../images/portvada.jpg) no-repeat center top;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../images/portavda.jpg) no-repeat center top;
   background-size: cover;
   background-attachment: fixed !important;
   width: 100%;
@@ -12223,14 +12224,14 @@ section.visited-cities {
 /*--- 33. PARALLAX HOME 17 ---*/
 /*----------------------------*/
 .parallax-searchs.home17 {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../../images/portada.jpg") no-repeat center top;
+ /* background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.2))), url("../../images/portada.jpg") no-repeat center top;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../../images/portada.jpg") no-repeat center top;
   background-size: cover;
   background-attachment: fixed !important;
   width: 100%;
   height: 100vh;
   position: relative;
-  z-index: 99;
+  z-index: 99;*/
 }
 
 .banner-inner-wrap {
