@@ -21,13 +21,13 @@
             <div class="col-sm-6">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Nueva Pregunta
+                    Nuevo Etiqueta
                 </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Preguntas Frecuentes</li>
+                    <li class="breadcrumb-item">Propiedad Etiqueta</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
@@ -58,7 +58,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nuevo</h4>
+                    <h4 class="modal-title">Nueva Etiqueta</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,14 +70,8 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
-                                        <label>Título</label>
-                                        <input type="text" maxlength="800" class="form-control" id="titulo-nuevo" autocomplete="off">
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label>Descripción</label>
-                                        <input type="text" maxlength="1500" class="form-control" id="descripcion-nuevo" autocomplete="off">
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="100" class="form-control" id="nombre-nuevo" autocomplete="off">
                                     </div>
 
                                 </div>
@@ -98,7 +92,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar</h4>
+                    <h4 class="modal-title">Editar Etiqueta</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -115,14 +109,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Título</label>
-                                        <input type="text" maxlength="800" class="form-control" id="titulo-editar" autocomplete="off">
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label>Descripción</label>
-                                        <input type="text" maxlength="1500" class="form-control" id="descripcion-editar" autocomplete="off">
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="100" class="form-control" id="nombre-editar" autocomplete="off">
                                     </div>
 
                                 </div>
@@ -143,8 +131,8 @@
 @extends('backend.menus.footerjs')
 @section('archivos-js')
 
-    <script src="{{ asset('js/jquery-ui-drag.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/datatables-drag.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery.dataTables.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('js/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
@@ -154,7 +142,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var ruta = "{{ URL::to('/admin/preguntasfre/tabla') }}";
+            var ruta = "{{ URL::to('/admin/etiquetas/tabla') }}";
             $('#tablaDatatable').load(ruta);
 
             document.getElementById("divcontenedor").style.display = "block";
@@ -165,7 +153,7 @@
 
         // recarga tabla
         function recargar(){
-            var ruta = "{{ URL::to('/admin/preguntasfre/tabla') }}";
+            var ruta = "{{ URL::to('/admin/etiquetas/tabla') }}";
             $('#tablaDatatable').load(ruta);
         }
 
@@ -177,25 +165,18 @@
 
         // envia datos de nuevo pais al servidor
         function nuevo(){
-            var titulo = document.getElementById('titulo-nuevo').value;
-            var descripcion = document.getElementById('descripcion-nuevo').value;
+            var nombre = document.getElementById('nombre-nuevo').value;
 
-            if(titulo === ''){
-                toastr.error('Título es requerido');
-                return;
-            }
-
-            if(descripcion === ''){
-                toastr.error('Descripción es requerido');
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
                 return;
             }
 
             openLoading();
             let formData = new FormData();
-            formData.append('titulo', titulo);
-            formData.append('descripcion', descripcion);
+            formData.append('nombre', nombre);
 
-            axios.post('/admin/preguntasfre/registrar', formData, {
+            axios.post('/admin/etiquetas/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -219,17 +200,15 @@
             openLoading();
             document.getElementById("formulario-editar").reset();
 
-            axios.post('/admin/preguntasfre/informacion',{
+            axios.post('/admin/etiquetas/informacion',{
                 'id': id
             })
                 .then((response) => {
                     closeLoading();
                     if(response.data.success === 1){
                         $('#modalEditar').modal('show');
-                        $('#id-editar').val(response.data.info.id);
-                        $('#titulo-editar').val(response.data.info.titulo);
-                        $('#descripcion-editar').val(response.data.info.descripcion);
-
+                        $('#id-editar').val(id);
+                        $('#nombre-editar').val(response.data.info.nombre);
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -244,27 +223,19 @@
         // editar datos de un pais
         function editar(){
             var id = document.getElementById('id-editar').value;
-            var titulo = document.getElementById('titulo-editar').value;
-            var descripcion = document.getElementById('descripcion-editar').value;
+            var nombre = document.getElementById('nombre-editar').value;
 
-            if(titulo === ''){
-                toastr.error('Título es requerido');
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
                 return;
             }
-
-            if(descripcion === ''){
-                toastr.error('Descripción es requerido');
-                return;
-            }
-
 
             openLoading();
             let formData = new FormData();
             formData.append('id', id);
-            formData.append('titulo', titulo);
-            formData.append('descripcion', descripcion);
+            formData.append('nombre', nombre);
 
-            axios.post('/admin/preguntasfre/actualizar', formData, {
+            axios.post('/admin/etiquetas/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -284,6 +255,7 @@
                     closeLoading();
                 });
         }
+
 
 
     </script>

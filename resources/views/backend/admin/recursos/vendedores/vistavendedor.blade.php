@@ -21,13 +21,13 @@
             <div class="col-sm-6">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Nueva Pregunta
+                    Nuevo Vendedor
                 </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Preguntas Frecuentes</li>
+                    <li class="breadcrumb-item">Vendedores</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
@@ -55,10 +55,10 @@
 
 
     <div class="modal fade" id="modalAgregar">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nuevo</h4>
+                    <h4 class="modal-title">Nuevo Vendedor</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,14 +70,35 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
-                                        <label>Título</label>
-                                        <input type="text" maxlength="800" class="form-control" id="titulo-nuevo" autocomplete="off">
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="50" class="form-control" id="nombre-nuevo" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Teléfono (Opcional)</label>
+                                        <input type="text" maxlength="25" class="form-control" id="telefono-nuevo" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Correo (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="correo-nuevo" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Canal Youtube (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="urlyoutube-nuevo" autocomplete="off">
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label>Descripción</label>
-                                        <input type="text" maxlength="1500" class="form-control" id="descripcion-nuevo" autocomplete="off">
+                                        <div>
+                                            <label>Imagen Vendedor</label>
+                                            <p>Recomendación no superar: 800 x 800 px</p>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-10">
+                                            <input type="file" style="color:#191818" id="imagen-nuevo" accept="image/jpeg, image/jpg, image/png"/>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -95,10 +116,10 @@
 
     <!-- modal editar -->
     <div class="modal fade" id="modalEditar">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar</h4>
+                    <h4 class="modal-title">Editar Vendedor</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -115,14 +136,35 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Título</label>
-                                        <input type="text" maxlength="800" class="form-control" id="titulo-editar" autocomplete="off">
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="50" class="form-control" id="nombre-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Teléfono (Opcional)</label>
+                                        <input type="text" maxlength="25" class="form-control" id="telefono-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Correo (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="correo-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Canal Youtube (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="urlyoutube-editar" autocomplete="off">
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label>Descripción</label>
-                                        <input type="text" maxlength="1500" class="form-control" id="descripcion-editar" autocomplete="off">
+                                        <div>
+                                            <label>Imagen Vendedor</label>
+                                            <p>Recomendación no superar: 800 x 800 px</p>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-10">
+                                            <input type="file" style="color:#191818" id="imagen-editar" accept="image/jpeg, image/jpg, image/png"/>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -143,8 +185,8 @@
 @extends('backend.menus.footerjs')
 @section('archivos-js')
 
-    <script src="{{ asset('js/jquery-ui-drag.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/datatables-drag.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery.dataTables.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('js/toastr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
@@ -154,7 +196,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var ruta = "{{ URL::to('/admin/preguntasfre/tabla') }}";
+            var ruta = "{{ URL::to('/admin/vendedores/tabla') }}";
             $('#tablaDatatable').load(ruta);
 
             document.getElementById("divcontenedor").style.display = "block";
@@ -165,7 +207,7 @@
 
         // recarga tabla
         function recargar(){
-            var ruta = "{{ URL::to('/admin/preguntasfre/tabla') }}";
+            var ruta = "{{ URL::to('/admin/vendedores/tabla') }}";
             $('#tablaDatatable').load(ruta);
         }
 
@@ -177,25 +219,36 @@
 
         // envia datos de nuevo pais al servidor
         function nuevo(){
-            var titulo = document.getElementById('titulo-nuevo').value;
-            var descripcion = document.getElementById('descripcion-nuevo').value;
+            var nombre = document.getElementById('nombre-nuevo').value;
+            var telefono = document.getElementById('telefono-nuevo').value;
+            var correo = document.getElementById('correo-nuevo').value;
+            var urlyoutube = document.getElementById('urlyoutube-nuevo').value;
+            var imagen = document.getElementById('imagen-nuevo');
 
-            if(titulo === ''){
-                toastr.error('Título es requerido');
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
                 return;
             }
 
-            if(descripcion === ''){
-                toastr.error('Descripción es requerido');
+            if(imagen.files && imagen.files[0]){ // si trae imagen
+                if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
+                    toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
+                    return;
+                }
+            }else{
+                toastr.error('Imagen es Requerida')
                 return;
             }
 
             openLoading();
             let formData = new FormData();
-            formData.append('titulo', titulo);
-            formData.append('descripcion', descripcion);
+            formData.append('nombre', nombre);
+            formData.append('telefono', telefono);
+            formData.append('correo', correo);
+            formData.append('urlyoutube', urlyoutube);
+            formData.append('imagen', imagen.files[0]);
 
-            axios.post('/admin/preguntasfre/registrar', formData, {
+            axios.post('/admin/vendedores/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -219,17 +272,18 @@
             openLoading();
             document.getElementById("formulario-editar").reset();
 
-            axios.post('/admin/preguntasfre/informacion',{
+            axios.post('/admin/vendedores/informacion',{
                 'id': id
             })
                 .then((response) => {
                     closeLoading();
                     if(response.data.success === 1){
                         $('#modalEditar').modal('show');
-                        $('#id-editar').val(response.data.info.id);
-                        $('#titulo-editar').val(response.data.info.titulo);
-                        $('#descripcion-editar').val(response.data.info.descripcion);
-
+                        $('#id-editar').val(id);
+                        $('#nombre-editar').val(response.data.info.nombre);
+                        $('#telefono-editar').val(response.data.info.telefono);
+                        $('#correo-editar').val(response.data.info.correo);
+                        $('#urlyoutube-editar').val(response.data.info.url_youtube);
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -244,27 +298,34 @@
         // editar datos de un pais
         function editar(){
             var id = document.getElementById('id-editar').value;
-            var titulo = document.getElementById('titulo-editar').value;
-            var descripcion = document.getElementById('descripcion-editar').value;
+            var nombre = document.getElementById('nombre-editar').value;
+            var telefono = document.getElementById('telefono-editar').value;
+            var correo = document.getElementById('correo-editar').value;
+            var urlyoutube = document.getElementById('urlyoutube-editar').value;
+            var imagen = document.getElementById('imagen-editar');
 
-            if(titulo === ''){
-                toastr.error('Título es requerido');
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
                 return;
             }
 
-            if(descripcion === ''){
-                toastr.error('Descripción es requerido');
-                return;
+            if(imagen.files && imagen.files[0]){ // si trae imagen
+                if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
+                    toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
+                    return;
+                }
             }
-
 
             openLoading();
             let formData = new FormData();
             formData.append('id', id);
-            formData.append('titulo', titulo);
-            formData.append('descripcion', descripcion);
+            formData.append('nombre', nombre);
+            formData.append('telefono', telefono);
+            formData.append('correo', correo);
+            formData.append('urlyoutube', urlyoutube);
+            formData.append('imagen', imagen.files[0]);
 
-            axios.post('/admin/preguntasfre/actualizar', formData, {
+            axios.post('/admin/vendedores/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -284,6 +345,7 @@
                     closeLoading();
                 });
         }
+
 
 
     </script>

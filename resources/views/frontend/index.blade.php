@@ -45,11 +45,20 @@
                 <div class="serv-flex">
                     <div class="art-1 img-14">
                         <img src="{{ asset('images/icons/mano-svg.svg') }}" alt="">
-                        <h3>Beneficios</h3>
+                        <h3>Redes Sociales</h3>
                     </div>
                     <div class="service-text-p">
-                        <p class="text-center">Vender sin pagar altos precios de comisión.<br>
-                            - Te permite administrar la información del anuncio; subir fotos etc.</p>
+                        <p class="text-center">Puedes encontrarnos en nuestro en:<br>
+                            - whatsapp <a
+                                href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}"
+                                                                       style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                       alt="whatsapp"></a> <br>
+                            - Youtube <a
+                                href="https://wa.me/50372068714"> <img src="{{ asset('images/youtube.png') }}"
+                                                                       style=" height: 40px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                       alt="Youtube"></a>
+
+                        </p>
                     </div>
                 </div>
             </article>
@@ -78,8 +87,8 @@
 <section class="featured portfolio bg-white-2 rec-pro full-l">
     <div class="container-fluid">
         <div class="sec-title">
-            <h2><span>Featured </span>Properties</h2>
-            <p>These are our featured properties</p>
+            <h2>Propiedades</h2>
+            <p></p>
         </div>
         <div class="row portfolio-items">
 
@@ -445,7 +454,7 @@
 
         </div>
         <div class="bg-all">
-            <a href="properties-full-grid-1.html" class="btn btn-outline-light">View More</a>
+            <a href="properties-full-grid-1.html" class="btn btn-outline-light">Ver Todos</a>
         </div>
     </div>
 </section>
@@ -456,8 +465,8 @@
 <section class="feature-categories bg-white rec-pro">
     <div class="container-fluid">
         <div class="sec-title">
-            <h2><span>Popular </span>Places</h2>
-            <p>Properties In Most Popular Places.</p>
+            <h2>Ubicaciones</h2>
+            <p></p>
         </div>
         <div class="row">
             <!-- Single category -->
@@ -467,8 +476,8 @@
                         <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
                     </div>
                     <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
+                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Metapan</a></h4>
+                        <span>203 propiedades</span>
                     </div>
                 </div>
             </div>
@@ -480,8 +489,8 @@
                         <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
                     </div>
                     <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
+                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Santa Ana</a></h4>
+                        <span>5 propeidades</span>
                     </div>
                 </div>
             </div>
@@ -493,8 +502,8 @@
                         <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
                     </div>
                     <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
+                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Texistepeque</a></h4>
+                        <span>8 propiedades</span>
                     </div>
                 </div>
             </div>
@@ -506,8 +515,8 @@
                         <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
                     </div>
                     <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
+                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">El Congo</a></h4>
+                        <span>9 propiedades</span>
                     </div>
                 </div>
             </div>

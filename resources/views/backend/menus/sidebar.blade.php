@@ -75,10 +75,53 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('admin.vendedores') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Vendedores</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.propiedad.etiquetas') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Propiedad Etiquetas</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.propiedad.lugares') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Lugares</p>
+                            </a>
+                        </li>
 
 
                     </ul>
                 </li>
+
+
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link nav-">
+                        <i class="far fa-edit"></i>
+                        <p>
+                            Propiedades
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.propiedad') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nueva Propiedad</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
 
 
 
