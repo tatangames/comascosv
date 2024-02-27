@@ -11,6 +11,8 @@ class FrontendController extends Controller
     public function vistaInicio()
     {
 
+        return view('construccion');
+
         $tipoBody = 1;
 
         return view('frontend.index', compact('tipoBody'));
