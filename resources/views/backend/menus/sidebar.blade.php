@@ -44,27 +44,41 @@
 
                 <!-- DASHBOARD EDITOR -->
 
-                @can('editor.sidebar.dashboard')
+
                     <li class="nav-item">
                         <a href="{{ route('editor.dashboard.index') }}" target="frameprincipal" class="nav-link">
                             <i class="far fa-address-book nav-icon"></i>
                             <p>Estadísticas Editor</p>
                         </a>
                     </li>
-                @endcan
+
 
                 <!-- DASHBOARD CLIENTE -->
 
-                @can('cliente.sidebar.dashboard')
+
+
                 <li class="nav-item">
-                    <a href="{{ route('cliente.dashboard.index') }}" target="frameprincipal" class="nav-link">
-                        <i class="far fa-address-book nav-icon"></i>
-                        <p>Estadísticas Cliente</p>
+
+                    <a href="#" class="nav-link nav-">
+                        <i class="far fa-edit"></i>
+                        <p>
+                            Recursos
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.preguntas.frecuentes') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Preguntas Frecuentes</p>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
                 </li>
-                @endcan
-
-
 
 
 

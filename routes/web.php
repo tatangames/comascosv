@@ -9,18 +9,18 @@ use App\Http\Controllers\Frontend\Recursos\FrontendController;
 use App\Http\Controllers\Controles\ControlRolController;
 use App\Http\Controllers\Backend\Roles\RolesController;
 use App\Http\Controllers\Backend\Roles\PermisoController;
-use App\Http\Controllers\Backend\Dashboard\ClienteDashboardController;
 use App\Http\Controllers\Backend\Dashboard\EditorDashboardController;
 use App\Http\Controllers\Backend\Sistema\PerfilController;
-use App\Http\Controllers\Frontend\Recursos\RecursosController;
+use App\Http\Controllers\Frontend\Recursos\FrontendRecursosController;
+use App\Http\Controllers\Backend\Recursos\RecursosController;
 
 
 
 // vista inicio
 Route::get('/', [FrontendController::class,'vistaInicio'])->name('inicio');
 
-// vista iniciar sesion
-Route::get('/iniciar/sesion', [LoginController::class,'indexIniciarSesion'])->name('iniciar.sesion');
+Route::get('/admin', [FrontendController::class,'vistaLogin'])->name('login.admin');
+
 
 
 // inicio de sesion para admin, editor, cliente
@@ -62,23 +62,35 @@ Route::get('/admin/perfil/index', [PerfilController::class,'indexEditarPerfil'])
 Route::post('/admin/perfil/actualizar/todo', [PerfilController::class, 'editarUsuario']);
 
 
+
+// ***** PANEL DE CONTROL *****
+
+// --- PREGUNTAS FRECUENTES ---
+Route::get('/admin/preguntasfre/index', [RecursosController::class,'indexPreguntasFrecuentes'])->name('admin.preguntas.frecuentes');
+Route::get('/admin/preguntasfre/tabla', [RecursosController::class,'tablaPreguntasFrecuentes']);
+Route::post('/admin/preguntasfre/posicion', [RecursosController::class,'preguntasFrecuentesPosicion']);
+Route::post('/admin/preguntasfre/registrar', [RecursosController::class,'registrarPreguntasFrecuentes']);
+Route::post('/admin/preguntasfre/informacion', [RecursosController::class,'informacionPreguntasFrecuentes']);
+Route::post('/admin/preguntasfre/actualizar', [RecursosController::class,'actualizarPreguntasFrecuentes']);
+
+
+
+
+
 // --- DASHBOARD EDITOR ---
 Route::get('/editor/dashboard/index', [EditorDashboardController::class,'indexDashboard'])->name('editor.dashboard.index');
 
-// --- DASHBOARD CLIENTE ---
-Route::get('/cliente/dashboard/index', [ClienteDashboardController::class,'indexDashboard'])->name('cliente.dashboard.index');
 
 
 
-
-// --- DUDAS FAQ ---
-Route::get('/dudas-faq', [RecursosController::class,'vistaFaq'])->name('preguntas.frecuentes');
+// --- PREGUNTAS FRECUENTES FAQ ---
+Route::get('/dudas-faq', [FrontendRecursosController::class,'vistaFaq'])->name('preguntas.frecuentes');
 
 // --- CONTACTO ---
-Route::get('/contacto', [RecursosController::class,'vistaContacto'])->name('contacto');
+Route::get('/contacto', [FrontendRecursosController::class,'vistaContacto'])->name('contacto');
 
 // --- QUIENES SOMOS ---
-Route::get('/quienes-somos', [RecursosController::class,'vistaQuienesSomos'])->name('quienes.somos');
+Route::get('/quienes-somos', [FrontendRecursosController::class,'vistaQuienesSomos'])->name('quienes.somos');
 
 
 

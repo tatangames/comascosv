@@ -20,8 +20,6 @@ class RolesSeeder extends Seeder
         // este es para dueno de pagina web
         $roleEditor = Role::create(['name' => 'editor', 'guard_name' => 'api']);
 
-        // este es para el cliente
-        $roleCliente = Role::create(['name' => 'cliente', 'guard_name' => 'api']);
 
         // solo para administrador
         Permission::create(['name' => 'admin.sidebar.roles.y.permisos', 'description' => 'Sidebar Admin seccion roles y permisos'])->syncRoles($roleAdmin);
@@ -29,9 +27,6 @@ class RolesSeeder extends Seeder
         // Editor
         Permission::create(['name' => 'editor.sidebar.dashboard', 'description' => 'Sidebar dashboard para editor'])->syncRoles($roleEditor);
 
-
-        // Cliente
-        Permission::create(['name' => 'cliente.sidebar.dashboard', 'description' => 'Sidebar dashboard para cliente'])->syncRoles($roleCliente);
 
     }
 }

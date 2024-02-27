@@ -13,23 +13,10 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => ['logout']]);
     }
 
-    public function indexIniciarSesion(){
-
-        if (Auth::guard('admin')->check()) {
-            return redirect('/panel');
-        }
-
-        // para la plantilla
-        $tipoBody = 2;
-
-        return view('frontend.paginas.login.vistalogin', compact('tipoBody'));
-    }
-
-
     public function login(Request $request){
 
         $rules = array(
-            'usuario' => 'required',
+            'email' => 'required',
             'password' => 'required',
         );
 
@@ -39,9 +26,10 @@ class LoginController extends Controller
             return ['success' => 0];
         }
 
-        $credentials = request()->only('usuario', 'password');
+        $credentials = request()->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
+            //return redirect()->route('admin.index');
             return ['success'=> 1, 'ruta'=> route('admin.panel')];
         } else {
             return ['success' => 2];

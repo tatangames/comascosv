@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('administrador', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre', 50);
-            $table->string('apellido', 50)->nullable();
-
-            // puede ser usuario/telefono/correo
-            $table->string('usuario', 100)->unique();
-
-            // 20 caracteres en password
+            $table->string('email', 100)->unique();
             $table->string('password', 255);
-
 
             $table->string('correo', 100)->nullable();
             $table->string('token_correo', 100)->nullable();

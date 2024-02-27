@@ -95,12 +95,9 @@
                         </li>
 
 
-
-
                         <li><a href="{{ route('quienes.somos') }}">Quienes Somos</a></li>
                         <li><a href="{{ route('contacto') }}">Contacto</a></li>
 
-                        <li class="d-none d-xl-none d-block d-lg-block" ><a href="{{ route('iniciar.sesion') }}">Iniciar Sesión</a></li>
                     </ul>
                 </nav>
                 <!-- Main Navigation / End -->
@@ -112,40 +109,6 @@
 
 
 
-
-            <!-- Right Side Content / End -->
-            <div class="right-side d-none d-none d-lg-none d-xl-flex">
-                <!-- Header Widget -->
-
-                <!-- Header Widget / End -->
-            </div>
-            <!-- Right Side Content / End -->
-
-            <!-- Right Side Content / End -->
-            <div class="header-user-menu user-menu add">
-                <div class="header-user-name" style="color: #333333">
-                    <span><img src="{{ asset('images/perfil.png') }}" alt=""></span>Jonathan ...
-                </div>
-
-            </div>
-            <!-- Right Side Content / End -->
-
-            <div class="right-side d-none d-none d-lg-none d-xl-flex sign ml-0">
-                <!-- Header Widget -->
-                <div class="header-widget sign-in">
-                    <div class="show-reg-form modal-open" ><a href="{{ route('iniciar.sesion') }}" style="color: #333333">Iniciar Sesión</a></div>
-                </div>
-                <!-- Header Widget / End -->
-            </div>
-            <!-- Right Side Content / End -->
-
-            <!-- lang-wrap-->
-            <div class="header-user-menu user-menu add d-none d-lg-none d-xl-flex">
-                <div class="lang-wrap">
-
-                </div>
-            </div>
-            <!-- lang-wrap end-->
 
         </div>
     </div>
