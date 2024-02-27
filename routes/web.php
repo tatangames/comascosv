@@ -104,8 +104,15 @@ Route::get('/admin/propiedad/tabla', [PropiedadController::class,'tablaPropiedad
 Route::post('/admin/propiedad/infovendedor', [PropiedadController::class,'informacionPropiVendedor']);
 Route::post('/admin/propiedad/registrar', [PropiedadController::class,'registrarPropiedad']);
 Route::post('/admin/propiedad/informacion', [PropiedadController::class,'informacionPropiedad']);
+Route::post('/admin/propiedad/actualizar', [PropiedadController::class,'actualizarPropiedad']);
 
+// --- ETIQUETA A LA PROPIEDAD ---
 
+Route::get('/admin/propiedad/etiqueta/index/{idetiqueta}', [PropiedadController::class,'indexPropiedadEtiqueta']);
+Route::get('/admin/propiedad/etiqueta/tabla/{idetiqueta}', [PropiedadController::class,'tablaPropiedadEtiqueta']);
+Route::post('/admin/propiedad/etiqueta/registrar', [PropiedadController::class,'registrarPropiedadEtiqueta']);
+Route::post('/admin/propiedad/etiqueta/posicion', [PropiedadController::class,'actualizarPosicionPropiEtiqueta']);
+Route::post('/admin/propiedad/etiqueta/borrar', [PropiedadController::class,'borrarPropiEtiqueta']);
 
 
 

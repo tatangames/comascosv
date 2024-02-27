@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->bigInteger('id_vendedor')->unsigned();
+            $table->bigInteger('id_lugar')->unsigned();
 
             $table->date('fecha'); // fecha registro
             $table->string('nombre', 100);
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->date('fecha_fin');
 
             $table->foreign('id_vendedor')->references('id')->on('vendedores');
+            $table->foreign('id_lugar')->references('id')->on('lugares');
         });
     }
 

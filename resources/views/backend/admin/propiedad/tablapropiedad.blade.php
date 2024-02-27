@@ -28,11 +28,13 @@
                                     <td style="width: 8%">{{ $dato->fechaVisible }}</td>
 
                                     <td style="width: 4%">
-
                                         <button type="button" class="btn btn-success btn-xs" onclick="informacionEditar({{ $dato->id }})">
                                             <i class="fas fa-eye" title="Editar"></i>&nbsp; Editar
                                         </button>
 
+                                        <button type="button" class="btn btn-info btn-xs" onclick="modalOpciones({{ $dato->id }})">
+                                            <i class="fas fa-book" title="Opciones"></i>&nbsp; Opciones
+                                        </button>
                                     </td>
 
                                 </tr>

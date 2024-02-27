@@ -211,13 +211,11 @@
             $('#tablaDatatable').load(ruta);
         }
 
-        // abre modal para agregar nuevo pais
         function modalAgregar(){
             document.getElementById("formulario-nuevo").reset();
             $('#modalAgregar').modal('show');
         }
 
-        // envia datos de nuevo pais al servidor
         function nuevo(){
             var nombre = document.getElementById('nombre-nuevo').value;
             var telefono = document.getElementById('telefono-nuevo').value;
@@ -267,7 +265,6 @@
                 });
         }
 
-        // informacion de un pais
         function informacionEditar(id){
             openLoading();
             document.getElementById("formulario-editar").reset();
@@ -295,7 +292,6 @@
         }
 
 
-        // editar datos de un pais
         function editar(){
             var id = document.getElementById('id-editar').value;
             var nombre = document.getElementById('nombre-editar').value;

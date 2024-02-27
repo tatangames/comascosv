@@ -10,4 +10,8 @@ class PropiedadEtiqueta extends Model
     use HasFactory;
     protected $table = 'propiedad_etiqueta';
     public $timestamps = false;
+
+    protected $fillable = [
+        'posicion'
+    ];
 }

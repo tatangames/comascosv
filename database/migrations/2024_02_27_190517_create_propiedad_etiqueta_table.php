@@ -16,6 +16,8 @@ return new class extends Migration
             $table->bigInteger('id_propiedad')->unsigned();
             $table->bigInteger('id_etiqueta')->unsigned();
 
+            $table->integer('posicion');
+
             $table->foreign('id_propiedad')->references('id')->on('propiedad');
             $table->foreign('id_etiqueta')->references('id')->on('listado_etiqueta');
         });

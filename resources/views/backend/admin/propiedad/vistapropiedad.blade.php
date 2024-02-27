@@ -88,6 +88,15 @@
                                     <hr>
 
                                     <div class="form-group">
+                                        <label class="control-label">Ubicación</label>
+                                        <select class="form-control" id="select-lugar">
+                                            @foreach($arrayLugar as $item)
+                                                <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>Nombre Propiedad</label>
                                         <input type="text" maxlength="100" class="form-control" id="nombre-nuevo" autocomplete="off">
                                     </div>
@@ -114,6 +123,20 @@
                                         <input type="date" class="form-control" id="fechafin-nuevo" autocomplete="off">
                                     </div>
 
+                                    <br>
+                                    <hr>
+
+                                    <p>Coordenadas (Opcional)</p>
+
+                                    <div class="form-group">
+                                        <label>Latitud</label>
+                                        <input type="text" maxlength="100" class="form-control" id="latitud-nuevo" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Longitud</label>
+                                        <input type="text" maxlength="100" class="form-control" id="longitud-nuevo" autocomplete="off">
+                                    </div>
 
                                 </div>
                             </div>
@@ -150,35 +173,65 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Nombre</label>
-                                        <input type="text" maxlength="50" class="form-control" id="nombre-editar" autocomplete="off">
+                                        <label class="control-label">Agente Vendedor</label>
+                                        <select class="form-control" id="select-vendedor-editar" onchange="buscarFotoEditar(this)">
+                                        </select>
+                                    </div>
+
+                                    <p id="textofoto-editar"><strong>Imagen Vendedor</strong></p>
+                                    <div class="list-group mail-list m-t-20" align="center">
+                                        <img id="foto-ficha-editar" class="thumb" alt="" width="120px" height="120px" style="border: 2px solid black;">
+                                    </div>
+
+                                    <br>
+                                    <hr>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Ubicación</label>
+                                        <select class="form-control" id="select-lugar-editar">
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Teléfono (Opcional)</label>
-                                        <input type="text" maxlength="25" class="form-control" id="telefono-editar" autocomplete="off">
+                                        <label>Nombre Propiedad</label>
+                                        <input type="text" maxlength="100" class="form-control" id="nombre-editar" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Correo (Opcional)</label>
-                                        <input type="text" maxlength="100" class="form-control" id="correo-editar" autocomplete="off">
+                                        <label>Dirección (Opcional)</label>
+                                        <input type="text" maxlength="25" class="form-control" id="direccion-editar" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Canal Youtube (Opcional)</label>
-                                        <input type="text" maxlength="100" class="form-control" id="urlyoutube-editar" autocomplete="off">
+                                        <label>Precio (Opcional)</label>
+                                        <input type="text" class="form-control" id="precio-editar" autocomplete="off">
                                     </div>
 
+                                    <br>
+                                    <hr>
+                                    <div class="form-group" style="width: 25%">
+                                        <label>Fecha Inicio</label>
+                                        <input type="date" class="form-control" id="fechainicio-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group" style="width: 25%">
+                                        <label>Fecha Fin</label>
+                                        <input type="date" class="form-control" id="fechafin-editar" autocomplete="off">
+                                    </div>
+
+                                    <br>
+                                    <hr>
+
+                                    <p>Coordenadas (Opcional)</p>
 
                                     <div class="form-group">
-                                        <div>
-                                            <label>Imagen Vendedor</label>
-                                            <p>Recomendación no superar: 800 x 800 px</p>
-                                        </div>
-                                        <br>
-                                        <div class="col-md-10">
-                                            <input type="file" style="color:#191818" id="imagen-editar" accept="image/jpeg, image/jpg, image/png"/>
-                                        </div>
+                                        <label>Latitud</label>
+                                        <input type="text" maxlength="100" class="form-control" id="latitud-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Longitud</label>
+                                        <input type="text" maxlength="100" class="form-control" id="longitud-editar" autocomplete="off">
                                     </div>
 
                                 </div>
@@ -194,6 +247,57 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+<div class="modal fade" id="modalOpciones">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Opciones</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario-opciones">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+
+                                <div class="form-group">
+                                    <input type="hidden" id="id-opciones">
+                                </div>
+
+                                <div class="list-group b-0 mail-list" id="configuracion">
+
+                                    <button type="button" onclick="vistaEtiquetas();" class="btn btn-success btn-block waves-effect waves-light">Etiquetas</button>
+                                    <button type="button" onclick="trasladoPacienteModal();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Traslado</button>
+                                    <button type="button" onclick="preguntaLiberarSala()" class="btn btn-danger btn-block waves-effect waves-light">Liberar sala</button>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="nuevo()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 @extends('backend.menus.footerjs')
@@ -235,7 +339,6 @@
             }
 
             openLoading();
-            document.getElementById("formulario-editar").reset();
 
             axios.post('/admin/propiedad/infovendedor',{
                 'id': idvendedor
@@ -243,9 +346,40 @@
                 .then((response) => {
                     closeLoading();
                     if(response.data.success === 1){
-                       let imagen = response.data.imagen;
+                        let imagen = response.data.imagen;
 
                         $('#foto-ficha').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
+
+                        document.getElementById('textofoto').innerHTML = "FOTOGRAFIA";
+                    }else{
+                        toastr.error('Información no encontrada');
+                    }
+                })
+                .catch((error) => {
+                    closeLoading();
+                    toastr.error('Información no encontrada');
+                });
+        }
+
+        function buscarFotoEditar(e){
+            let idvendedor = $(e).val();
+
+            if(idvendedor == '0'){
+                document.getElementById('textofoto-editar').innerHTML = "FOTOGRAFIA";
+                return;
+            }
+
+            openLoading();
+
+            axios.post('/admin/propiedad/infovendedor',{
+                'id': idvendedor
+            })
+                .then((response) => {
+                    closeLoading();
+                    if(response.data.success === 1){
+                        let imagen = response.data.imagen;
+
+                        $('#foto-ficha-editar').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
 
                         document.getElementById('textofoto').innerHTML = "FOTOGRAFIA";
                     }else{
@@ -266,7 +400,6 @@
             $('#modalAgregar').modal('show');
         }
 
-        // envia datos de nuevo pais al servidor
         function nuevo(){
             var idvendedor = document.getElementById('select-vendedor').value;
             var nombre = document.getElementById('nombre-nuevo').value;
@@ -300,8 +433,6 @@
                     return;
                 }
             }
-
-
 
             var finicio = new Date(fechainicio);
             var ffin = new Date(fechafin);
@@ -339,12 +470,12 @@
                 });
         }
 
-        // informacion de un pais
+
         function informacionEditar(id){
             openLoading();
             document.getElementById("formulario-editar").reset();
 
-            axios.post('/admin/vendedores/informacion',{
+            axios.post('/admin/propiedad/informacion',{
                 'id': id
             })
                 .then((response) => {
@@ -352,10 +483,30 @@
                     if(response.data.success === 1){
                         $('#modalEditar').modal('show');
                         $('#id-editar').val(id);
+
+                        // listado de vendedores
+                        document.getElementById("select-vendedor-editar").options.length = 0;
+
+                        $.each(response.data.listado, function( key, val ){
+
+                            let imagen = response.data.imagen;
+
+                            $('#foto-ficha-editar').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
+
+                            if(response.data.info.id_vendedor == val.id){
+                                $('#select-vendedor-editar').append('<option value="' +val.id +'" selected="selected">'+val.nombre+'</option>');
+                            }else{
+                                $('#select-vendedor-editar').append('<option value="' +val.id +'">'+val.nombre+'</option>');
+                            }
+                        });
+
+
                         $('#nombre-editar').val(response.data.info.nombre);
-                        $('#telefono-editar').val(response.data.info.telefono);
-                        $('#correo-editar').val(response.data.info.correo);
-                        $('#urlyoutube-editar').val(response.data.info.url_youtube);
+                        $('#direccion-editar').val(response.data.info.direccion);
+                        $('#precio-editar').val(response.data.info.precio);
+                        $('#fechainicio-editar').val(response.data.info.fecha_inicio);
+                        $('#fechafin-editar').val(response.data.info.fecha_fin);
+
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -367,37 +518,61 @@
         }
 
 
-        // editar datos de un pais
+
         function editar(){
             var id = document.getElementById('id-editar').value;
+            var idvendedor = document.getElementById('select-vendedor-editar').value;
             var nombre = document.getElementById('nombre-editar').value;
-            var telefono = document.getElementById('telefono-editar').value;
-            var correo = document.getElementById('correo-editar').value;
-            var urlyoutube = document.getElementById('urlyoutube-editar').value;
-            var imagen = document.getElementById('imagen-editar');
+            var direccion = document.getElementById('direccion-editar').value;
+            var precio = document.getElementById('precio-editar').value;
+            var fechainicio = document.getElementById('fechainicio-editar').value;
+            var fechafin = document.getElementById('fechafin-editar').value;
 
-            if(nombre === ''){
-                toastr.error('Nombre es requerido');
+            if(idvendedor == '0'){
+                toastr.error('Seleccionar Vendedor')
                 return;
             }
 
-            if(imagen.files && imagen.files[0]){ // si trae imagen
-                if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
-                    toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
+            // direccion es null
+
+            var reglaNumeroDosDecimal = /^([0-9]+\.?[0-9]{0,2})$/;
+
+            if(precio.length > 0){
+                if(!precio.match(reglaNumeroDosDecimal)) {
+                    toastr.error('Precio debe ser Decimal Positivo. Solo se permite 2 Decimales');
                     return;
                 }
+
+                if(precio < 0){
+                    toastr.error('Precio no debe ser negativo'); // puede ser cero
+                    return;
+                }
+
+                if(precio > 9000000){
+                    toastr.error('Precio debe tener máximo 9 millón');
+                    return;
+                }
+            }
+
+            var finicio = new Date(fechainicio);
+            var ffin = new Date(fechafin);
+
+            if(finicio > ffin){
+                toastr.error('Fecha Inicio no puede ser Mayor');
+                return;
             }
 
             openLoading();
             let formData = new FormData();
             formData.append('id', id);
+            formData.append('idvendedor', idvendedor);
             formData.append('nombre', nombre);
-            formData.append('telefono', telefono);
-            formData.append('correo', correo);
-            formData.append('urlyoutube', urlyoutube);
-            formData.append('imagen', imagen.files[0]);
+            formData.append('direccion', direccion);
+            formData.append('precio', precio);
+            formData.append('fechainicio', fechainicio);
+            formData.append('fechafin', fechafin);
 
-            axios.post('/admin/vendedores/actualizar', formData, {
+            axios.post('/admin/propiedad/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -418,6 +593,17 @@
                 });
         }
 
+
+        function modalOpciones(id){
+
+            $('#id-opciones').val(id);
+            $('#modalOpciones').modal('show');
+        }
+
+        function vistaEtiquetas(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedad/etiqueta/index') }}/" + id;
+        }
 
 
     </script>

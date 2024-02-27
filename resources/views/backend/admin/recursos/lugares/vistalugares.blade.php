@@ -185,7 +185,6 @@
             $('#modalAgregar').modal('show');
         }
 
-        // envia datos de nuevo pais al servidor
         function nuevo(){
             var nombre = document.getElementById('nombre-nuevo').value;
             var imagen = document.getElementById('imagen-nuevo');
@@ -229,7 +228,6 @@
                 });
         }
 
-        // informacion de un pais
         function informacionEditar(id){
             openLoading();
             document.getElementById("formulario-editar").reset();
@@ -254,7 +252,6 @@
         }
 
 
-        // editar datos de un pais
         function editar(){
             var id = document.getElementById('id-editar').value;
             var nombre = document.getElementById('nombre-editar').value;
