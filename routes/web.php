@@ -97,6 +97,10 @@ Route::post('/admin/lugares/registrar', [RecursosController::class,'registrarLug
 Route::post('/admin/lugares/informacion', [RecursosController::class,'informacionLugares']);
 Route::post('/admin/lugares/actualizar', [RecursosController::class,'actualizarLugares']);
 
+// --- QUIENES SOMOS ---
+Route::get('/admin/quienessomos/index', [RecursosController::class,'indexQuienesSomos'])->name('admin.pagina.quienes.somos');
+Route::post('/admin/quienessomos/actualizar', [RecursosController::class,'actualizarQuienesSomos']);
+
 
 // --- PROPIEDADES ---
 Route::get('/admin/propiedad/index', [PropiedadController::class,'indexPropiedad'])->name('admin.propiedad');
@@ -115,17 +119,33 @@ Route::post('/admin/propiedad/etiqueta/registrar', [PropiedadController::class,'
 Route::post('/admin/propiedad/etiqueta/posicion', [PropiedadController::class,'actualizarPosicionPropiEtiqueta']);
 Route::post('/admin/propiedad/etiqueta/borrar', [PropiedadController::class,'borrarPropiEtiqueta']);
 
-
-
-
-
-
-
-
-
 // --- DASHBOARD EDITOR ---
 Route::get('/editor/dashboard/index', [EditorDashboardController::class,'indexDashboard'])->name('editor.dashboard.index');
 
+// --- DETALLES DE CONTACTO ---
+Route::get('/admin/detallecontacto/index', [RecursosController::class,'indexDetalleContacto'])->name('admin.pagina.contactos');
+Route::get('/admin/detallecontacto/tabla', [RecursosController::class,'tablaDetalleContacto']);
+Route::post('/admin/detallecontacto/posicion', [RecursosController::class,'detalleContactoPosicion']);
+Route::post('/admin/detallecontacto/informacion', [RecursosController::class,'informacionDetalleContacto']);
+Route::post('/admin/detallecontacto/actualizar', [RecursosController::class,'actualizarDetalleContacto']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ************************** FRONTEND ***********************
 
 
 

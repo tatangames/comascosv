@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Backend\Recursos;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetallesContacto;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
 use App\Models\PropiedadEtiqueta;
+use App\Models\Recursos;
+use App\Models\TiposContactos;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -510,6 +513,121 @@ class RecursosController extends Controller
 
             return ['success' => 1];
         }
+    }
+
+
+    public function indexQuienesSomos(){
+
+        $infoRecurso = Recursos::where('id', 1)->first();
+
+        return view('backend.admin.paginas.quienessomos.vistaquienessomos', compact('infoRecurso'));
+    }
+
+    public function actualizarQuienesSomos(Request $request){
+
+        $rules = array(
+            'texto' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        Recursos::where('id', 1)->update([
+            'quienes_somos' => $request->texto,
+        ]);
+
+        return ['success' => 1];
+    }
+
+
+
+
+
+
+    //******************************* DETALLE DE CONTACTO *****************************************
+
+    public function indexDetalleContacto(){
+
+        return view('backend.admin.paginas.detallecontacto.vistadetallecontacto');
+    }
+
+    public function tablaDetalleContacto(){
+
+        $listado = DetallesContacto::orderBy('posicion', 'ASC')->get();
+
+        foreach ($listado as $dato){
+
+            $infoTipo = TiposContactos::where('id', $dato->id_tipos_contactos)->first();
+            $dato->tipo = $infoTipo->nombre;
+        }
+
+        return view('backend.admin.paginas.detallecontacto.tabladetallecontacto', compact('listado'));
+    }
+
+
+    public function detalleContactoPosicion(Request $request)
+    {
+        $tasks = DetallesContacto::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function informacionDetalleContacto(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = DetallesContacto::where('id', $request->id)->first()){
+
+            $arrayTipos = TiposContactos::orderBy('nombre', 'ASC')->get();
+
+            return ['success' => 1, 'info' => $info,
+                    'listado' => $arrayTipos
+                ];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function actualizarDetalleContacto(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+            'idtipo' => 'required',
+            'descripcion' => 'required',
+            'toggle' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        DetallesContacto::where('id', $request->id)->update([
+            'id_tipos_contactos' => $request->idtipo,
+            'nombre' => $request->descripcion,
+            'visible' => $request->toggle
+        ]);
+
+        return ['success' => 1];
     }
 
 }

@@ -10,6 +10,11 @@
 
 <!-- IMAGEN DE PORTADA-->
 <section class="headings">
+    <div class="text-heading text-center">
+        <div class="container">
+
+        </div>
+    </div>
 </section>
 
 
@@ -20,34 +25,30 @@
             <div class="container">
 
                 <div class="row">
-
-                    <div class="col-lg-4 col-md-12 bgc">
-
-                        <div class="call-info">
-                            <h3>Detalle de Contacto</h3>
-                            <p class="mb-5">Puedes contactarnos a nuestro Teléfono o a nuestro WhatsApp!</p>
-                            <ul>
-                                <li>
-                                    <div class="info">
-                                        <i class="fa fa-phone" style="color: #FFFFFF" aria-hidden="true"></i>
-                                        <p class="in-p"><a href="https://wa.me/50372068714" style="color: #ffffff !important;">+503 7206-8714 <img src="{{ asset('images/logowasap.png') }}"
-                                                                                                                                                   style=" height: 35px !important; width: 38px !important; margin: 0 10px 0 10px"
-                                                                                                                                                   alt="whatsapp"></a> </p>
+                    <!-- START SECTION ABOUT -->
+                    <section>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-12 who-1">
+                                    <div>
+                                        <h2 class="text-left mb-4">Acerca <span>de Nosotros</span></h2>
                                     </div>
-                                </li>
+                                    <div>
+
+                                        {!! $infoRecursos->quienes_somos !!}
 
 
-                            </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-xs-3">
+                                        <img alt="image" src="{{ asset('images/logotipo.png') }}">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-
-
-
+                    </section>
                 </div>
             </div>
         </section>
-        <!-- END SECTION CONTACT US -->
 
     </div>
 </div>
