@@ -26,7 +26,6 @@
                     </div>
                     <form>
                         <div class="card-body">
-
                             <div class="form-group">
                                 <textarea name="content" class="form-control" id="editor" rows="12" cols="50">{{ $infoRecurso->quienes_somos }}</textarea>
                             </div>

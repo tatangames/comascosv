@@ -96,6 +96,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('admin.presentacion.inicio') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Presentación Inicio</p>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </li>

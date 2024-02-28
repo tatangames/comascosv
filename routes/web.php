@@ -130,9 +130,13 @@ Route::post('/admin/detallecontacto/informacion', [RecursosController::class,'in
 Route::post('/admin/detallecontacto/actualizar', [RecursosController::class,'actualizarDetalleContacto']);
 
 
+// --- PRESENTACION INICIO ---
 
-
-
+Route::get('/admin/presentacioninicio/index', [RecursosController::class,'indexPresentacionInicio'])->name('admin.presentacion.inicio');
+Route::get('/admin/presentacioninicio/tabla', [RecursosController::class,'tablaPresentacionInicio']);
+Route::post('/admin/presentacioninicio/informacion', [RecursosController::class,'informacionPresentacionInicio']);
+Route::post('/admin/presentacioninicio/posicion', [RecursosController::class,'presentacionInicioPosicion']);
+Route::post('/admin/presentacioninicio/actualizar', [RecursosController::class,'actualizarPresentacionInicio']);
 
 
 

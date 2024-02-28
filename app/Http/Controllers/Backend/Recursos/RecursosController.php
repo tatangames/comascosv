@@ -7,6 +7,7 @@ use App\Models\DetallesContacto;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
+use App\Models\PresentacionInicio;
 use App\Models\PropiedadEtiqueta;
 use App\Models\Recursos;
 use App\Models\TiposContactos;
@@ -550,7 +551,6 @@ class RecursosController extends Controller
     //******************************* DETALLE DE CONTACTO *****************************************
 
     public function indexDetalleContacto(){
-
         return view('backend.admin.paginas.detallecontacto.vistadetallecontacto');
     }
 
@@ -629,5 +629,132 @@ class RecursosController extends Controller
 
         return ['success' => 1];
     }
+
+
+
+    // ************************** PRESENTACION DE INICIO *******************************
+
+    public function indexPresentacionInicio(){
+        return view('backend.admin.paginas.presentacioninicio.vistapresentacioninicio');
+    }
+
+    public function tablaPresentacionInicio(){
+
+        $listado = PresentacionInicio::orderBy('posicion', 'ASC')->get();
+
+        foreach ($listado as $dato){
+
+
+        }
+
+        return view('backend.admin.paginas.presentacioninicio.tablapresentacioninicio', compact('listado'));
+    }
+
+
+    public function informacionPresentacionInicio(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PresentacionInicio::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function presentacionInicioPosicion(Request $request)
+    {
+        $tasks = PresentacionInicio::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+    public function actualizarPresentacionInicio(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+            'titulo' => 'required',
+            'descripcion' => 'required',
+        );
+
+        // imagen
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        if ($request->hasFile('imagen')) {
+
+            $infoPresentacion = PresentacionInicio::where('id', $request->id)->first();
+
+            $imagenOld = $infoPresentacion->imagen;
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                PresentacionInicio::where('id', $request->id)
+                    ->update([
+                        'titulo' => $request->titulo,
+                        'descripcion' => $request->descripcion,
+                        'imagen' => $nombreFoto,
+                    ]);
+
+                if(Storage::disk('archivos')->exists($imagenOld)){
+                    Storage::disk('archivos')->delete($imagenOld);
+                }
+
+                return ['success' => 1];
+            } else {
+                // error al subir imagen
+                return ['success' => 99];
+            }
+        } else {
+            PresentacionInicio::where('id', $request->id)
+                ->update([
+                    'titulo' => $request->titulo,
+                    'descripcion' => $request->descripcion,
+                ]);
+
+            return ['success' => 1];
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 }
