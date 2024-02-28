@@ -83,9 +83,10 @@ class PropiedadController extends Controller
             'nombre' => 'required',
             'fechainicio' => 'required',
             'fechafin' => 'required',
+            'idlugar' => 'required'
         );
 
-        // direccion, precio
+        // direccion, precio, latitud, longitud
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -102,6 +103,11 @@ class PropiedadController extends Controller
             $nuevo->precio = $request->precio;
             $nuevo->fecha_inicio = $request->fechainicio;
             $nuevo->fecha_fin = $request->fechafin;
+            $nuevo->latitud = $request->latitud;
+            $nuevo->longitud = $request->longitud;
+            $nuevo->id_lugar = $request->idlugar;
+            $nuevo->vineta_derecha = null;
+            $nuevo->vineta_izquierda = null;
             $nuevo->save();
 
             DB::commit();
@@ -132,10 +138,13 @@ class PropiedadController extends Controller
 
             $arrayVendedor = Vendedores::orderBy('nombre', 'ASC')->get();
 
+            $arrayUbicacion = Lugares::orderBy('nombre', 'ASC')->get();
+
             return ['success' => 1,
                     'info' => $info,
                     'listado' => $arrayVendedor,
                     'imagen' => $infoVendedor->imagen,
+                    'listadoubi' => $arrayUbicacion
                 ];
         }else{
             return ['success' => 99];
@@ -151,9 +160,10 @@ class PropiedadController extends Controller
             'nombre' => 'required',
             'fechainicio' => 'required',
             'fechafin' => 'required',
+            'idlugar' => 'required'
         );
 
-        // direccion, precio
+        // direccion, precio, latitud, longitud
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -167,9 +177,36 @@ class PropiedadController extends Controller
                 'precio' => $request->precio,
                 'fecha_inicio' => $request->fechainicio,
                 'fecha_fin' => $request->fechafin,
+                'latitud' => $request->latitud,
+                'longitud' => $request->longitud,
+                'id_lugar' => $request->idlugar,
             ]);
 
         return ['success' => 1];
+    }
+
+
+    public function actualizarPropiedadVineta(Request $request)
+    {
+
+        $regla = array(
+            'id' => 'required',
+            'derecha' => 'required',
+            'izquierda' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        Propiedad::where('id', $request->id)
+            ->update([
+                'vineta_izquierda' => $request->izquierda,
+                'vineta_derecha' => $request->derecha,
+            ]);
+
+        return ['success' => 1];
+
     }
 
 

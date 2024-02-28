@@ -107,7 +107,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Precio (Opcional)</label>
+                                        <label>Precio</label>
                                         <input type="text" class="form-control" id="precio-nuevo" autocomplete="off">
                                     </div>
 
@@ -203,7 +203,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Precio (Opcional)</label>
+                                        <label>Precio</label>
                                         <input type="text" class="form-control" id="precio-editar" autocomplete="off">
                                     </div>
 
@@ -275,7 +275,7 @@
                                 <div class="list-group b-0 mail-list" id="configuracion">
 
                                     <button type="button" onclick="vistaEtiquetas();" class="btn btn-success btn-block waves-effect waves-light">Etiquetas</button>
-                                    <button type="button" onclick="trasladoPacienteModal();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Traslado</button>
+                                    <button type="button" onclick="modalVineta();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Viñeta </button>
                                     <button type="button" onclick="preguntaLiberarSala()" class="btn btn-danger btn-block waves-effect waves-light">Liberar sala</button>
                                 </div>
 
@@ -296,6 +296,53 @@
 </div>
 
 
+
+
+
+
+
+
+<div class="modal fade" id="modalVineta">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Viñetas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario-vineta">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <input type="hidden" id="id-vineta">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Viñeta derecha</label>
+                                    <input type="text" maxlength="50" class="form-control" id="vineta-derecha" autocomplete="off">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Viñeta izquierda</label>
+                                    <input type="text" maxlength="50" class="form-control" id="vineta-izquierda" autocomplete="off">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="actualizarVineta()">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -400,6 +447,8 @@
             $('#modalAgregar').modal('show');
         }
 
+
+
         function nuevo(){
             var idvendedor = document.getElementById('select-vendedor').value;
             var nombre = document.getElementById('nombre-nuevo').value;
@@ -407,6 +456,9 @@
             var precio = document.getElementById('precio-nuevo').value;
             var fechainicio = document.getElementById('fechainicio-nuevo').value;
             var fechafin = document.getElementById('fechafin-nuevo').value;
+            var latitud = document.getElementById('latitud-nuevo').value;
+            var longitud = document.getElementById('longitud-nuevo').value;
+            var idlugar = document.getElementById('select-lugar').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -442,6 +494,19 @@
                 return;
             }
 
+            if(latitud.length > 0){
+                if(longitud === ''){
+                    toastr.error("Longitud es requerido");
+                }
+            }
+
+            if(longitud.length > 0){
+                if(latitud === ''){
+                    toastr.error("Latitud es requerido");
+                }
+            }
+
+
             openLoading();
             let formData = new FormData();
             formData.append('idvendedor', idvendedor);
@@ -450,6 +515,9 @@
             formData.append('precio', precio);
             formData.append('fechainicio', fechainicio);
             formData.append('fechafin', fechafin);
+            formData.append('latitud', latitud);
+            formData.append('longitud', longitud);
+            formData.append('idlugar', idlugar);
 
             axios.post('/admin/propiedad/registrar', formData, {
             })
@@ -486,17 +554,27 @@
 
                         // listado de vendedores
                         document.getElementById("select-vendedor-editar").options.length = 0;
+                        document.getElementById("select-lugar-editar").options.length = 0;
+
+                        let imagen = response.data.imagen;
+                        $('#foto-ficha-editar').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
+
 
                         $.each(response.data.listado, function( key, val ){
-
-                            let imagen = response.data.imagen;
-
-                            $('#foto-ficha-editar').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
-
                             if(response.data.info.id_vendedor == val.id){
                                 $('#select-vendedor-editar').append('<option value="' +val.id +'" selected="selected">'+val.nombre+'</option>');
                             }else{
                                 $('#select-vendedor-editar').append('<option value="' +val.id +'">'+val.nombre+'</option>');
+                            }
+                        });
+
+
+                        $.each(response.data.listadoubi, function( key, val ){
+
+                            if(response.data.info.id_lugar == val.id){
+                                $('#select-lugar-editar').append('<option value="' +val.id +'" selected="selected">'+val.nombre+'</option>');
+                            }else{
+                                $('#select-lugar-editar').append('<option value="' +val.id +'">'+val.nombre+'</option>');
                             }
                         });
 
@@ -506,6 +584,8 @@
                         $('#precio-editar').val(response.data.info.precio);
                         $('#fechainicio-editar').val(response.data.info.fecha_inicio);
                         $('#fechafin-editar').val(response.data.info.fecha_fin);
+                        $('#latitud-editar').val(response.data.info.latitud);
+                        $('#longitud-editar').val(response.data.info.longitud);
 
                     }else{
                         toastr.error('Información no encontrada');
@@ -527,6 +607,9 @@
             var precio = document.getElementById('precio-editar').value;
             var fechainicio = document.getElementById('fechainicio-editar').value;
             var fechafin = document.getElementById('fechafin-editar').value;
+            var latitud = document.getElementById('latitud-editar').value;
+            var longitud = document.getElementById('longitud-editar').value;
+            var idlugar = document.getElementById('select-lugar-editar').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -562,6 +645,18 @@
                 return;
             }
 
+            if(latitud.length > 0){
+                if(longitud === ''){
+                    toastr.error("Longitud es requerido");
+                }
+            }
+
+            if(longitud.length > 0){
+                if(latitud === ''){
+                    toastr.error("Latitud es requerido");
+                }
+            }
+
             openLoading();
             let formData = new FormData();
             formData.append('id', id);
@@ -571,6 +666,9 @@
             formData.append('precio', precio);
             formData.append('fechainicio', fechainicio);
             formData.append('fechafin', fechafin);
+            formData.append('latitud', latitud);
+            formData.append('longitud', longitud);
+            formData.append('idlugar', idlugar);
 
             axios.post('/admin/propiedad/actualizar', formData, {
             })
@@ -585,7 +683,6 @@
                     else {
                         toastr.error('Error al actualizar');
                     }
-
                 })
                 .catch((error) => {
                     toastr.error('Error al actualizar');
@@ -603,6 +700,76 @@
         function vistaEtiquetas(){
             var id = document.getElementById('id-opciones').value;
             window.location.href="{{ url('/admin/propiedad/etiqueta/index') }}/" + id;
+        }
+
+        function modalVineta(){
+            document.getElementById("formulario-vineta").reset();
+
+            var id = document.getElementById('id-opciones').value;
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+
+            axios.post('/admin/propiedad/informacion', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+
+                        let derecha = response.data.info.vineta_derecha;
+                        let izquierda = response.data.info.vineta_izquierda;
+
+                        $('#vineta-derecha').val(derecha);
+                        $('#vineta-izquierda').val(izquierda);
+
+                        $('#id-vineta').val(id);
+                        $('#modalVineta').modal('show');
+                    }
+                    else {
+                        toastr.error('Error al buscar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al buscar');
+                    closeLoading();
+                });
+        }
+
+        function actualizarVineta(){
+
+            var id = document.getElementById('id-vineta').value;
+            var vinetaDerecha = document.getElementById('vineta-derecha').value;
+            var vinetaIzquierda = document.getElementById('vineta-izquierda').value;
+
+
+            // pueden ser null
+
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+            formData.append('derecha', vinetaDerecha);
+            formData.append('izquierda', vinetaIzquierda);
+
+            axios.post('/admin/propiedad/vineta/actualizar', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Actualizado correctamente');
+                        $('#modalVineta').modal('hide');
+                        recargar();
+                    }
+                    else {
+                        toastr.error('Error al actualizar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al actualizar');
+                    closeLoading();
+                });
         }
 
 
