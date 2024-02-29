@@ -123,6 +123,12 @@
                                         <input type="date" class="form-control" id="fechafin-nuevo" autocomplete="off">
                                     </div>
 
+
+                                    <div class="form-group">
+                                        <label>SLUG (Redireccionamiento)</label>
+                                        <input type="text" maxlength="150" class="form-control" id="slug-nuevo" autocomplete="off">
+                                    </div>
+
                                     <br>
                                     <hr>
 
@@ -217,6 +223,11 @@
                                     <div class="form-group" style="width: 25%">
                                         <label>Fecha Fin</label>
                                         <input type="date" class="form-control" id="fechafin-editar" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>SLUG (Redireccionamiento)</label>
+                                        <input type="text" maxlength="150" class="form-control" id="slug-editar" autocomplete="off">
                                     </div>
 
                                     <br>
@@ -459,6 +470,7 @@
             var latitud = document.getElementById('latitud-nuevo').value;
             var longitud = document.getElementById('longitud-nuevo').value;
             var idlugar = document.getElementById('select-lugar').value;
+            var slug = document.getElementById('slug-nuevo').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -507,6 +519,12 @@
             }
 
 
+            if(slug === ''){
+                toastr.error('Slug es requerido');
+                return;
+            }
+
+
             openLoading();
             let formData = new FormData();
             formData.append('idvendedor', idvendedor);
@@ -518,12 +536,16 @@
             formData.append('latitud', latitud);
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
+            formData.append('slug', slug);
 
             axios.post('/admin/propiedad/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
-                    if(response.data.success === 1){
+
+                    if(response.data.success === 1) {
+                        toastr.error('Slug ya registrado');
+                    }else if(response.data.success === 2){
                         toastr.success('Registrado correctamente');
                         $('#modalAgregar').modal('hide');
                         recargar();
@@ -559,7 +581,6 @@
                         let imagen = response.data.imagen;
                         $('#foto-ficha-editar').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
 
-
                         $.each(response.data.listado, function( key, val ){
                             if(response.data.info.id_vendedor == val.id){
                                 $('#select-vendedor-editar').append('<option value="' +val.id +'" selected="selected">'+val.nombre+'</option>');
@@ -586,6 +607,7 @@
                         $('#fechafin-editar').val(response.data.info.fecha_fin);
                         $('#latitud-editar').val(response.data.info.latitud);
                         $('#longitud-editar').val(response.data.info.longitud);
+                        $('#slug-editar').val(response.data.info.slug);
 
                     }else{
                         toastr.error('Información no encontrada');
@@ -610,6 +632,7 @@
             var latitud = document.getElementById('latitud-editar').value;
             var longitud = document.getElementById('longitud-editar').value;
             var idlugar = document.getElementById('select-lugar-editar').value;
+            var slug = document.getElementById('slug-editar').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -657,6 +680,12 @@
                 }
             }
 
+
+            if(slug === ''){
+                toastr.error('Slug es requerido');
+                return;
+            }
+
             openLoading();
             let formData = new FormData();
             formData.append('id', id);
@@ -669,13 +698,17 @@
             formData.append('latitud', latitud);
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
+            formData.append('slug', slug);
 
             axios.post('/admin/propiedad/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading();
 
-                    if(response.data.success === 1){
+                    if(response.data.success === 1) {
+                        toastr.error('Slug ya registrado');
+                    }
+                    else if(response.data.success === 2){
                         toastr.success('Actualizado correctamente');
                         $('#modalEditar').modal('hide');
                         recargar();

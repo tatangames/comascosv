@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('vineta_izquierda', 50)->nullable();
             $table->string('vineta_deracha', 50)->nullable();
 
+            $table->string('slug', 150)->unique();
+
             $table->foreign('id_vendedor')->references('id')->on('vendedores');
             $table->foreign('id_lugar')->references('id')->on('lugares');
         });

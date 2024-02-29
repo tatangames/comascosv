@@ -20,7 +20,8 @@ return new class extends Migration
             // PARA PAGINA CONTACTO
             $table->string('detalle_contacto', 100);
 
-
+            // PARA MOSTRAR WHASSAP EN VARIAS PARTES DE LA WEB
+            $table->string('telefono', 25)->nullable();
         });
     }
 

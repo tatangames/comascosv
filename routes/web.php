@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\Sistema\PerfilController;
 use App\Http\Controllers\Frontend\Recursos\FrontendRecursosController;
 use App\Http\Controllers\Backend\Recursos\RecursosController;
 use App\Http\Controllers\Backend\Propiedad\PropiedadController;
+use App\Http\Controllers\Backend\Recursos\OtrosController;
 
 
 
@@ -97,9 +98,7 @@ Route::post('/admin/lugares/registrar', [RecursosController::class,'registrarLug
 Route::post('/admin/lugares/informacion', [RecursosController::class,'informacionLugares']);
 Route::post('/admin/lugares/actualizar', [RecursosController::class,'actualizarLugares']);
 
-// --- QUIENES SOMOS ---
-Route::get('/admin/quienessomos/index', [RecursosController::class,'indexQuienesSomos'])->name('admin.pagina.quienes.somos');
-Route::post('/admin/quienessomos/actualizar', [RecursosController::class,'actualizarQuienesSomos']);
+
 
 
 // --- PROPIEDADES ---
@@ -138,11 +137,11 @@ Route::post('/admin/presentacioninicio/informacion', [RecursosController::class,
 Route::post('/admin/presentacioninicio/posicion', [RecursosController::class,'presentacionInicioPosicion']);
 Route::post('/admin/presentacioninicio/actualizar', [RecursosController::class,'actualizarPresentacionInicio']);
 
+// --- RECURSOS VARIOS ---
 
-
-
-
-
+// --- QUIENES SOMOS ---
+Route::get('/admin/otrosrecursos/index', [OtrosController::class,'indexOtros'])->name('admin.otros.recursos');
+Route::post('/admin/otrosrecursos/actualizar', [OtrosController::class,'actualizarOtrosRecursos']);
 
 
 

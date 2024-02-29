@@ -186,7 +186,7 @@
                 return;
             }
 
-            const editorData = varGlobalEditorNuevo.getData();
+            const editorData = varGlobalEditorEditar.getData();
 
             if (editorData.trim() === '') {
                 toastr.error("Descripción es requerida");

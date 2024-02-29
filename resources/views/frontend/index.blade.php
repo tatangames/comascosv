@@ -17,66 +17,52 @@
             <h2>Bienvenido a comascosv</h2>
         </div>
         <div class="row service-1">
-            <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                <div class="serv-flex">
-                    <div class="art-1 img-13">
-                        <img src="{{ asset('images/icons/casa-svg.svg') }}" style="fill: red" alt="">
-                        <h3>¿Que hacemos?</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Comascosv ofrece servicios de promoción de inmuebles y crea pequeños
-                            proyectos inmobiliarios.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up" data-aos-delay="450">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/casallave-svg.svg') }}" alt="">
-                        <h3>¿Porque unirse?</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Tu Anuncio Estará Visible Nacional E Internacional. <br>
-                            Todo Esto A Un Super Costo, Ya Que Pretendemos Ayudar.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/mano-svg.svg') }}" alt="">
-                        <h3>Redes Sociales</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Puedes encontrarnos en nuestro en:<br>
-                            - whatsapp <a
-                                href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}"
-                                                                       style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
-                                                                       alt="whatsapp"></a> <br>
-                            - Youtube <a
-                                href="https://wa.me/50372068714"> <img src="{{ asset('images/youtube.png') }}"
-                                                                       style=" height: 40px !important; width: 50px !important; margin: 0 10px 0 10px"
-                                                                       alt="Youtube"></a>
 
-                        </p>
-                    </div>
-                </div>
-            </article>
 
-            <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up" data-aos-delay="450">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/casallave-svg.svg') }}" alt="">
-                        <h3>Como unirte a Comascosv</h3>
+            @foreach($arrayInicio as $dato)
+
+                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
+                    <div class="serv-flex">
+                        <div class="art-1 img-13">
+                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" style="fill: red" alt="">
+                            <h3>{{ $dato->titulo }}</h3>
+                        </div>
+                        <div class="service-text-p">
+                            <p class="text-center">
+                                {!! $dato->descripcion !!}
+                            </p>
+
+                            @if($dato->id == 1)
+
+                                @if($infoRecursos->telefono != null)
+
+                                    <p class="text-center">{{ $dato->telefonoFormat }}<a
+                                            href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
+                                                                                   style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                                   alt="whatsapp"></a> <br>
+
+                                    </p>
+
+                                @endif
+
+
+
+                            @endif
+                        </div>
                     </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <a
-                                href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}"
-                                                                       style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
-                                                                       alt="whatsapp"></a></p>
-                    </div>
-                </div>
-            </article>
+                </article>
+
+            @endforeach
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 </section>
@@ -94,6 +80,70 @@
 
             <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
                 <div class="project-single" data-aos="fade-right">
+
+                    <div class="project-inner project-head">
+                        <div class="homes">
+                            <!-- homes img -->
+                            <a href="single-property-1.html" class="homes-img">
+                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="button-effect">
+                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
+                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
+                                    class="fas fa-video"></i></a>
+                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- homes content -->
+                    <div class="homes-content">
+                        <!-- homes address -->
+                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
+                        <p class="homes-address mb-3">
+                            <a href="single-property-1.html">
+                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
+                            </a>
+                        </p>
+                        <!-- homes List -->
+                        <ul class="homes-list clearfix pb-3">
+                            <li class="the-icons">
+                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
+                                <span>6 Bedrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
+                                <span>3 Bathrooms</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
+                                <span>720 sq ft</span>
+                            </li>
+                            <li class="the-icons">
+                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
+                                <span>2 Garages</span>
+                            </li>
+
+                        </ul>
+                        <div class="price-properties footer pt-3 pb-0">
+                            <h3 class="title mt-3">
+                                <a href="single-property-1.html">$ 150,000</a>
+                            </h3>
+                            <div class="compare">
+                                <a href="#" title="Compare">
+                                    <i class="flaticon-compare"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
+
+                <div class="project-single" data-aos="fade-right">
+
                     <div class="project-inner project-head">
                         <div class="homes">
                             <!-- homes img -->
@@ -183,66 +233,7 @@
                                 <i class="flaticon-bed mr-2" aria-hidden="true"></i>
                                 <span>6 Bedrooms</span>
                             </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
 
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
                             <li class="the-icons">
                                 <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
                                 <span>3 Bathrooms</span>

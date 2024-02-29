@@ -517,31 +517,7 @@ class RecursosController extends Controller
     }
 
 
-    public function indexQuienesSomos(){
 
-        $infoRecurso = Recursos::where('id', 1)->first();
-
-        return view('backend.admin.paginas.quienessomos.vistaquienessomos', compact('infoRecurso'));
-    }
-
-    public function actualizarQuienesSomos(Request $request){
-
-        $rules = array(
-            'texto' => 'required',
-        );
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return ['success' => 0];
-        }
-
-        Recursos::where('id', 1)->update([
-            'quienes_somos' => $request->texto,
-        ]);
-
-        return ['success' => 1];
-    }
 
 
 

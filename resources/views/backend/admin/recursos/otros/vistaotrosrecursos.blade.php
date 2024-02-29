@@ -9,9 +9,6 @@
 
 <section class="content-header">
     <div class="container-fluid">
-        <div class="col-sm-12">
-            <h3>Texto para Página (Quienes Somos)</h3>
-        </div>
 
     </div>
 </section>
@@ -22,12 +19,22 @@
             <div class="col-md-10">
                 <div class="card card-green">
                     <div class="card-header">
-                        <h3 class="card-title">Descripción</h3>
+                        <h3 class="card-title">Varios Recursos</h3>
                     </div>
                     <form>
+
+
                         <div class="card-body">
+                            <p>Utilizado en Página Quienes Somos</p>
                             <div class="form-group">
-                                <textarea name="content" class="form-control" id="editor" rows="12" cols="50">{{ $infoRecurso->quienes_somos }}</textarea>
+                                <textarea class="form-control" id="editor" rows="12" cols="50">{{ $infoRecursos->quienes_somos }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <p>Teléfono para mostrar WhatsApp en varias partes de la Web</p>
+                            <div class="form-group" style="width: 25%">
+                                <input type="text" maxlength="25" class="form-control" id="telefono" value="{{ $infoRecursos->telefono }}">
                             </div>
                         </div>
 
@@ -79,17 +86,19 @@
 
         function actualizar(){
             const editorData = varGlobalEditorNuevo.getData();
+            var telefono = document.getElementById('telefono').value;
 
             if (editorData.trim() === '') {
                 toastr.error("Descripción es requerida");
                 return;
             }
 
-            openLoading()
+            openLoading();
             var formData = new FormData();
             formData.append('texto', editorData);
+            formData.append('telefono', telefono);
 
-            axios.post('/admin/quienessomos/actualizar', formData, {
+            axios.post('/admin/otrosrecursos/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading()

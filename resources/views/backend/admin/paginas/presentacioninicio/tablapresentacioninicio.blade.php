@@ -9,7 +9,6 @@
                         <tr>
                             <th>Posición</th>
                             <th>Título</th>
-                            <th>Descripción</th>
                             <th>Imagen</th>
                             <th>Opciones</th>
                         </tr>
@@ -20,7 +19,6 @@
 
                                 <td>{{ $dato->posicion }}</td>
                                 <td>{{ $dato->titulo }}</td>
-                                <td>{{ $dato->descripcion }}</td>
 
                                 <td>
                                     <center><img alt="Imagenes" src="{{ url('storage/archivos/'.$dato->imagen) }}" width="100px" height="100px" /></center>

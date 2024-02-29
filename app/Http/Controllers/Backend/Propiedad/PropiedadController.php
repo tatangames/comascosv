@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class PropiedadController extends Controller
 {
@@ -83,7 +84,8 @@ class PropiedadController extends Controller
             'nombre' => 'required',
             'fechainicio' => 'required',
             'fechafin' => 'required',
-            'idlugar' => 'required'
+            'idlugar' => 'required',
+            'slug' => 'required'
         );
 
         // direccion, precio, latitud, longitud
@@ -94,6 +96,12 @@ class PropiedadController extends Controller
 
         DB::beginTransaction();
         try {
+
+            $slug = Str::slug($request->slug, '-');
+
+            if(Propiedad::where('slug', $slug)->first()){
+                return ['success' => 1];
+            }
 
             $nuevo = new Propiedad();
             $nuevo->id_vendedor = $request->idvendedor;
@@ -108,6 +116,7 @@ class PropiedadController extends Controller
             $nuevo->id_lugar = $request->idlugar;
             $nuevo->vineta_derecha = null;
             $nuevo->vineta_izquierda = null;
+            $nuevo->slug = $slug;
             $nuevo->save();
 
             DB::commit();
@@ -163,11 +172,21 @@ class PropiedadController extends Controller
             'idlugar' => 'required'
         );
 
-        // direccion, precio, latitud, longitud
+        // direccion, precio, latitud, longitud, slug
 
         $validar = Validator::make($request->all(), $regla);
 
         if ($validar->fails()){ return ['success' => 0];}
+
+
+        $slug = Str::slug($request->slug, '-');
+
+        if(Propiedad::where('slug', $slug)
+            ->where('id', '!=', $request->id)
+            ->first()){
+
+            return ['success' => 1];
+        }
 
         Propiedad::where('id', $request->id)
             ->update([
@@ -180,9 +199,10 @@ class PropiedadController extends Controller
                 'latitud' => $request->latitud,
                 'longitud' => $request->longitud,
                 'id_lugar' => $request->idlugar,
+                'slug' => $slug
             ]);
 
-        return ['success' => 1];
+        return ['success' => 2];
     }
 
 
