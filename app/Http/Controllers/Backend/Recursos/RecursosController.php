@@ -9,6 +9,7 @@ use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
 use App\Models\PresentacionInicio;
 use App\Models\PropiedadEtiqueta;
+use App\Models\PropiedadImagen4Tag;
 use App\Models\Recursos;
 use App\Models\TiposContactos;
 use App\Models\Vendedores;
@@ -377,7 +378,7 @@ class RecursosController extends Controller
 
 
 
-// ******************* LUGARES *************************
+  // ******************* LUGARES *************************
 
     public function indexLugares()
     {
@@ -722,6 +723,151 @@ class RecursosController extends Controller
         }
     }
 
+
+
+
+    // ******************** IMAGENES 4 TAG *****************************************
+
+
+
+    // ******************* LUGARES *************************
+
+    public function indexImagen4Tag()
+    {
+        return view('backend.admin.recursos.imagen4tag.vistaimagen4tag');
+    }
+
+
+    public function tablaImagen4Tag()
+    {
+        $listado = PropiedadImagen4Tag::orderBy('nombre', 'ASC')->get();
+        return view('backend.admin.recursos.imagen4tag.tablaimagen4tag', compact('listado'));
+    }
+
+
+    public function registrarImagen4Tag(Request $request){
+
+        $rules = array(
+            'nombre' => 'required',
+        );
+
+        // imagen
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if ($request->hasFile('imagen')) {
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                $nuevo = new PropiedadImagen4Tag();
+                $nuevo->nombre = $request->nombre;
+                $nuevo->imagen = $nombreFoto;
+                $nuevo->save();
+
+                return ['success' => 1];
+
+            } else {
+                // error al subir imagen
+                return ['success' => 99];
+            }
+        } else {
+            // imagen no encontrada
+            return ['success' => 99];
+        }
+    }
+
+
+    public function informacionImagen4Tag(Request $request){
+
+        $rules = array(
+            'id' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if($info = PropiedadImagen4Tag::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 99];
+        }
+    }
+
+
+    public function actualizarImagen4Tag(Request $request){
+
+        $rules = array(
+            'nombre' => 'required',
+        );
+
+        // imagen
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if ($request->hasFile('imagen')) {
+
+            $infoLugar = PropiedadImagen4Tag::where('id', $request->id)->first();
+
+            $imagenOld = $infoLugar->imagen;
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                PropiedadImagen4Tag::where('id', $request->id)
+                    ->update([
+                        'nombre' => $request->nombre,
+                        'imagen' => $nombreFoto,
+                    ]);
+
+                if(Storage::disk('archivos')->exists($imagenOld)){
+                    Storage::disk('archivos')->delete($imagenOld);
+                }
+
+                return ['success' => 1];
+            } else {
+                // error al subir imagen
+                return ['success' => 99];
+            }
+        } else {
+            PropiedadImagen4Tag::where('id', $request->id)
+                ->update([
+                    'nombre' => $request->nombre,
+                ]);
+
+            return ['success' => 1];
+        }
+    }
 
 
 

@@ -99,8 +99,6 @@ Route::post('/admin/lugares/informacion', [RecursosController::class,'informacio
 Route::post('/admin/lugares/actualizar', [RecursosController::class,'actualizarLugares']);
 
 
-
-
 // --- PROPIEDADES ---
 Route::get('/admin/propiedad/index', [PropiedadController::class,'indexPropiedad'])->name('admin.propiedad');
 Route::get('/admin/propiedad/tabla', [PropiedadController::class,'tablaPropiedad']);
@@ -112,8 +110,8 @@ Route::post('/admin/propiedad/vineta/actualizar', [PropiedadController::class,'a
 
 // --- ETIQUETA A LA PROPIEDAD ---
 
-Route::get('/admin/propiedad/etiqueta/index/{idetiqueta}', [PropiedadController::class,'indexPropiedadEtiqueta']);
-Route::get('/admin/propiedad/etiqueta/tabla/{idetiqueta}', [PropiedadController::class,'tablaPropiedadEtiqueta']);
+Route::get('/admin/propiedad/etiqueta/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadEtiqueta']);
+Route::get('/admin/propiedad/etiqueta/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadEtiqueta']);
 Route::post('/admin/propiedad/etiqueta/registrar', [PropiedadController::class,'registrarPropiedadEtiqueta']);
 Route::post('/admin/propiedad/etiqueta/posicion', [PropiedadController::class,'actualizarPosicionPropiEtiqueta']);
 Route::post('/admin/propiedad/etiqueta/borrar', [PropiedadController::class,'borrarPropiEtiqueta']);
@@ -127,6 +125,30 @@ Route::get('/admin/detallecontacto/tabla', [RecursosController::class,'tablaDeta
 Route::post('/admin/detallecontacto/posicion', [RecursosController::class,'detalleContactoPosicion']);
 Route::post('/admin/detallecontacto/informacion', [RecursosController::class,'informacionDetalleContacto']);
 Route::post('/admin/detallecontacto/actualizar', [RecursosController::class,'actualizarDetalleContacto']);
+
+// --- IMAGENES 4 TAG ---
+Route::get('/admin/imagen4tag/index', [RecursosController::class,'indexImagen4Tag'])->name('admin.propiedad.imagen4tag');
+Route::get('/admin/imagen4tag/tabla', [RecursosController::class,'tablaImagen4Tag']);
+Route::post('/admin/imagen4tag/registrar', [RecursosController::class,'registrarImagen4Tag']);
+Route::post('/admin/imagen4tag/informacion', [RecursosController::class,'informacionImagen4Tag']);
+Route::post('/admin/imagen4tag/actualizar', [RecursosController::class,'actualizarImagen4Tag']);
+
+// --- PROPIEDAD 4 TAG ---
+Route::get('/admin/propiedad4tag/index/{idpropiedad}', [PropiedadController::class,'indexPropiedad4tag']);
+Route::get('/admin/propiedad4tag/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedad4tag']);
+Route::post('/admin/propiedad4tag/registrar', [PropiedadController::class,'registrarPropiedad4tag']);
+Route::post('/admin/propiedad4tag/posicion', [PropiedadController::class,'actualizarPosicionPropiedad4Tag']);
+Route::post('/admin/propiedad4tag/borrar', [PropiedadController::class,'borrarPropiedad4tag']);
+
+// --- PROPIEDAD IMAGENES ---
+Route::get('/admin/propiedadimagen/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadImagenes']);
+Route::get('/admin/propiedadimagen/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadImagenes']);
+Route::post('/admin/propiedadimagen/registrar', [PropiedadController::class,'registrarPropiedadImagenes']);
+Route::post('/admin/propiedadimagen/posicion', [PropiedadController::class,'actualizarPosicionPropiedadImagenes']);
+Route::post('/admin/propiedadimagen/borrar', [PropiedadController::class,'borrarPropiedadImagenes']);
+
+
+
 
 
 // --- PRESENTACION INICIO ---
@@ -148,6 +170,20 @@ Route::post('/admin/otrosrecursos/actualizar', [OtrosController::class,'actualiz
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ************************** FRONTEND ***********************
 
 
@@ -161,6 +197,8 @@ Route::get('/contacto', [FrontendRecursosController::class,'vistaContacto'])->na
 // --- QUIENES SOMOS ---
 Route::get('/quienes-somos', [FrontendRecursosController::class,'vistaQuienesSomos'])->name('quienes.somos');
 
+// --- PROPIEDAD REDIRECCIONAR SLUG ---
+Route::get('/propiedad/{slug}', [FrontendRecursosController::class,'propiedadSlug']);
 
 
 

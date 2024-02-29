@@ -31,9 +31,11 @@ return new class extends Migration
             $table->string('longitud', 100)->nullable();
 
             $table->string('vineta_izquierda', 50)->nullable();
-            $table->string('vineta_deracha', 50)->nullable();
+            $table->string('vineta_derecha', 50)->nullable();
 
             $table->string('slug', 150)->unique();
+
+            $table->string('video_url', 100)->nullable();
 
             $table->foreign('id_vendedor')->references('id')->on('vendedores');
             $table->foreign('id_lugar')->references('id')->on('lugares');

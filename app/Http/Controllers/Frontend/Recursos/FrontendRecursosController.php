@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Recursos;
 use App\Http\Controllers\Controller;
 use App\Models\DetallesContacto;
 use App\Models\PreguntasFrecuentes;
+use App\Models\Propiedad;
 use App\Models\Recursos;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
@@ -43,6 +44,26 @@ class FrontendRecursosController extends Controller
         $infoRecursos = Recursos::where('id', 1)->first();
 
         return view('frontend.paginas.acercade.vistaacercade', compact('infoRecursos'));
+    }
+
+
+    public function propiedadSlug($slug){
+
+        if(Propiedad::where('slug', $slug)->first()){
+
+
+
+
+
+
+
+
+            return view('frontend.paginas.propiedadslug.vistapropiedadslug');
+        }else{
+            return view('errors.404');
+        }
+
+
     }
 
 

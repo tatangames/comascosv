@@ -19,12 +19,15 @@
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-
+                <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus-square"></i>
+                    Nueva Imagen
+                </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Presentación Inicio</li>
+                    <li class="breadcrumb-item">Etiquetas</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
@@ -36,7 +39,7 @@
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Presentación Inicio</h3>
+                    <h3 class="card-title">Listado</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -51,45 +54,33 @@
     </section>
 
 
-    <!-- modal editar -->
-    <div class="modal fade" id="modalEditar">
+    <div class="modal fade" id="modalAgregar">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Editar</h4>
+                    <h4 class="modal-title">Nuevo</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
-                    <form id="formulario-editar">
+                    <form id="formulario-nuevo">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
 
-                                    <div class="form-group">
-                                        <input type="hidden" id="id-editar">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Título</label>
-                                        <input type="text" maxlength="100" class="form-control" id="titulo-editar" autocomplete="off">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <textarea name="content" class="form-control" id="editor" rows="12" cols="50"></textarea>
-                                    </div>
 
                                     <div class="form-group">
                                         <div>
-                                            <label>Imagen</label>
+                                            <label>Imagen Etiqueta</label>
+                                            <p>Recomendación: 1000 x 750 px</p>
                                         </div>
                                         <br>
                                         <div class="col-md-10">
-                                            <input type="file" style="color:#191818" id="imagen-editar" accept="image/jpeg, image/jpg, image/png"/>
+                                            <input type="file" style="color:#191818" id="imagen-nuevo" accept="image/jpeg, image/jpg, image/png"/>
                                         </div>
                                     </div>
+
 
                                 </div>
                             </div>
@@ -98,11 +89,12 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="editar()">Actualizar</button>
+                    <button type="button" class="btn btn-primary" onclick="nuevo()">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 
@@ -116,26 +108,13 @@
     <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/alertaPersonalizada.js') }}"></script>
-    <script src="{{ asset('plugins/ckeditor5v1/build/ckeditor.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var ruta = "{{ URL::to('/admin/presentacioninicio/tabla') }}";
+            var idpropiedad = {{ $idpropi }};
+            var ruta = "{{ URL::to('/admin/propiedadimagen/tabla') }}/" + idpropiedad;
             $('#tablaDatatable').load(ruta);
-
-            window.varGlobalEditorEditar;
-
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    language: 'es',
-                })
-                .then(editor => {
-                    varGlobalEditorEditar = editor;
-                })
-                .catch(error => {
-
-                });
 
             document.getElementById("divcontenedor").style.display = "block";
         });
@@ -145,89 +124,99 @@
 
         // recarga tabla
         function recargar(){
-            var ruta = "{{ URL::to('/admin/presentacioninicio/tabla') }}";
+            var idpropiedad = {{ $idpropi }};
+            var ruta = "{{ URL::to('/admin/propiedadimagen/tabla') }}/" + idpropiedad;
             $('#tablaDatatable').load(ruta);
         }
 
-        function informacionEditar(id){
-            openLoading();
-            document.getElementById("formulario-editar").reset();
 
-            axios.post('/admin/presentacioninicio/informacion',{
-                'id': id
-            })
-                .then((response) => {
-                    closeLoading();
-                    if(response.data.success === 1){
-                        $('#modalEditar').modal('show');
-                        $('#id-editar').val(id);
-                        $('#titulo-editar').val(response.data.info.titulo);
-
-                        varGlobalEditorEditar.setData(response.data.info.descripcion);
-
-                    }else{
-                        toastr.error('Información no encontrada');
-                    }
-                })
-                .catch((error) => {
-                    closeLoading();
-                    toastr.error('Información no encontrada');
-                });
+        function modalAgregar(){
+            document.getElementById("formulario-nuevo").reset();
+            $('#modalAgregar').modal('show');
         }
 
 
-        function editar(){
-            var id = document.getElementById('id-editar').value;
-            var titulo = document.getElementById('titulo-editar').value;
-            var imagen = document.getElementById('imagen-editar');
+        function nuevo(){
 
-            if(titulo === ''){
-                toastr.error('Título es requerido');
-                return;
-            }
-
-            const editorData = varGlobalEditorEditar.getData();
-
-            if (editorData.trim() === '') {
-                toastr.error("Descripción es requerida");
-                return;
-            }
+            var imagen = document.getElementById('imagen-nuevo');
 
             if(imagen.files && imagen.files[0]){ // si trae imagen
                 if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
                     toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
                     return;
                 }
+            }else{
+                toastr.error('Imagen es Requerida')
+                return;
             }
+
+            var idpropiedad = {{ $idpropi }};
 
             openLoading();
             let formData = new FormData();
-            formData.append('id', id);
-            formData.append('titulo', titulo);
-            formData.append('descripcion', editorData);
+
+            formData.append('idpropiedad',idpropiedad);
             formData.append('imagen', imagen.files[0]);
 
-            axios.post('/admin/presentacioninicio/actualizar', formData, {
+            axios.post('/admin/propiedadimagen/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
 
                     if(response.data.success === 1){
-                        toastr.success('Actualizado correctamente');
-                        $('#modalEditar').modal('hide');
+                        toastr.success('Registrado correctamente');
+                        document.getElementById('imagen-nuevo').value = "";
                         recargar();
                     }
                     else {
-                        toastr.error('Error al actualizar');
+                        toastr.error('Error al registrar');
                     }
-
                 })
                 .catch((error) => {
-                    toastr.error('Error al actualizar');
+                    toastr.error('Error al registrar');
                     closeLoading();
                 });
         }
 
+        function modalBorrar(idfila){
+            Swal.fire({
+                title: 'Borrar?',
+                text: "",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    solicitarBorrar(idfila);
+                }
+            })
+        }
+
+        function solicitarBorrar(idfila){
+
+            openLoading();
+
+            axios.post('/admin/propiedadimagen/borrar',{
+                'id': idfila
+            })
+                .then((response) => {
+                    closeLoading();
+                    if(response.data.success === 1){
+
+                        toastr.success('Etiqueta Borrada');
+                        recargar();
+                    }else{
+                        toastr.error('Error al borrar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al borrar');
+                    closeLoading();
+                });
+        }
 
 
     </script>

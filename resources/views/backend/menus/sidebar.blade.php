@@ -103,6 +103,17 @@
                             </a>
                         </li>
 
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.propiedad.imagen4tag') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Propiedad Imagen Etiqueta</p>
+                            </a>
+                        </li>
+
+
+
+
                         <li class="nav-item">
                             <a href="{{ route('admin.otros.recursos') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

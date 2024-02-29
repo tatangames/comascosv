@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\Propiedad;
+use App\Models\Propiedad4Tag;
 use App\Models\PropiedadEtiqueta;
+use App\Models\PropiedadImagen4Tag;
+use App\Models\PropiedadImagenes;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -120,7 +124,7 @@ class PropiedadController extends Controller
             $nuevo->save();
 
             DB::commit();
-            return ['success' => 1];
+            return ['success' => 2];
         }catch(\Throwable $e){
             Log::info('error: ' . $e);
             DB::rollback();
@@ -211,9 +215,9 @@ class PropiedadController extends Controller
 
         $regla = array(
             'id' => 'required',
-            'derecha' => 'required',
-            'izquierda' => 'required',
         );
+
+        // derecha, izquierda
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -226,7 +230,6 @@ class PropiedadController extends Controller
             ]);
 
         return ['success' => 1];
-
     }
 
 
@@ -333,6 +336,226 @@ class PropiedadController extends Controller
 
 
 
+
+
+
+
+
+
+
+    //***********************  PROPIEDAD 4 TAG  *************************************
+
+    public function indexPropiedad4Tag($idpropi){
+
+        $arrayImagenes = PropiedadImagen4Tag::orderBy('nombre', 'ASC')->get();
+
+        return view('backend.admin.propiedad.tag4.vistapropiedad4tag', compact('arrayImagenes', 'idpropi'));
+    }
+
+    public function tablaPropiedad4Tag($idpropi){
+
+        $listado = Propiedad4Tag::where('id_propiedad', $idpropi)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        foreach ($listado as $dato){
+            $infoEtiqueta = PropiedadImagen4Tag::where('id', $dato->id_imagen4tag)->first();
+            $dato->imagen = $infoEtiqueta->imagen;
+        }
+
+        return view('backend.admin.propiedad.tag4.tablapropiedad4tag', compact('listado'));
+    }
+
+
+    public function registrarPropiedad4Tag(Request $request){
+
+        $regla = array(
+            'nombre' => 'required',
+            'idpropiedad' => 'required',
+            'etiqueta' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        if($info = Propiedad4Tag::where('id_propiedad', $request->idpropiedad)
+            ->orderBy('posicion', 'DESC')
+            ->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        $nuevo = new Propiedad4Tag();
+        $nuevo->id_propiedad = $request->idpropiedad;
+        $nuevo->id_imagen4tag = $request->etiqueta;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->nombre = $request->nombre;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+    public function actualizarPosicionPropiedad4Tag(Request $request){
+
+        $tasks = Propiedad4Tag::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedad4Tag(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        // direccion, precio
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        if($info = Propiedad4Tag::where('id', $request->id)->first()){
+
+            Propiedad4Tag::where('id', $info->id)->delete();
+
+            // fue borrada
+            return ['success' => 1];
+        }else{
+            // decir que fue borrado
+            return ['success' => 1];
+        }
+    }
+
+
+
+    // ******************** PROPIEDAD IMAGENES *****************************
+
+    public function indexPropiedadImagenes($idpropi){
+
+        return view('backend.admin.propiedad.imagenes.vistapropiedadimagenes', compact('idpropi'));
+    }
+
+
+    public function tablaPropiedadImagenes($idpropi){
+
+        $listado = PropiedadImagenes::where('id_propiedad', $idpropi)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        return view('backend.admin.propiedad.imagenes.tablapropiedadimagenes', compact('idpropi', 'listado'));
+    }
+
+    public function registrarPropiedadImagenes(Request $request){
+
+        $rules = array(
+            'idpropiedad' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if ($request->hasFile('imagen')) {
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                if($info = PropiedadImagenes::where('id_propiedad', $request->idpropiedad)
+                    ->orderBy('posicion', 'DESC')->first()){
+                    $nuevaPosicion = $info->posicion + 1;
+                }else{
+                    $nuevaPosicion = 1;
+                }
+
+                $nuevo = new PropiedadImagenes();
+                $nuevo->id_propiedad = $request->idpropiedad;
+                $nuevo->imagen = $nombreFoto;
+                $nuevo->posicion = $nuevaPosicion;
+                $nuevo->save();
+
+                return ['success' => 1];
+
+            } else {
+                // error al subir imagen
+                return ['success' => 99];
+            }
+        } else {
+            // imagen no encontrada
+            return ['success' => 99];
+        }
+    }
+
+
+    public function actualizarPosicionPropiedadImagenes(Request $request){
+
+        $tasks = PropiedadImagenes::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadImagenes(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        if($info = PropiedadImagenes::where('id', $request->id)->first()){
+
+            $imagenOld = $info->imagen;
+
+            if(Storage::disk('archivos')->exists($imagenOld)){
+                Storage::disk('archivos')->delete($imagenOld);
+            }
+
+            PropiedadImagenes::where('id', $info->id)->delete();
+
+            // fue borrada
+            return ['success' => 1];
+        }else{
+            // decir que fue borrado
+            return ['success' => 1];
+        }
+    }
 
 
 }

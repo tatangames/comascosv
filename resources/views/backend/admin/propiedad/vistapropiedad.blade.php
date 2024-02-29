@@ -286,8 +286,11 @@
                                 <div class="list-group b-0 mail-list" id="configuracion">
 
                                     <button type="button" onclick="vistaEtiquetas();" class="btn btn-success btn-block waves-effect waves-light">Etiquetas</button>
-                                    <button type="button" onclick="modalVineta();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Viñeta </button>
-                                    <button type="button" onclick="preguntaLiberarSala()" class="btn btn-danger btn-block waves-effect waves-light">Liberar sala</button>
+                                    <button type="button" onclick="modalVineta();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Viñeta</button>
+                                    <button type="button" onclick="vista4Tag();" class="btn btn-info btn-block waves-effect waves-light" style="color: white">Etiqueta Inicio</button>
+                                    <button type="button" onclick="vistaImagenes();" class="btn btn-success btn-block waves-effect waves-light">Imágenes</button>
+
+
                                 </div>
 
 
@@ -305,10 +308,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 
@@ -804,6 +803,19 @@
                     closeLoading();
                 });
         }
+
+
+
+        function vista4Tag(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedad4tag/index') }}/" + id;
+        }
+
+        function vistaImagenes(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedadimagen/index') }}/" + id;
+        }
+
 
 
     </script>

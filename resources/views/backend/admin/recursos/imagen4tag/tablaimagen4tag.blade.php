@@ -7,12 +7,8 @@
                         <table id="tabla" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th style="width: 5%">Vendedor</th>
-                                <th style="width: 5%">Fecha Registro</th>
                                 <th style="width: 5%">Nombre</th>
-                                <th style="width: 5%">Dirección</th>
-                                <th style="width: 5%">Precio</th>
-                                <th style="width: 5%">Fecha Visible</th>
+                                <th style="width: 8%">Imagen</th>
                                 <th style="width: 4%">Opciones</th>
                             </tr>
                             </thead>
@@ -20,21 +16,17 @@
 
                             @foreach($listado as $dato)
                                 <tr>
-                                    <td style="width: 5%">{{ $dato->nombreVendedor }}</td>
-                                    <td style="width: 8%">{{ $dato->fechaFormat }}</td>
-                                    <td style="width: 8%">{{ $dato->nombre }}</td>
-                                    <td style="width: 8%">{{ $dato->direccion }}</td>
-                                    <td style="width: 8%">{{ $dato->precioFormat }}</td>
-                                    <td style="width: 8%">{{ $dato->fechaVisible }}</td>
+                                    <td style="width: 5%">{{ $dato->nombre }}</td>
+                                    <td>
+                                        <center><img alt="Imagenes" src="{{ url('storage/archivos/'.$dato->imagen) }}" width="100px" height="100px" /></center>
+                                    </td>
 
                                     <td style="width: 4%">
+
                                         <button type="button" class="btn btn-success btn-xs" onclick="informacionEditar({{ $dato->id }})">
                                             <i class="fas fa-eye" title="Editar"></i>&nbsp; Editar
                                         </button>
 
-                                        <button type="button" style="margin: 5px" class="btn btn-info btn-xs" onclick="modalOpciones({{ $dato->id }})">
-                                            <i class="fas fa-book" title="Opciones"></i>&nbsp; Opciones
-                                        </button>
                                     </td>
 
                                 </tr>

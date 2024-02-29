@@ -31,8 +31,12 @@
                             </div>
                         </div>
 
+                        <br>
+                        <hr>
+
                         <div class="card-body">
-                            <p>Teléfono para mostrar WhatsApp en varias partes de la Web</p>
+                            <p style="font-weight: bold">Teléfono para mostrar WhatsApp en varias partes de la Web</p>
+                            <p style="color: red; font-weight: bold">No agregar giones (-)</p>
                             <div class="form-group" style="width: 25%">
                                 <input type="text" maxlength="25" class="form-control" id="telefono" value="{{ $infoRecursos->telefono }}">
                             </div>
