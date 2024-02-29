@@ -92,7 +92,7 @@ class PropiedadController extends Controller
             'slug' => 'required'
         );
 
-        // direccion, precio, latitud, longitud
+        // direccion, precio, latitud, longitud, videourl
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -121,6 +121,8 @@ class PropiedadController extends Controller
             $nuevo->vineta_derecha = null;
             $nuevo->vineta_izquierda = null;
             $nuevo->slug = $slug;
+            $nuevo->video_url = $request->videourl;
+            $nuevo->descripcion = null;
             $nuevo->save();
 
             DB::commit();
@@ -203,10 +205,31 @@ class PropiedadController extends Controller
                 'latitud' => $request->latitud,
                 'longitud' => $request->longitud,
                 'id_lugar' => $request->idlugar,
-                'slug' => $slug
+                'slug' => $slug,
+                'video_url' => $request->videourl
             ]);
 
         return ['success' => 2];
+    }
+
+    public function actualizarPropiedadDescripcion(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        // descripcion
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        Propiedad::where('id', $request->id)
+            ->update([
+                'descripcion' => $request->descripcion
+            ]);
+
+        return ['success' => 1];
     }
 
 

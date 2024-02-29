@@ -107,6 +107,8 @@ Route::post('/admin/propiedad/registrar', [PropiedadController::class,'registrar
 Route::post('/admin/propiedad/informacion', [PropiedadController::class,'informacionPropiedad']);
 Route::post('/admin/propiedad/actualizar', [PropiedadController::class,'actualizarPropiedad']);
 Route::post('/admin/propiedad/vineta/actualizar', [PropiedadController::class,'actualizarPropiedadVineta']);
+Route::post('/admin/propiedad/actualizardescripcion', [PropiedadController::class,'actualizarPropiedadDescripcion']);
+
 
 // --- ETIQUETA A LA PROPIEDAD ---
 

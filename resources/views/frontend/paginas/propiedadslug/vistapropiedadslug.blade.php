@@ -16,10 +16,15 @@
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
                                     <div class="listing-title-bar">
-                                        <h3>Luxury Villa House <span class="mrg-l-5 category-tag">For Sale</span></h3>
+                                        <h3>{{ $infoPropi->nombre }} <span class="mrg-l-5 category-tag">
+                                                @if($infoPropi->vineta_izquierda != null)
+                                                    {{ $infoPropi->vineta_izquierda }}
+                                                @endif
+
+                                            </span></h3>
                                         <div class="mt-0">
                                             <a href="#listing-location" class="listing-address">
-                                                <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>77 - Central Park South, NYC
+                                                <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>{{ $infoPropi->direccion }}
                                             </a>
                                         </div>
                                     </div>
@@ -27,11 +32,9 @@
                                 <div class="single detail-wrapper mr-2">
                                     <div class="detail-wrapper-body">
                                         <div class="listing-title-bar">
-                                            <h4>$ 230,000</h4>
+                                            <h4>{{ $precioFormat }}</h4>
                                             <div class="mt-0">
-                                                <a href="#listing-location" class="listing-address">
-                                                    <p>$ 1,200 / sq ft</p>
-                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -40,63 +43,63 @@
                         </section>
                         <!-- main slider carousel items -->
                         <div id="listingDetailsSlider" class="carousel listing-details-sliders slide mb-30">
-                            <h5 class="mb-4">Gallery</h5>
+                            <h5 class="mb-4">Galería</h5>
                             <div class="carousel-inner">
-                                <div class="active item carousel-item" data-slide-number="0">
-                                    <img src="images/single-property/s-1.jpg" class="img-fluid" alt="slider-listing">
-                                </div>
-                                <div class="item carousel-item" data-slide-number="1">
-                                    <img src="images/single-property/s-2.jpg" class="img-fluid" alt="slider-listing">
-                                </div>
-                                <div class="item carousel-item" data-slide-number="2">
-                                    <img src="images/single-property/s-3.jpg" class="img-fluid" alt="slider-listing">
-                                </div>
-                                <div class="item carousel-item" data-slide-number="4">
-                                    <img src="images/single-property/s-4.jpg" class="img-fluid" alt="slider-listing">
-                                </div>
-                                <div class="item carousel-item" data-slide-number="5">
-                                    <img src="images/single-property/s-5.jpg" class="img-fluid" alt="slider-listing">
-                                </div>
 
-                                <a class="carousel-control left" href="#listingDetailsSlider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
-                                <a class="carousel-control right" href="#listingDetailsSlider" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                                @foreach($arrayImagenes as $dato)
+
+                                    @if ($loop->first)
+
+                                        <div class="active item carousel-item" data-slide-number="{{ $dato->contador }}">
+                                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                        </div>
+                                    @else
+                                        <div class="item carousel-item" data-slide-number="{{ $dato->contador }}">
+                                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                        </div>
+                                    @endif
+
+                                @endforeach
+
+
+                                <a class="carousel-control left" href="#listingDetailsSlider" data-slide="prev"><i class="fa fa-angle-left" style="color: white !important;"></i></a>
+                                <a class="carousel-control right" href="#listingDetailsSlider" data-slide="next"><i class="fa fa-angle-right" style="color: white !important;"></i></a>
 
                             </div>
                             <!-- main slider carousel nav controls -->
                             <ul class="carousel-indicators smail-listing list-inline">
-                                <li class="list-inline-item active">
-                                    <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#listingDetailsSlider">
-                                        <img src="images/single-property/s-1.jpg" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a id="carousel-selector-1" data-slide-to="1" data-target="#listingDetailsSlider">
-                                        <img src="images/single-property/s-2.jpg" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a id="carousel-selector-2" data-slide-to="2" data-target="#listingDetailsSlider">
-                                        <img src="images/single-property/s-3.jpg" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a id="carousel-selector-3" data-slide-to="3" data-target="#listingDetailsSlider">
-                                        <img src="images/single-property/s-4.jpg" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a id="carousel-selector-4" data-slide-to="4" data-target="#listingDetailsSlider">
-                                        <img src="images/single-property/s-5.jpg" class="img-fluid" alt="listing-small">
-                                    </a>
-                                </li>
+
+
+                                @foreach($arrayImagenes as $dato)
+
+                                    @if ($loop->first)
+                                        <li class="list-inline-item active">
+                                            <a id="carousel-selector-{{$dato->contador}}" class="selected" data-slide-to="{{$dato->contador}}" data-target="#listingDetailsSlider">
+                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="listing-small">
+                                            </a>
+                                        </li>
+
+                                    @else
+                                        <li class="list-inline-item">
+                                            <a id="carousel-selector-{{$dato->contador}}" data-slide-to="{{$dato->contador}}" data-target="#listingDetailsSlider">
+                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="listing-small">
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                @endforeach
+
+
+
+
                             </ul>
                             <!-- main slider carousel items -->
                         </div>
                         <div class="blog-info details mb-30">
-                            <h5 class="mb-4">Description</h5>
-                            <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit, alias fuga aliquam quod tempora a nisi esse magnam nulla quas! Error praesentium, vero dolorum laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit.</p>
-                            <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit, alias fuga aliquam quod tempora a nisi esse magnam nulla quas! Error praesentium, vero dolorum laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit.</p>
-                            <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit, alias fuga aliquam quod tempora a nisi esse magnam nulla quas! Error praesentium, vero dolorum laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum rerum beatae consequatur, totam fugit.</p>
+                            <h5 class="mb-4">Descripción</h5>
+
+                            {!! $infoPropi->descripcion !!}
+
                         </div>
                     </div>
                 </div>
@@ -146,7 +149,7 @@
                     <!-- cars List -->
                     <ul class="homes-list clearfix">
                         <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                            <i class="fa fa-check-square" style="color: #FF385C !important;" aria-hidden="true"></i>
                             <span>Air Cond</span>
                         </li>
                         <li>

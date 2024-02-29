@@ -37,6 +37,8 @@ return new class extends Migration
 
             $table->string('video_url', 100)->nullable();
 
+            $table->text('descripcion')->nullable();
+
             $table->foreign('id_vendedor')->references('id')->on('vendedores');
             $table->foreign('id_lugar')->references('id')->on('lugares');
         });

@@ -129,6 +129,11 @@
                                         <input type="text" maxlength="150" class="form-control" id="slug-nuevo" autocomplete="off">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Video URL (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="videourl-nuevo" autocomplete="off">
+                                    </div>
+
                                     <br>
                                     <hr>
 
@@ -230,6 +235,11 @@
                                         <input type="text" maxlength="150" class="form-control" id="slug-editar" autocomplete="off">
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Video URL (Opcional)</label>
+                                        <input type="text" maxlength="100" class="form-control" id="videourl-editar" autocomplete="off">
+                                    </div>
+
                                     <br>
                                     <hr>
 
@@ -289,6 +299,7 @@
                                     <button type="button" onclick="modalVineta();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Viñeta</button>
                                     <button type="button" onclick="vista4Tag();" class="btn btn-info btn-block waves-effect waves-light" style="color: white">Etiqueta Inicio</button>
                                     <button type="button" onclick="vistaImagenes();" class="btn btn-success btn-block waves-effect waves-light">Imágenes</button>
+                                    <button type="button" onclick="modalDescripcion();" class="btn btn-info btn-block waves-effect waves-light">Descripción</button>
 
 
                                 </div>
@@ -354,7 +365,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalDescripcion">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Descripción</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario-vineta">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
 
+                                <div class="form-group">
+                                    <input type="hidden" id="id-descripcionmodal">
+                                </div>
+
+                                <div class="form-group">
+                                    <p>Descripción</p>
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="editor-descripcion" rows="12" cols="50"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="actualizarDescripcion()">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @extends('backend.menus.footerjs')
@@ -367,12 +414,26 @@
     <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/alertaPersonalizada.js') }}"></script>
+    <script src="{{ asset('plugins/ckeditor5v1/build/ckeditor.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
 
             var ruta = "{{ URL::to('/admin/propiedad/tabla') }}";
             $('#tablaDatatable').load(ruta);
+
+            window.varGlobalEditorNuevo;
+
+            ClassicEditor
+                .create(document.querySelector('#editor-descripcion'), {
+                    language: 'es',
+                })
+                .then(editor => {
+                    varGlobalEditorNuevo = editor;
+                })
+                .catch(error => {
+
+                });
 
             document.getElementById("divcontenedor").style.display = "block";
         });
@@ -470,6 +531,7 @@
             var longitud = document.getElementById('longitud-nuevo').value;
             var idlugar = document.getElementById('select-lugar').value;
             var slug = document.getElementById('slug-nuevo').value;
+            var videourl = document.getElementById('videourl-nuevo').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -536,6 +598,7 @@
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
+            formData.append('videourl', videourl);
 
             axios.post('/admin/propiedad/registrar', formData, {
             })
@@ -607,6 +670,7 @@
                         $('#latitud-editar').val(response.data.info.latitud);
                         $('#longitud-editar').val(response.data.info.longitud);
                         $('#slug-editar').val(response.data.info.slug);
+                        $('#videourl-editar').val(response.data.info.video_url);
 
                     }else{
                         toastr.error('Información no encontrada');
@@ -632,6 +696,7 @@
             var longitud = document.getElementById('longitud-editar').value;
             var idlugar = document.getElementById('select-lugar-editar').value;
             var slug = document.getElementById('slug-editar').value;
+            var videourl = document.getElementById('videourl-editar').value;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -698,6 +763,7 @@
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
+            formData.append('videourl', videourl);
 
             axios.post('/admin/propiedad/actualizar', formData, {
             })
@@ -774,7 +840,6 @@
             var vinetaDerecha = document.getElementById('vineta-derecha').value;
             var vinetaIzquierda = document.getElementById('vineta-izquierda').value;
 
-
             // pueden ser null
 
 
@@ -816,6 +881,67 @@
             window.location.href="{{ url('/admin/propiedadimagen/index') }}/" + id;
         }
 
+        function modalDescripcion(){
+            var id = document.getElementById('id-opciones').value;
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+
+            axios.post('/admin/propiedad/informacion', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+
+                        $('#id-descripcionmodal').val(id);
+                        if(response.data.info.descripcion != null){
+                            varGlobalEditorNuevo.setData(response.data.info.descripcion);
+                        }
+
+                        $('#modalDescripcion').css('overflow-y', 'auto');
+                        $('#modalDescripcion').modal({backdrop: 'static', keyboard: false})
+                    }
+                    else {
+                        toastr.error('Error al buscar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al buscar');
+                    closeLoading();
+                });
+        }
+
+        function actualizarDescripcion(){
+            var id = document.getElementById('id-descripcionmodal').value;
+            const editorData = varGlobalEditorNuevo.getData();
+
+            // puede ser null
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+            formData.append('descripcion', editorData);
+
+            axios.post('/admin/propiedad/actualizardescripcion', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Actualizado correctamente');
+                        $('#modalDescripcion').modal('hide');
+                    }
+                    else {
+                        toastr.error('Error al actualizar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al actualizar');
+                    closeLoading();
+                });
+        }
 
 
     </script>
