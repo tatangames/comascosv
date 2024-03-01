@@ -16,12 +16,16 @@
                             <div class="pro-wrapper">
                                 <div class="detail-wrapper-body">
                                     <div class="listing-title-bar">
-                                        <h3>{{ $infoPropi->nombre }} <span class="mrg-l-5 category-tag">
-                                                @if($infoPropi->vineta_izquierda != null)
+                                        <h3>{{ $infoPropi->nombre }}
+                                            @if($infoPropi->vineta_izquierda != null)
+                                            <span class="mrg-l-5 category-tag">
+
                                                     {{ $infoPropi->vineta_izquierda }}
-                                                @endif
+
 
                                             </span></h3>
+                                        @endif
+
                                         <div class="mt-0">
                                             <a href="#listing-location" class="listing-address">
                                                 <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>{{ $infoPropi->direccion }}

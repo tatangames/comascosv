@@ -108,7 +108,7 @@ Route::post('/admin/propiedad/informacion', [PropiedadController::class,'informa
 Route::post('/admin/propiedad/actualizar', [PropiedadController::class,'actualizarPropiedad']);
 Route::post('/admin/propiedad/vineta/actualizar', [PropiedadController::class,'actualizarPropiedadVineta']);
 Route::post('/admin/propiedad/actualizardescripcion', [PropiedadController::class,'actualizarPropiedadDescripcion']);
-
+Route::post('/admin/propiedad/informacionextra', [PropiedadController::class,'informacionPropiedadExtra']);
 
 // --- ETIQUETA A LA PROPIEDAD ---
 
@@ -150,9 +150,6 @@ Route::post('/admin/propiedadimagen/posicion', [PropiedadController::class,'actu
 Route::post('/admin/propiedadimagen/borrar', [PropiedadController::class,'borrarPropiedadImagenes']);
 
 
-
-
-
 // --- PRESENTACION INICIO ---
 
 Route::get('/admin/presentacioninicio/index', [RecursosController::class,'indexPresentacionInicio'])->name('admin.presentacion.inicio');
@@ -167,6 +164,12 @@ Route::post('/admin/presentacioninicio/actualizar', [RecursosController::class,'
 Route::get('/admin/otrosrecursos/index', [OtrosController::class,'indexOtros'])->name('admin.otros.recursos');
 Route::post('/admin/otrosrecursos/actualizar', [OtrosController::class,'actualizarOtrosRecursos']);
 
+// --- PROPIEDAD INICIO ---
+Route::get('/admin/propiedadinicio/index', [PropiedadController::class,'indexPropiedadInicio'])->name('admin.propiedad.inicio');
+Route::get('/admin/propiedadinicio/tabla', [PropiedadController::class,'tablaPropiedadInicio']);
+Route::post('/admin/propiedadinicio/registrar', [PropiedadController::class,'registrarPropiedadInicio']);
+Route::post('/admin/propiedadinicio/posicion', [PropiedadController::class,'actualizarPosicionPropiedadInicio']);
+Route::post('/admin/propiedadinicio/borrar', [PropiedadController::class,'borrarPropiedadInicio']);
 
 
 

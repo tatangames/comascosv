@@ -52,7 +52,6 @@ class FrontendRecursosController extends Controller
 
         if($infoPropi = Propiedad::where('slug', $slug)->first()){
 
-
             $arrayImagenes = PropiedadImagenes::where('id_propiedad', $infoPropi->id)
                 ->orderBy('posicion', 'ASC')
                 ->get();

@@ -10,6 +10,7 @@ use App\Models\Propiedad4Tag;
 use App\Models\PropiedadEtiqueta;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
+use App\Models\PropiedadInicio;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -73,13 +74,39 @@ class PropiedadController extends Controller
 
         if($info = Vendedores::where('id', $request->id)->first()) {
 
-
             return ['success' => 1, 'imagen' => $info->imagen];
         }else{
             return ['success' => 2];
         }
     }
 
+
+    public function informacionPropiedadExtra(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = Propiedad::where('id', $request->id)->first()){
+
+            $fechainicia = date("d-m-Y", strtotime($info->fecha_inicio));
+            $fechafin = date("d-m-Y", strtotime($info->fecha_fin));
+            $infoVendedor = Vendedores::where('id', $info->id_vendedor)->first();
+
+            return ['success' => 1,
+                    'imagen' => $infoVendedor->imagen,
+                    'fechainicio' => $fechainicia,
+                    'fechafin' => $fechafin
+                ];
+
+        }else{
+            return ['success' => 2];
+        }
+    }
 
     public function registrarPropiedad(Request $request){
 
@@ -578,6 +605,121 @@ class PropiedadController extends Controller
             // decir que fue borrado
             return ['success' => 1];
         }
+    }
+
+
+
+
+    // ************************************** PROPIEDAD INICIO ************************************
+
+    public function indexPropiedadInicio()
+    {
+        $arrayPropiedad = Propiedad::orderBy('nombre', 'ASC')->get();
+
+
+        return view('backend.admin.propiedad.inicio.vistapropiinicio', compact('arrayPropiedad'));
+    }
+
+    public function tablaPropiedadInicio()
+    {
+
+        $listado = PropiedadInicio::orderBy('posicion', 'ASC')->get();
+
+        foreach ($listado as $dato){
+
+            $infoPropi = Propiedad::where('id', $dato->id_propiedad)->first();
+
+            $infoVendedor = Vendedores::where('id', $infoPropi->id_vendedor)->first();
+            $dato->nombreVendedor = $infoVendedor->nombre;
+
+            $fechainicio = date("d-m-Y", strtotime($infoPropi->fecha_inicio));
+            $fechafin = date("d-m-Y", strtotime($infoPropi->fecha_fin));
+
+            $imagen = null;
+            if($infoImagen = PropiedadImagenes::where('id_propiedad', $infoPropi->id)
+                ->orderBy('posicion', 'ASC')
+                ->take(1)
+                ->first()){
+                $imagen = $infoImagen->imagen;
+            }
+
+            $dato->imagen = $imagen;
+            $dato->fechainicio = $fechainicio;
+            $dato->fechafin = $fechafin;
+            $dato->nombre = $infoPropi->nombre;
+        }
+
+        return view('backend.admin.propiedad.inicio.tablapropiinicio', compact('listado'));
+    }
+
+
+    public function registrarPropiedadInicio(Request $request)
+    {
+        $regla = array(
+            'idpropiedad' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(PropiedadInicio::where('id_propiedad', $request->idpropiedad)->first()){
+
+         return ['success' => 1];
+        }
+
+        if($info = PropiedadInicio::orderBy('posicion', 'DESC')
+            ->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        $nuevo = new PropiedadInicio();
+        $nuevo->id_propiedad = $request->idpropiedad;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->save();
+
+        return ['success' => 2];
+    }
+
+
+    public function actualizarPosicionPropiedadInicio(Request $request)
+    {
+        $tasks = PropiedadInicio::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadInicio(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(PropiedadInicio::where('id', $request->id)->first()){
+
+            PropiedadInicio::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+
     }
 
 

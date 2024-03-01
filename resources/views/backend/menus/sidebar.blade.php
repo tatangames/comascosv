@@ -111,9 +111,6 @@
                             </a>
                         </li>
 
-
-
-
                         <li class="nav-item">
                             <a href="{{ route('admin.otros.recursos') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -141,6 +138,13 @@
                             <a href="{{ route('admin.propiedad') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Nueva Propiedad</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.propiedad.inicio') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Propiedad Inicio</p>
                             </a>
                         </li>
 

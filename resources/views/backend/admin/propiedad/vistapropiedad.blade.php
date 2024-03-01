@@ -140,12 +140,12 @@
                                     <p>Coordenadas (Opcional)</p>
 
                                     <div class="form-group">
-                                        <label>Latitud</label>
+                                        <label>Latitud (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="latitud-nuevo" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Longitud</label>
+                                        <label>Longitud (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="longitud-nuevo" autocomplete="off">
                                     </div>
 
@@ -246,12 +246,12 @@
                                     <p>Coordenadas (Opcional)</p>
 
                                     <div class="form-group">
-                                        <label>Latitud</label>
+                                        <label>Latitud (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="latitud-editar" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Longitud</label>
+                                        <label>Longitud (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="longitud-editar" autocomplete="off">
                                     </div>
 
