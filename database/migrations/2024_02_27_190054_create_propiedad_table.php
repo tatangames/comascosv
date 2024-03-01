@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('slug', 150)->unique();
 
             $table->string('video_url', 100)->nullable();
+            // es la imagen de portada preview video
+            $table->string('video_imagen', 100)->nullable();
 
             $table->text('descripcion')->nullable();
 

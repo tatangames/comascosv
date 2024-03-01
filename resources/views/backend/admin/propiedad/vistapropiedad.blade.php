@@ -129,9 +129,22 @@
                                         <input type="text" maxlength="150" class="form-control" id="slug-nuevo" autocomplete="off">
                                     </div>
 
+
+
                                     <div class="form-group">
                                         <label>Video URL (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="videourl-nuevo" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>
+                                            <label>Imagen Preview Video</label>
+                                            <p>Recomendación medidas: 698 x 500 px</p>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-10">
+                                            <input type="file" style="color:#191818" id="imagen-nuevo" accept="image/jpeg, image/jpg, image/png"/>
+                                        </div>
                                     </div>
 
                                     <br>
@@ -240,6 +253,17 @@
                                         <input type="text" maxlength="100" class="form-control" id="videourl-editar" autocomplete="off">
                                     </div>
 
+                                    <div class="form-group">
+                                        <div>
+                                            <label>Imagen Preview Video</label>
+                                            <p>Recomendación medidas: 698 x 500 px</p>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-10">
+                                            <input type="file" style="color:#191818" id="imagen-editar" accept="image/jpeg, image/jpg, image/png"/>
+                                        </div>
+                                    </div>
+
                                     <br>
                                     <hr>
 
@@ -300,6 +324,10 @@
                                     <button type="button" onclick="vista4Tag();" class="btn btn-info btn-block waves-effect waves-light" style="color: white">Etiqueta Inicio</button>
                                     <button type="button" onclick="vistaImagenes();" class="btn btn-success btn-block waves-effect waves-light">Imágenes</button>
                                     <button type="button" onclick="modalDescripcion();" class="btn btn-info btn-block waves-effect waves-light">Descripción</button>
+                                    <button type="button" onclick="vistaDetalleEtiqueta();" class="btn btn-info btn-block waves-effect waves-light">Detalle Etiqueta</button>
+                                    <button type="button" onclick="vistaPlanos();" class="btn btn-info btn-block waves-effect waves-light">Planos</button>
+
+
 
 
                                 </div>
@@ -532,6 +560,8 @@
             var idlugar = document.getElementById('select-lugar').value;
             var slug = document.getElementById('slug-nuevo').value;
             var videourl = document.getElementById('videourl-nuevo').value;
+            var imagen = document.getElementById('imagen-nuevo');
+
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -585,6 +615,18 @@
                 return;
             }
 
+            if(videourl.length > 0){
+                // verificar que hay imagen preview
+                if(imagen.files && imagen.files[0]){ // si trae imagen
+                    if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
+                        toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
+                        return;
+                    }
+                }else{
+                    toastr.error('Imagen es Requerida')
+                    return;
+                }
+            }
 
             openLoading();
             let formData = new FormData();
@@ -599,6 +641,7 @@
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
             formData.append('videourl', videourl);
+            formData.append('imagen', imagen.files[0]);
 
             axios.post('/admin/propiedad/registrar', formData, {
             })
@@ -661,7 +704,6 @@
                             }
                         });
 
-
                         $('#nombre-editar').val(response.data.info.nombre);
                         $('#direccion-editar').val(response.data.info.direccion);
                         $('#precio-editar').val(response.data.info.precio);
@@ -697,6 +739,7 @@
             var idlugar = document.getElementById('select-lugar-editar').value;
             var slug = document.getElementById('slug-editar').value;
             var videourl = document.getElementById('videourl-editar').value;
+            var imagen = document.getElementById('imagen-editar');
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -764,6 +807,7 @@
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
             formData.append('videourl', videourl);
+            formData.append('imagen', imagen.files[0]);
 
             axios.post('/admin/propiedad/actualizar', formData, {
             })
@@ -941,6 +985,16 @@
                     toastr.error('Error al actualizar');
                     closeLoading();
                 });
+        }
+
+        function vistaDetalleEtiqueta(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedaddetalle/etiqueta/index') }}/" + id;
+        }
+
+        function vistaPlanos(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedadplanos/index') }}/" + id;
         }
 
 

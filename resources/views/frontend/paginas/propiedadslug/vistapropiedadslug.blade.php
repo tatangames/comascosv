@@ -107,395 +107,106 @@
                         </div>
                     </div>
                 </div>
-                <div class="single homes-content details mb-30">
-                    <!-- title -->
-                    <h5 class="mb-4">Property Details</h5>
-                    <ul class="homes-list clearfix">
-                        <li>
-                            <span class="font-weight-bold mr-1">Property ID:</span>
-                            <span class="det">V254680</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Property Type:</span>
-                            <span class="det">House</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Property status:</span>
-                            <span class="det">For Sale</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Property Price:</span>
-                            <span class="det">$230,000</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Rooms:</span>
-                            <span class="det">6</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Bedrooms:</span>
-                            <span class="det">7</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Bath:</span>
-                            <span class="det">4</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Garages:</span>
-                            <span class="det">2</span>
-                        </li>
-                        <li>
-                            <span class="font-weight-bold mr-1">Year Built:</span>
-                            <span class="det">10/6/2020</span>
-                        </li>
-                    </ul>
-                    <!-- title -->
-                    <h5 class="mt-5">Amenities</h5>
-                    <!-- cars List -->
-                    <ul class="homes-list clearfix">
-                        <li>
-                            <i class="fa fa-check-square" style="color: #FF385C !important;" aria-hidden="true"></i>
-                            <span>Air Cond</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Balcony</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Internet</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Dishwasher</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Bedding</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Cable TV</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Parking</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Pool</span>
-                        </li>
-                        <li>
-                            <i class="fa fa-check-square" aria-hidden="true"></i>
-                            <span>Fridge</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="floor-plan property wprt-image-video w50 pro">
-                    <h5>Floor Plans</h5>
-                    <img alt="image" src="images/bg/floor-plan-1.png">
-                </div>
-                <div class="floor-plan property wprt-image-video w50 pro">
-                    <h5>What's Nearby</h5>
-                    <div class="property-nearby">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="nearby-info mb-4">
-                                            <span class="nearby-title mb-3 d-block text-info">
-                                               <i class="fas fa-graduation-cap mr-2"></i><b class="title">Education</b>
-                                            </span>
-                                    <div class="nearby-list">
-                                        <ul class="property-list list-unstyled mb-0">
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Education Mandarin</h6>
-                                                <span>(15.61 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Marry's Education</h6>
-                                                <span>(15.23 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">The Kaplan</h6>
-                                                <span>(15.16 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="nearby-info mb-4">
-                                            <span class="nearby-title mb-3 d-block text-success">
-                                              <i class="fas fa-user-md mr-2"></i><b class="title">Health & Medical</b>
-                                            </span>
-                                    <div class="nearby-list">
-                                        <ul class="property-list list-unstyled mb-0">
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Natural Market</h6>
-                                                <span>(13.20 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Food For Health</h6>
-                                                <span>(13.22 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">A Matter of Health</h6>
-                                                <span>(13.34 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="nearby-info">
-                                            <span class="nearby-title mb-3 d-block text-danger">
-                                                <i class="fas fa-car mr-2"></i><b class="title">Transportation</b>
-                                            </span>
-                                    <div class="nearby-list">
-                                        <ul class="property-list list-unstyled mb-0">
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Airport Transportation</h6>
-                                                <span>(11.36 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">NYC Executive Limo</h6>
-                                                <span>(11.87 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                            <li class="d-flex">
-                                                <h6 class="mb-3 mr-2">Empire Limousine</h6>
-                                                <span>(11.52 miles)</span>
-                                                <ul class="list-unstyled list-inline ml-auto">
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="fas fa-star-half fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                    <li class="list-inline-item m-0 text-warning"><i class="far fa-star fa-xs"></i></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="property wprt-image-video w50 pro">
-                    <h5>Property Video</h5>
-                    <img alt="image" src="images/slider/home-slider-4.jpg">
-                    <a class="icon-wrap popup-video popup-youtube" href="https://www.youtube.com/watch?v=14semTlwyUY">
-                        <i class="fa fa-play"></i>
-                    </a>
-                    <div class="iq-waves">
-                        <div class="waves wave-1"></div>
-                        <div class="waves wave-2"></div>
-                        <div class="waves wave-3"></div>
-                    </div>
-                </div>
-                <div class="property-location map">
-                    <h5>Location</h5>
-                    <div class="divider-fade"></div>
-                    <div id="map-contact" class="contact-map"></div>
-                </div>
-                <!-- Star Reviews -->
-                <section class="reviews comments">
-                    <h3 class="mb-5">3 Reviews</h3>
-                    <div class="row mb-5">
-                        <ul class="col-12 commented pl-0">
-                            <li class="comm-inf">
-                                <div class="col-md-2">
-                                    <img src="images/testimonials/ts-5.jpg" class="img-fluid" alt="">
-                                </div>
-                                <div class="col-md-10 comments-info">
-                                    <div class="conra">
-                                        <h5 class="mb-2">Mary Smith</h5>
-                                        <div class="rating-box">
-                                            <div class="detail-list-rating mr-0">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="mb-4">May 30 2020</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam, quam congue dictum luctus, lacus magna congue ante, in finibus dui sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum vestibulum sed.</p>
-                                    <div class="rest"><img src="images/single-property/s-1.jpg" class="img-fluid" alt=""></div>
-                                </div>
-                            </li>
 
-                        </ul>
-                    </div>
-                    <div class="row">
-                        <ul class="col-12 commented pl-0">
-                            <li class="comm-inf">
-                                <div class="col-md-2">
-                                    <img src="images/testimonials/ts-4.jpg" class="img-fluid" alt="">
-                                </div>
-                                <div class="col-md-10 comments-info">
-                                    <div class="conra">
-                                        <h5 class="mb-2">Abraham Tyron</h5>
-                                        <div class="rating-box">
-                                            <div class="detail-list-rating mr-0">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="mb-4">june 1 2020</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam, quam congue dictum luctus, lacus magna congue ante, in finibus dui sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum vestibulum sed.</p>
-                                </div>
-                            </li>
 
-                        </ul>
+                @if($datosArray['almenos1dato'])
+
+                    <div class="single homes-content details mb-30">
+
+                        @if($arrayDetalle1 != null)
+                            <h5 class="mb-4">Detalles</h5>
+                            <ul class="homes-list clearfix">
+
+                                @foreach($arrayDetalle1 as $dato)
+                                    <li>
+                                        <span class="font-weight-bold mr-1">{{ $dato->titulo }}</span>
+                                        <span class="det">{{ $dato->descripcion }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+
+                        @if($arrayDetalle2 != null)
+                                <h5 class="mt-5">Extras</h5>
+                                <ul class="homes-list clearfix">
+
+                                @foreach($arrayDetalle2 as $dato)
+                                    <li>
+                                        <i class="fa fa-check-square" style="color: #FF385C !important;" aria-hidden="true"></i>
+                                        <span>{{ $dato->titulo }}</span>
+                                    </li>
+                                @endforeach
+                                </ul>
+                        @endif
                     </div>
-                    <div class="row mt-5">
-                        <ul class="col-12 commented mb-0 pl-0">
-                            <li class="comm-inf">
-                                <div class="col-md-2">
-                                    <img src="images/testimonials/ts-3.jpg" class="img-fluid" alt="">
-                                </div>
-                                <div class="col-md-10 comments-info">
-                                    <div class="conra">
-                                        <h5 class="mb-2">Lisa Williams</h5>
-                                        <div class="rating-box">
-                                            <div class="detail-list-rating mr-0">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="mb-4">jul 12 2020</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquam, quam congue dictum luctus, lacus magna congue ante, in finibus dui sapien eu dolor. Integer tincidunt suscipit erat, nec laoreet ipsum vestibulum sed.</p>
-                                    <div class="resti">
-                                        <div class="rest"><img src="images/single-property/s-2.jpg" class="img-fluid" alt=""></div>
-                                        <div class="rest"><img src="images/single-property/s-3.jpg" class="img-fluid" alt=""></div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-                <!-- End Reviews -->
-                <!-- Star Add Review -->
-                <section class="single reviews leve-comments details">
-                    <div id="add-review" class="add-review-box">
-                        <!-- Add Review -->
-                        <h3 class="listing-desc-headline margin-bottom-20 mb-4">Add Review</h3>
-                        <span class="leave-rating-title">Your rating for this listing</span>
-                        <!-- Rating / Upload Button -->
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <!-- Leave Rating -->
-                                <div class="clearfix"></div>
-                                <div class="leave-rating margin-bottom-30">
-                                    <input type="radio" name="rating" id="rating-1" value="1" />
-                                    <label for="rating-1" class="fa fa-star"></label>
-                                    <input type="radio" name="rating" id="rating-2" value="2" />
-                                    <label for="rating-2" class="fa fa-star"></label>
-                                    <input type="radio" name="rating" id="rating-3" value="3" />
-                                    <label for="rating-3" class="fa fa-star"></label>
-                                    <input type="radio" name="rating" id="rating-4" value="4" />
-                                    <label for="rating-4" class="fa fa-star"></label>
-                                    <input type="radio" name="rating" id="rating-5" value="5" />
-                                    <label for="rating-5" class="fa fa-star"></label>
-                                </div>
-                                <div class="clearfix"></div>
+                @endif
+
+
+
+                @if($arrayPlanos != null)
+                    <div class="floor-plan property wprt-image-video w50 pro">
+                    <h5>Planos</h5>
+                        @foreach($arrayPlanos as $dato)
+                            <div class="floor-plan property wprt-image-video w50 pro">
+                                <img alt="comascosv" src="{{ url('storage/archivos/'.$dato->imagen) }}">
                             </div>
-                            <div class="col-md-6">
-                                <!-- Uplaod Photos -->
-                                <div class="add-review-photos margin-bottom-30">
-                                    <div class="photoUpload">
-                                        <span><i class="sl sl-icon-arrow-up-circle"></i> Upload Photos</span>
-                                        <input type="file" class="upload" />
+                        @endforeach
+                    </div>
+                @endif
+
+                @if($infoPropi->video_url != null)
+
+                    <div class="property wprt-image-video w50 pro">
+
+                        <h5>Video</h5>
+                        <img alt="image" src="{{ url('storage/archivos/'.$infoPropi->video_imagen) }}">
+                        <a class="icon-wrap popup-video popup-youtube" href="{{ $infoPropi->video_url }}">
+                            <i class="fa fa-play"></i>
+                        </a>
+                        <div class="iq-waves">
+                            <div class="waves wave-1"></div>
+                            <div class="waves wave-2"></div>
+                            <div class="waves wave-3"></div>
+                        </div>
+                    </div>
+
+
+
+                @endif
+
+
+
+
+
+                @if($infoPropi->latitud != null && $infoPropi->longitud2 != null)
+
+                    <div class="property-location map">
+                        <h5>Mapa</h5>
+                        <div class="divider-fade"></div>
+                        <div id="colorlib-reservation">
+                            <div class="container">
+                                <div class="row animate-box">
+                                    <div class="col-md-12">
+                                        <iframe
+                                            width="600"
+                                            height="450"
+                                            frameborder="0" style="border:0"
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.1868313109383!2d{{ $infoPropi->longitud }}!3d{{ $infoPropi->latitud }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259e53546e9cf%3A0x1c3bb99243deb742!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1646076979147!5m2!1sen!2sus" allowfullscreen>
+                                        </iframe>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 data">
-                                <form action="#">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" name="name" class="form-control" placeholder="First Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" name="name" class="form-control" placeholder="Last Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 form-group">
-                                        <textarea class="form-control" id="exampleTextarea" rows="8" placeholder="Review" required></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-lg mt-2">Submit Review</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-                </section>
-                <!-- End Add Review -->
+
+                @endif
+
+
+
+
+
+
             </div>
             <aside class="col-lg-4 col-md-12 car">
                 <div class="single widget">

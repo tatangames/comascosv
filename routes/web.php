@@ -171,9 +171,19 @@ Route::post('/admin/propiedadinicio/registrar', [PropiedadController::class,'reg
 Route::post('/admin/propiedadinicio/posicion', [PropiedadController::class,'actualizarPosicionPropiedadInicio']);
 Route::post('/admin/propiedadinicio/borrar', [PropiedadController::class,'borrarPropiedadInicio']);
 
+// --- ETIQUETAS CHECK DETALLE O LISTADO ---
+Route::get('/admin/propiedaddetalle/etiqueta/index/{idpropiedad}', [PropiedadController::class,'indexEtiquetaDetalle']);
+Route::get('/admin/propiedaddetalle/etiqueta/tabla/{idpropiedad}/{idtipo}', [PropiedadController::class,'tablaEtiquetaDetalle']);
+Route::post('/admin/propiedaddetalle/registrar', [PropiedadController::class,'registrarPropiedadDetalle']);
+Route::post('/admin/propiedaddetalle/posicion', [PropiedadController::class,'actualizarPosicionPropiedadDetalle']);
+Route::post('/admin/propiedaddetalle/borrar', [PropiedadController::class,'borrarPropiedadDetalle']);
 
-
-
+// --- PROPIEDAD PLANOS ---
+Route::get('/admin/propiedadplanos/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadPlanos'])->name('admin.propiedad.planos');
+Route::get('/admin/propiedadplanos/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadPlanos']);
+Route::post('/admin/propiedadplanos/registrar', [PropiedadController::class,'registrarPropiedadPlanos']);
+Route::post('/admin/propiedadplanos/posicion', [PropiedadController::class,'actualizarPosicionPropiedadPlanos']);
+Route::post('/admin/propiedadplanos/borrar', [PropiedadController::class,'borrarPropiedadPlanos']);
 
 
 

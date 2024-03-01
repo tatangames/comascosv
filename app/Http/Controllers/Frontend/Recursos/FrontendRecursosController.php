@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\DetallesContacto;
 use App\Models\PreguntasFrecuentes;
 use App\Models\Propiedad;
+use App\Models\PropiedadDetalle;
 use App\Models\PropiedadImagenes;
+use App\Models\PropiedadPlanos;
 use App\Models\Recursos;
 use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
@@ -65,10 +67,47 @@ class FrontendRecursosController extends Controller
             $precioFormat = '$ ' . number_format((float)$infoPropi->precio, 2, '.', ',');
 
 
+            // ETIQUETAS DETALLE
+
+            $arrayDetalle1 = PropiedadDetalle::where('id_propiedad', $infoPropi->id)
+                ->where('id_tipodetalle', 1)
+                ->orderBy('posicion', 'ASC')
+                ->get();
+
+            $hayAlmenos1Dato = false;
+
+            if($arrayDetalle1 != null && $arrayDetalle1->isNotEmpty()){
+                $hayAlmenos1Dato = true;
+            }
+
+            $arrayDetalle2 = PropiedadDetalle::where('id_propiedad', $infoPropi->id)
+                ->where('id_tipodetalle', 2)
+                ->orderBy('posicion', 'ASC')
+                ->get();
+
+            if($arrayDetalle2 != null && $arrayDetalle2->isNotEmpty()){
+                $hayAlmenos1Dato = true;
+            }
+
+            // PLANOS
+            $hayPlanos = false;
+            $arrayPlanos = PropiedadPlanos::where('id_propiedad', $infoPropi->id)
+                ->orderBy('posicion', 'ASC')
+                ->get();
+
+
+            if($arrayPlanos != null && $arrayPlanos->isNotEmpty()){
+                $hayPlanos = true;
+            }
+
+            $datosArray = [
+                'almenos1dato' => $hayAlmenos1Dato,
+                'hayplanos' => $hayPlanos
+            ];
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
-                'precioFormat',
-                           'arrayImagenes'));
+                'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
+                'arrayPlanos'));
         }else{
             return view('errors.404');
         }

@@ -7,10 +7,13 @@ use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\Propiedad;
 use App\Models\Propiedad4Tag;
+use App\Models\PropiedadDetalle;
 use App\Models\PropiedadEtiqueta;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
+use App\Models\PropiedadPlanos;
+use App\Models\PropiedadTipoDetalle;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -119,7 +122,7 @@ class PropiedadController extends Controller
             'slug' => 'required'
         );
 
-        // direccion, precio, latitud, longitud, videourl
+        // direccion, precio, latitud, longitud, videourl, imagen
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -134,23 +137,65 @@ class PropiedadController extends Controller
                 return ['success' => 1];
             }
 
-            $nuevo = new Propiedad();
-            $nuevo->id_vendedor = $request->idvendedor;
-            $nuevo->fecha = Carbon::now('America/El_Salvador');
-            $nuevo->nombre = $request->nombre;
-            $nuevo->direccion = $request->direccion;
-            $nuevo->precio = $request->precio;
-            $nuevo->fecha_inicio = $request->fechainicio;
-            $nuevo->fecha_fin = $request->fechafin;
-            $nuevo->latitud = $request->latitud;
-            $nuevo->longitud = $request->longitud;
-            $nuevo->id_lugar = $request->idlugar;
-            $nuevo->vineta_derecha = null;
-            $nuevo->vineta_izquierda = null;
-            $nuevo->slug = $slug;
-            $nuevo->video_url = $request->videourl;
-            $nuevo->descripcion = null;
-            $nuevo->save();
+            if ($request->hasFile('imagen')) {
+
+                $cadena = Str::random(15);
+                $tiempo = microtime();
+                $union = $cadena . $tiempo;
+                $nombre = str_replace(' ', '_', $union);
+
+                $extension = '.' . $request->imagen->getClientOriginalExtension();
+                $nombreFoto = $nombre . strtolower($extension);
+                $avatar = $request->file('imagen');
+                $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+                if ($upload) {
+
+                    $nuevo = new Propiedad();
+                    $nuevo->id_vendedor = $request->idvendedor;
+                    $nuevo->fecha = Carbon::now('America/El_Salvador');
+                    $nuevo->nombre = $request->nombre;
+                    $nuevo->direccion = $request->direccion;
+                    $nuevo->precio = $request->precio;
+                    $nuevo->fecha_inicio = $request->fechainicio;
+                    $nuevo->fecha_fin = $request->fechafin;
+                    $nuevo->latitud = $request->latitud;
+                    $nuevo->longitud = $request->longitud;
+                    $nuevo->id_lugar = $request->idlugar;
+                    $nuevo->vineta_derecha = null;
+                    $nuevo->vineta_izquierda = null;
+                    $nuevo->slug = $slug;
+                    $nuevo->video_url = $request->videourl;
+                    $nuevo->descripcion = null;
+                    $nuevo->video_imagen = $nombreFoto;
+                    $nuevo->save();
+
+                }
+                else{
+                return ['success' => 99];
+                }
+            }else{
+                $nuevo = new Propiedad();
+                $nuevo->id_vendedor = $request->idvendedor;
+                $nuevo->fecha = Carbon::now('America/El_Salvador');
+                $nuevo->nombre = $request->nombre;
+                $nuevo->direccion = $request->direccion;
+                $nuevo->precio = $request->precio;
+                $nuevo->fecha_inicio = $request->fechainicio;
+                $nuevo->fecha_fin = $request->fechafin;
+                $nuevo->latitud = $request->latitud;
+                $nuevo->longitud = $request->longitud;
+                $nuevo->id_lugar = $request->idlugar;
+                $nuevo->vineta_derecha = null;
+                $nuevo->vineta_izquierda = null;
+                $nuevo->slug = $slug;
+                $nuevo->video_url = $request->videourl;
+                $nuevo->descripcion = null;
+                $nuevo->video_imagen = null;
+                $nuevo->save();
+            }
+
+
 
             DB::commit();
             return ['success' => 2];
@@ -205,7 +250,7 @@ class PropiedadController extends Controller
             'idlugar' => 'required'
         );
 
-        // direccion, precio, latitud, longitud, slug
+        // direccion, precio, latitud, longitud, slug, imagen
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -221,20 +266,65 @@ class PropiedadController extends Controller
             return ['success' => 1];
         }
 
-        Propiedad::where('id', $request->id)
-            ->update([
-                'id_vendedor' => $request->idvendedor,
-                'nombre' => $request->nombre,
-                'direccion' => $request->direccion,
-                'precio' => $request->precio,
-                'fecha_inicio' => $request->fechainicio,
-                'fecha_fin' => $request->fechafin,
-                'latitud' => $request->latitud,
-                'longitud' => $request->longitud,
-                'id_lugar' => $request->idlugar,
-                'slug' => $slug,
-                'video_url' => $request->videourl
-            ]);
+        if ($request->hasFile('imagen')) {
+
+            $infoPropiedad = Propiedad::where('id', $request->id)->first();
+            $imagenOld = $infoPropiedad->video_imagen;
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                if(Storage::disk('archivos')->exists($imagenOld)){
+                    Storage::disk('archivos')->delete($imagenOld);
+                }
+
+
+                Propiedad::where('id', $request->id)
+                    ->update([
+                        'id_vendedor' => $request->idvendedor,
+                        'nombre' => $request->nombre,
+                        'direccion' => $request->direccion,
+                        'precio' => $request->precio,
+                        'fecha_inicio' => $request->fechainicio,
+                        'fecha_fin' => $request->fechafin,
+                        'latitud' => $request->latitud,
+                        'longitud' => $request->longitud,
+                        'id_lugar' => $request->idlugar,
+                        'slug' => $slug,
+                        'video_url' => $request->videourl,
+                        'video_imagen' => $nombreFoto
+                    ]);
+
+
+
+            }else{
+                return ['success' => 99];
+            }
+        }else{
+            Propiedad::where('id', $request->id)
+                ->update([
+                    'id_vendedor' => $request->idvendedor,
+                    'nombre' => $request->nombre,
+                    'direccion' => $request->direccion,
+                    'precio' => $request->precio,
+                    'fecha_inicio' => $request->fechainicio,
+                    'fecha_fin' => $request->fechafin,
+                    'latitud' => $request->latitud,
+                    'longitud' => $request->longitud,
+                    'id_lugar' => $request->idlugar,
+                    'slug' => $slug,
+                    'video_url' => $request->videourl
+                ]);
+        }
 
         return ['success' => 2];
     }
@@ -719,8 +809,224 @@ class PropiedadController extends Controller
         }else{
             return ['success' => 1];
         }
-
     }
+
+
+
+
+    // ******************** ETIQUETAS DETALLE *******************************
+
+    public function indexEtiquetaDetalle($idpropi){
+
+        $arrayTipoDetalle = PropiedadTipoDetalle::orderBy('id', 'ASC')->get();
+
+        return view('backend.admin.propiedad.tipodetalle.vistatipodetalle', compact('arrayTipoDetalle', 'idpropi'));
+    }
+
+    public function tablaEtiquetaDetalle($idpropi, $idtipo){
+
+        $listado = PropiedadDetalle::where('id_propiedad', $idpropi)
+            ->where('id_tipodetalle', $idtipo)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        if($idtipo == 1){
+            return view('backend.admin.propiedad.tipodetalle.tablatipodetalle', compact('listado'));
+        }
+
+        return view('backend.admin.propiedad.tipodetalle.tablatipodetalletipo2', compact('listado'));
+    }
+
+
+    public function registrarPropiedadDetalle(Request $request){
+
+        $regla = array(
+            'etiqueta' => 'required',
+            'idpropiedad' => 'required',
+            'titulo' => 'required',
+        );
+
+        // descripcion
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PropiedadDetalle::where('id_propiedad', $request->idpropiedad)
+            ->where('id_tipodetalle', $request->etiqueta)
+            ->orderBy('posicion', 'DESC')
+            ->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        // aunque no envie descripcion, sera null
+
+        $nuevo = new PropiedadDetalle();
+        $nuevo->id_propiedad = $request->idpropiedad;
+        $nuevo->id_tipodetalle = $request->etiqueta;
+        $nuevo->titulo = $request->titulo;
+        $nuevo->descripcion = $request->descripcion;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+    public function actualizarPosicionPropiedadDetalle(Request $request){
+
+        $tasks = PropiedadDetalle::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadDetalle(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(PropiedadDetalle::where('id', $request->id)->first()){
+
+            PropiedadDetalle::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+
+
+
+    // ************************************** PROPIEDAD PLANOS ************************************
+
+    public function indexPropiedadPlanos($idpropi)
+    {
+        return view('backend.admin.propiedad.planos.vistaplanos', compact('idpropi'));
+    }
+
+    public function tablaPropiedadPlanos($idpropi)
+    {
+        $listado = PropiedadPlanos::where('id_propiedad', $idpropi)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        return view('backend.admin.propiedad.planos.tablaplanos', compact('listado'));
+    }
+
+
+    public function registrarPropiedadPlanos(Request $request)
+    {
+        $regla = array(
+            'idpropiedad' => 'required',
+        );
+
+        // imagen
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        $cadena = Str::random(15);
+        $tiempo = microtime();
+        $union = $cadena . $tiempo;
+        $nombre = str_replace(' ', '_', $union);
+
+        $extension = '.' . $request->imagen->getClientOriginalExtension();
+        $nombreFoto = $nombre . strtolower($extension);
+        $avatar = $request->file('imagen');
+        $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+        if ($upload) {
+
+            if($info = PropiedadPlanos::where('id_propiedad', $request->idpropiedad)
+                ->orderBy('posicion', 'DESC')
+                ->first()){
+                $nuevaPosicion = $info->posicion + 1;
+            }else{
+                $nuevaPosicion = 1;
+            }
+
+            $nuevo = new PropiedadPlanos();
+            $nuevo->id_propiedad = $request->idpropiedad;
+            $nuevo->posicion = $nuevaPosicion;
+            $nuevo->imagen = $nombreFoto;
+            $nuevo->save();
+
+            return ['success' => 1];
+
+        } else {
+            // error al subir imagen
+            return ['success' => 99];
+        }
+    }
+
+
+    public function actualizarPosicionPropiedadPlanos(Request $request)
+    {
+        $tasks = PropiedadPlanos::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadPlanos(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PropiedadPlanos::where('id', $request->id)->first()){
+
+            $imagenOld = $info->imagen;
+
+            if(Storage::disk('archivos')->exists($imagenOld)){
+                Storage::disk('archivos')->delete($imagenOld);
+            }
+
+            PropiedadPlanos::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+
+
+
 
 
 }
