@@ -14,11 +14,69 @@
 <section class="how-it-works bg-white rec-pro">
     <div class="container-fluid">
         <div class="sec-title">
-            <h2>Bienvenido a comascosv</h2>
+            <h2>Buscar Propiedades</h2>
         </div>
-        <div class="row service-1">
 
 
+
+
+
+
+
+        <!-- STAR HEADER SEARCH -->
+        <section>
+
+            <div class="tab-pane fade show active">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="rld-single-input">
+                                <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 100%">
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label>Rago de Precio</label>
+                            <div class="range-slider" style="margin-left: 5px; margin-top: 8px">
+                                <div id="price-range" type="range" data-min="0" data-max="800000" data-unit="$" name="rangoPrecio"></div>
+                                <div class="clearfix"></div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="col-xl-2 col-lg-2 col-md-4 pl-0">
+                                <a class="btn btn-yellow" onclick="buscarPropiedad()" style="margin-left: 20px">Buscar</a>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+            </div>
+
+        </section>
+        <!-- END HEADER SEARCH -->
+
+
+
+
+
+
+
+
+
+        <div class="row service-1" style="margin-top: 50px">
             @foreach($arrayInicio as $dato)
 
                 <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
@@ -236,5 +294,31 @@
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
+
+<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
+<script>
+
+
+
+
+
+    function buscarPropiedad(){
+        var inputMinimo = document.querySelector('.first-slider-value');
+        var valor = inputMinimo.value;
+        var precioMinimo = valor.replace(/\$|,/g, '');
+
+        var inputMaximo = document.querySelector('.second-slider-value');
+        var valorM = inputMaximo.value;
+        var precioMaximo = valorM.replace(/\$|,/g, '');
+
+        var nombre = document.getElementById('nombre-propiedad').value;
+
+        window.location.href = "{{ route('propiedad.buscada') }}?nombre=" + nombre + "&minimo=" + precioMinimo + "&maximo=" + precioMaximo;
+    }
+
+
+
+
+</script>
 
 

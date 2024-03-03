@@ -17,6 +17,7 @@ use App\Models\PropiedadTag;
 use App\Models\Recursos;
 use App\Models\Vendedores;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\HtmlString;
 use Mews\Purifier\Facades\Purifier;
 
@@ -211,10 +212,37 @@ class FrontendRecursosController extends Controller
         }else{
             return view('errors.404');
         }
-
-
     }
 
+
+
+    public function paginaBusqueda(Request $request)
+    {
+        // Obtener los valores de nombre y apellido de la solicitud
+        $nombre = $request->input('nombre');
+        $precioMinimo = $request->input('minimo');
+        $precioMaximo = $request->input('maximo');
+
+
+        // NI NOMBRE VIENE VACIO SE BUSCARAN  SOLO CON PRECIO
+
+        if($nombre != null){
+
+            $arrayPropiedad = Propiedad::where('nombre', 'LIKE', '%' . $nombre . '%')
+                ->whereBetween('precio', [$precioMinimo, $precioMaximo])
+                ->orderBy('nombre', 'ASC')
+                ->paginate(10);
+        }else{
+
+            // No buscar por nombre, solo precio
+
+            $arrayPropiedad = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximo])
+                ->orderBy('nombre', 'ASC')
+                ->paginate(10);
+        }
+
+        return view('frontend.paginas.busqueda.propiedadbusqueda', compact('arrayPropiedad'));
+    }
 
 
 }

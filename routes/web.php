@@ -236,6 +236,7 @@ Route::get('/propiedad/{slug}', [FrontendRecursosController::class,'propiedadSlu
 
 
 
+Route::get('/busqueda', [FrontendRecursosController::class,'paginaBusqueda'])->name('propiedad.buscada');
 
 
 
