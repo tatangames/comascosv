@@ -8,9 +8,6 @@
                             <thead>
                             <tr>
                                 <th style="width: 5%">Nombre</th>
-                                <th style="width: 8%">Imagen</th>
-                                <th style="width: 5%">Teléfono</th>
-                                <th style="width: 5%">Fecha Registro</th>
                                 <th style="width: 4%">Opciones</th>
                             </tr>
                             </thead>
@@ -19,20 +16,11 @@
                             @foreach($listado as $dato)
                                 <tr>
                                     <td style="width: 5%">{{ $dato->nombre }}</td>
-                                    <td>
-                                        <center><img alt="Imagenes" src="{{ url('storage/archivos/'.$dato->imagen) }}" width="100px" height="100px" /></center>
-                                    </td>
-                                    <td style="width: 8%">{{ $dato->telefono }}</td>
-                                    <td style="width: 8%">{{ $dato->fechaFormat }}</td>
 
                                     <td style="width: 4%">
 
-                                        <button type="button" class="btn btn-info btn-xs" onclick="informacionEditar({{ $dato->id }})">
-                                            <i class="fas fa-eye" title="Editar"></i>&nbsp; Editar
-                                        </button>
-
-                                        <button type="button" style="margin: 4px" class="btn btn-success btn-xs" onclick="vistaContacto({{ $dato->id }})">
-                                            <i class="fas fa-eye" title="Contacto"></i>&nbsp; Contacto
+                                        <button type="button" style="margin: 4px" class="btn btn-danger btn-xs" onclick="modalBorrar({{ $dato->id }})">
+                                            <i class="fas fa-eye" title="Borrar"></i>&nbsp; Borrar
                                         </button>
 
                                     </td>

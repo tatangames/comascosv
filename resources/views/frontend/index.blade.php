@@ -130,9 +130,6 @@
                                 @endforeach
 
 
-
-
-
                             </ul>
                             <div class="price-properties footer pt-3 pb-0">
                                 <h3 class="title mt-3">

@@ -7,19 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * ETIQUETAS DE MUESTRA PARA PROPIEDAD
+     * LISTADO DE IMAGENES 360
      */
     public function up(): void
     {
-        Schema::create('propiedad_etiqueta', function (Blueprint $table) {
+        Schema::create('propiedad_imagen360', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_propiedad')->unsigned();
-            $table->bigInteger('id_etiqueta')->unsigned();
 
+            $table->bigInteger('id_propiedad')->unsigned();
+
+            $table->string('imagen', 100);
             $table->integer('posicion');
 
             $table->foreign('id_propiedad')->references('id')->on('propiedad');
-            $table->foreign('id_etiqueta')->references('id')->on('listado_etiqueta');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('propiedad_etiqueta');
+        Schema::dropIfExists('propiedad_imagen360');
     }
 };

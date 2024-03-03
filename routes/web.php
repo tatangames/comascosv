@@ -82,6 +82,17 @@ Route::post('/admin/vendedores/registrar', [RecursosController::class,'registrar
 Route::post('/admin/vendedores/informacion', [RecursosController::class,'informacionVendedor']);
 Route::post('/admin/vendedores/actualizar', [RecursosController::class,'actualizarVendedor']);
 
+// --- VENDEDOR CONTACTO ---
+Route::get('/admin/vendedorcontacto/index/{idpropiedad}', [RecursosController::class,'indexVendedorContacto']);
+Route::get('/admin/vendedorcontacto/tabla/{idpropiedad}', [RecursosController::class,'tablaVendedorContacto']);
+Route::post('/admin/vendedorcontacto/registrar', [RecursosController::class,'registrarVendedorContacto']);
+Route::post('/admin/vendedorcontacto/posicion', [RecursosController::class,'actualizarPosicionVendedorContacto']);
+Route::post('/admin/vendedorcontacto/borrar', [RecursosController::class,'borrarVendedorContacto']);
+
+
+
+
+
 // --- LISTADO ETIQUETAS ---
 
 Route::get('/admin/etiquetas/index', [RecursosController::class,'indexEtiquetas'])->name('admin.propiedad.etiquetas');
@@ -179,16 +190,24 @@ Route::post('/admin/propiedaddetalle/posicion', [PropiedadController::class,'act
 Route::post('/admin/propiedaddetalle/borrar', [PropiedadController::class,'borrarPropiedadDetalle']);
 
 // --- PROPIEDAD PLANOS ---
-Route::get('/admin/propiedadplanos/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadPlanos'])->name('admin.propiedad.planos');
+Route::get('/admin/propiedadplanos/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadPlanos']);
 Route::get('/admin/propiedadplanos/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadPlanos']);
 Route::post('/admin/propiedadplanos/registrar', [PropiedadController::class,'registrarPropiedadPlanos']);
 Route::post('/admin/propiedadplanos/posicion', [PropiedadController::class,'actualizarPosicionPropiedadPlanos']);
 Route::post('/admin/propiedadplanos/borrar', [PropiedadController::class,'borrarPropiedadPlanos']);
 
+// --- PROPIEDAD IMAGEN 360 ---
+Route::get('/admin/propiedadimagen360/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadImagen360']);
+Route::get('/admin/propiedadimagen360/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadImagen360']);
+Route::post('/admin/propiedadimagen360/registrar', [PropiedadController::class,'registrarPropiedadImagen360']);
+Route::post('/admin/propiedadimagen360/posicion', [PropiedadController::class,'actualizarPosicionPropiedadImagen360']);
+Route::post('/admin/propiedadimagen360/borrar', [PropiedadController::class,'borrarPropiedadImagen360']);
 
-
-
-
+// --- PROPIEDAD ETIQUETA POPULAR ---
+Route::get('/admin/propiedadtagpopular/index/{idpropiedad}', [PropiedadController::class,'indexTagPopular']);
+Route::get('/admin/propiedadtagpopular/tabla/{idpropiedad}', [PropiedadController::class,'tablaTagPopular']);
+Route::post('/admin/propiedadtagpopular/registrar', [PropiedadController::class,'registrarTagPopular']);
+Route::post('/admin/propiedadtagpopular/borrar', [PropiedadController::class,'borrarTagPopular']);
 
 
 

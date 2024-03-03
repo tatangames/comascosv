@@ -9,10 +9,12 @@ use App\Models\Propiedad;
 use App\Models\Propiedad4Tag;
 use App\Models\PropiedadDetalle;
 use App\Models\PropiedadEtiqueta;
+use App\Models\PropiedadImagen360;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
 use App\Models\PropiedadPlanos;
+use App\Models\PropiedadTag;
 use App\Models\PropiedadTipoDetalle;
 use App\Models\Vendedores;
 use Carbon\Carbon;
@@ -283,10 +285,11 @@ class PropiedadController extends Controller
 
             if ($upload) {
 
-                if(Storage::disk('archivos')->exists($imagenOld)){
-                    Storage::disk('archivos')->delete($imagenOld);
+                if($imagenOld != null){
+                    if(Storage::disk('archivos')->exists($imagenOld)){
+                        Storage::disk('archivos')->delete($imagenOld);
+                    }
                 }
-
 
                 Propiedad::where('id', $request->id)
                     ->update([
@@ -303,8 +306,6 @@ class PropiedadController extends Controller
                         'video_url' => $request->videourl,
                         'video_imagen' => $nombreFoto
                     ]);
-
-
 
             }else{
                 return ['success' => 99];
@@ -1024,6 +1025,176 @@ class PropiedadController extends Controller
     }
 
 
+
+
+    // *********************** IMAGEN 360 ************************************
+
+
+    public function indexPropiedadImagen360($idpropi)
+    {
+        return view('backend.admin.propiedad.imagen360.vistaimagen360', compact('idpropi'));
+    }
+
+    public function tablaPropiedadImagen360($idpropi)
+    {
+        $listado = PropiedadImagen360::where('id_propiedad', $idpropi)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        return view('backend.admin.propiedad.imagen360.tablaimagen360', compact('listado'));
+    }
+
+
+    public function registrarPropiedadImagen360(Request $request)
+    {
+        $regla = array(
+            'idpropiedad' => 'required',
+        );
+
+        // imagen
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        $cadena = Str::random(15);
+        $tiempo = microtime();
+        $union = $cadena . $tiempo;
+        $nombre = str_replace(' ', '_', $union);
+
+        $extension = '.' . $request->imagen->getClientOriginalExtension();
+        $nombreFoto = $nombre . strtolower($extension);
+        $avatar = $request->file('imagen');
+        $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+        if ($upload) {
+
+            if($info = PropiedadImagen360::where('id_propiedad', $request->idpropiedad)
+                ->orderBy('posicion', 'DESC')
+                ->first()){
+                $nuevaPosicion = $info->posicion + 1;
+            }else{
+                $nuevaPosicion = 1;
+            }
+
+            $nuevo = new PropiedadImagen360();
+            $nuevo->id_propiedad = $request->idpropiedad;
+            $nuevo->posicion = $nuevaPosicion;
+            $nuevo->imagen = $nombreFoto;
+            $nuevo->save();
+
+            return ['success' => 1];
+
+        } else {
+            // error al subir imagen
+            return ['success' => 99];
+        }
+    }
+
+
+    public function actualizarPosicionPropiedadImagen360(Request $request)
+    {
+        $tasks = PropiedadImagen360::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadImagen360(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PropiedadImagen360::where('id', $request->id)->first()){
+
+            $imagenOld = $info->imagen;
+
+            if(Storage::disk('archivos')->exists($imagenOld)){
+                Storage::disk('archivos')->delete($imagenOld);
+            }
+
+            PropiedadImagen360::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+
+
+    // ---------------- PROPIEDAD TAG POPULAR ----
+
+
+    public function indexTagPopular($idpropi)
+    {
+        return view('backend.admin.propiedad.tagpopular.vistatagpopular', compact('idpropi'));
+    }
+
+    public function tablaTagPopular($idpropi)
+    {
+
+        $listado = PropiedadTag::where('id_propiedad', $idpropi)
+            ->orderBy('nombre', 'ASC')
+            ->get();
+
+        return view('backend.admin.propiedad.tagpopular.tablatagpopular', compact('listado'));
+    }
+
+
+    public function registrarTagPopular(Request $request)
+    {
+        $regla = array(
+            'idpropiedad' => 'required',
+            'titulo' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        $nuevo = new PropiedadTag();
+        $nuevo->id_propiedad = $request->idpropiedad;
+        $nuevo->nombre = $request->titulo;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+    public function borrarTagPopular(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(PropiedadTag::where('id', $request->id)->first()){
+
+            PropiedadTag::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
 
 
 

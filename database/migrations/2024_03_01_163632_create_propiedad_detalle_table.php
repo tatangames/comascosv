@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * LISTA DE DETALLES PARA UNA PROPIEDAD
      */
     public function up(): void
     {

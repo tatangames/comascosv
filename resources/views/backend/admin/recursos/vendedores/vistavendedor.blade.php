@@ -343,6 +343,11 @@
         }
 
 
+        function vistaContacto(id){
+            window.location.href="{{ url('/admin/vendedorcontacto/index') }}/" + id;
+        }
+
+
 
     </script>
 

@@ -7,14 +7,15 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * LISTADO DE LUGARES
+     * TIPOS DE CONTACTO PARA VENDEDOR
+     * // telefono, ubicacion, correo
      */
     public function up(): void
     {
-        Schema::create('lugares', function (Blueprint $table) {
+        Schema::create('tipo_contacto_vendedor', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre', 100);
-            $table->string('imagen', 100);
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lugares');
+        Schema::dropIfExists('tipo_contacto_vendedor');
     }
 };

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * TIPOS DE CONTACOS PARA MOSTRAR EN PAGINA CONTACTOS
      */
     public function up(): void
     {

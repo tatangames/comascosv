@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Recursos;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactoVendedor;
 use App\Models\DetallesContacto;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
@@ -11,6 +12,7 @@ use App\Models\PresentacionInicio;
 use App\Models\PropiedadEtiqueta;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\Recursos;
+use App\Models\TipoContactoVendedor;
 use App\Models\TiposContactos;
 use App\Models\Vendedores;
 use Carbon\Carbon;
@@ -295,6 +297,120 @@ class RecursosController extends Controller
             return ['success' => 1];
         }
     }
+
+
+
+    // ************************ CONTACTO PARA VENDEDOR ***********************************************
+
+    public function indexVendedorContacto($idvendedor){
+
+        $arrayTipo = TipoContactoVendedor::orderBy('nombre', 'ASC')->get();
+
+        return view('backend.admin.recursos.vendedores.contacto.vistacontacto', compact('arrayTipo', 'idvendedor'));
+    }
+
+    public function tablavendedorcontacto($idvendedor){
+
+        $listado = ContactoVendedor::where('id_vendedor', $idvendedor)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        foreach ($listado as $dato){
+
+            $infoContacto = TipoContactoVendedor::where('id', $dato->id_tipocontacto)->first();
+
+            $dato->tipo = $infoContacto->nombre;
+        }
+
+        return view('backend.admin.recursos.vendedores.contacto.tablacontacto', compact('listado'));
+    }
+
+
+    public function registrarvendedorcontacto(Request $request){
+
+        $regla = array(
+            'nombre' => 'required',
+            'idvendedor' => 'required',
+            'etiqueta' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = ContactoVendedor::where('id_vendedor', $request->idvendedor)
+            ->orderBy('posicion', 'DESC')
+            ->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        $nuevo = new ContactoVendedor();
+        $nuevo->id_vendedor = $request->idvendedor;
+        $nuevo->id_tipocontacto = $request->etiqueta;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->titulo = $request->nombre;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+    public function actualizarPosicionVendedorContacto(Request $request){
+
+        $tasks = ContactoVendedor::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarVendedorContacto(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        // direccion, precio
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        if($info = ContactoVendedor::where('id', $request->id)->first()){
+
+            ContactoVendedor::where('id', $info->id)->delete();
+
+            // fue borrada
+            return ['success' => 1];
+        }else{
+            // decir que fue borrado
+            return ['success' => 1];
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

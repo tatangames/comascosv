@@ -3,7 +3,8 @@
 @include("frontend.menu.navbar")
 
 
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
 <!-- START SECTION PROPERTIES LISTING -->
 <section class="single-proper blog details">
@@ -21,7 +22,6 @@
                                             <span class="mrg-l-5 category-tag">
 
                                                     {{ $infoPropi->vineta_izquierda }}
-
 
                                             </span></h3>
                                         @endif
@@ -113,7 +113,7 @@
 
                     <div class="single homes-content details mb-30">
 
-                        @if($arrayDetalle1 != null)
+                        @if(count($arrayDetalle1) > 0)
                             <h5 class="mb-4">Detalles</h5>
                             <ul class="homes-list clearfix">
 
@@ -126,7 +126,7 @@
                             </ul>
                         @endif
 
-                        @if($arrayDetalle2 != null)
+                        @if(count($arrayDetalle2) > 0)
                                 <h5 class="mt-5">Extras</h5>
                                 <ul class="homes-list clearfix">
 
@@ -143,7 +143,7 @@
 
 
 
-                @if($arrayPlanos != null)
+                @if(count($arrayPlanos) > 0)
                     <div class="floor-plan property wprt-image-video w50 pro">
                     <h5>Planos</h5>
                         @foreach($arrayPlanos as $dato)
@@ -157,28 +157,41 @@
                 @if($infoPropi->video_url != null)
 
                     <div class="property wprt-image-video w50 pro">
-
                         <h5>Video</h5>
-                        <img alt="image" src="{{ url('storage/archivos/'.$infoPropi->video_imagen) }}">
-                        <a class="icon-wrap popup-video popup-youtube" href="{{ $infoPropi->video_url }}">
-                            <i class="fa fa-play"></i>
-                        </a>
-                        <div class="iq-waves">
-                            <div class="waves wave-1"></div>
-                            <div class="waves wave-2"></div>
-                            <div class="waves wave-3"></div>
-                        </div>
+                        <iframe width="100%" height="360" src="https://www.youtube.com/embed/{{ $infoPropi->video_url }}" frameborder="0" allowfullscreen></iframe>
                     </div>
 
 
+                @endif
+
+                @if(count($array360) > 0)
+
+                    <div class="blog-info details mb-30">
+                        <h5 class="mb-4">Imagen 360</h5>
+
+                        @foreach($array360 as $dato)
+
+                            <div id="panorama{{ $dato->id }}" style="width: 99%; height: 400px;"></div>
+
+                            <hr>
+
+                            <script>
+                                pannellum.viewer('panorama{{ $dato->id }}', {
+                                    "type": "equirectangular",
+                                    "panorama": "{{ url('storage/archivos/'.$dato->imagen) }}",
+                                    "autoLoad": true,
+                                });
+                            </script>
+
+                        @endforeach
+                    </div>
 
                 @endif
 
 
 
 
-
-                @if($infoPropi->latitud != null && $infoPropi->longitud2 != null)
+                @if($infoPropi->latitud != null && $infoPropi->longitud != null)
 
                     <div class="property-location map">
                         <h5>Mapa</h5>
@@ -186,14 +199,15 @@
                         <div id="colorlib-reservation">
                             <div class="container">
                                 <div class="row animate-box">
-                                    <div class="col-md-12">
-                                        <iframe
-                                            width="600"
-                                            height="450"
-                                            frameborder="0" style="border:0"
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.1868313109383!2d{{ $infoPropi->longitud }}!3d{{ $infoPropi->latitud }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259e53546e9cf%3A0x1c3bb99243deb742!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1646076979147!5m2!1sen!2sus" allowfullscreen>
-                                        </iframe>
-                                    </div>
+
+                                    <iframe
+                                        width="600"
+                                        height="450"
+                                        frameborder="0"
+                                        style="border:0"
+                                        src="https://maps.google.com/maps?q={{ $infoPropi->latitud }},{{ $infoPropi->longitud }}&z=15&output=embed"
+                                        allowfullscreen>
+                                    </iframe>
 
                                 </div>
                             </div>
@@ -210,256 +224,94 @@
             </div>
             <aside class="col-lg-4 col-md-12 car">
                 <div class="single widget">
-                    <!-- Start: Schedule a Tour -->
-                    <div class="schedule widget-boxed mt-33 mt-0">
-                        <div class="widget-boxed-header">
-                            <h4><i class="fa fa-calendar pr-3 padd-r-10"></i>Schedule a Tour</h4>
-                        </div>
-                        <div class="widget-boxed-body">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 book">
-                                    <input type="text" id="reservation-date" data-lang="en" data-large-mode="true" data-min-year="2017" data-max-year="2020" data-disabled-days="08/17/2017,08/18/2017" data-id="datedropper-0" data-theme="my-style" class="form-control" readonly="">
-                                </div>
-                                <div class="col-lg-6 col-md-12 book2">
-                                    <input type="text" id="reservation-time" class="form-control" readonly="">
-                                </div>
-                            </div>
-                            <div class="row mrg-top-15 mb-3">
-                                <div class="col-lg-6 col-md-12 mt-4">
-                                    <label class="mb-4">Adult</label>
-                                    <div class="input-group">
-                                                <span class="input-group-btn">
-										 <button type="button" class="btn counter-btn theme-cl btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-											 <i class="fa fa-minus"></i>
-										 </button>
-									        </span>
-                                        <input type="text" name="quant[1]" class="border-0 text-center form-control input-number" data-min="0" data-max="10" value="0">
-                                        <span class="input-group-btn">
-											 <button type="button" class="btn counter-btn theme-cl btn-number" data-type="plus" data-field="quant[1]">
-											  <i class="fa fa-plus"></i>
-											 </button>
-									        </span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 mt-4">
-                                    <label class="mb-4">Children</label>
-                                    <div class="input-group">
-                                                <span class="input-group-btn">
-										 <button type="button" class="btn counter-btn theme-cl btn-number" disabled="disabled" data-type="minus" data-field="quant[2]">
-											 <i class="fa fa-minus"></i>
-										 </button>
-									        </span>
-                                        <input type="text" name="quant[2]" class="border-0 text-center form-control input-number" data-min="0" data-max="10" value="0">
-                                        <span class="input-group-btn">
-											 <button type="button" class="btn counter-btn theme-cl btn-number" data-type="plus" data-field="quant[2]">
-											  <i class="fa fa-plus"></i>
-											 </button>
-									        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="payment-method.html" class="btn reservation btn-radius theme-btn full-width mrg-top-10">Submit Request</a>
-                        </div>
-                    </div>
-                    <!-- End: Schedule a Tour -->
+
                     <!-- end author-verified-badge -->
                     <div class="sidebar">
                         <div class="widget-boxed mt-33 mt-5">
                             <div class="widget-boxed-header">
-                                <h4>Agent Information</h4>
+                                <h4>Información Agente</h4>
                             </div>
                             <div class="widget-boxed-body">
                                 <div class="sidebar-widget author-widget2">
                                     <div class="author-box clearfix">
-                                        <img src="images/testimonials/ts-1.jpg" alt="author-image" class="author__img">
-                                        <h4 class="author__title">Lisa Clark</h4>
-                                        <p class="author__meta">Agent of Property</p>
+                                        <img src="{{ asset('storage/archivos/'.$infoVendedor->imagen) }}" alt="author-image" class="author__img">
+                                        <h4 class="author__title">{{ $infoVendedor->nombre }}</h4>
+
                                     </div>
                                     <ul class="author__contact">
-                                        <li><span class="la la-map-marker"><i class="fa fa-map-marker"></i></span>302 Av Park, New York</li>
-                                        <li><span class="la la-phone"><i class="fa fa-phone" aria-hidden="true"></i></span><a href="#">(234) 0200 17813</a></li>
-                                        <li><span class="la la-envelope-o"><i class="fa fa-envelope" aria-hidden="true"></i></span><a href="#">lisa@gmail.com</a></li>
+
+
+                                        @foreach($arrayContactos as $dato)
+
+                                            @if($dato->id_tipocontacto == 1)
+                                                <li>
+                                                    <span class="la la-phone">
+                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                    </span>
+                                                    <a
+                                                        href="https://wa.me/503{{$dato->titulo}}">{{ $dato->telefonoFormat }} <img src="{{ asset('images/logowasap.png') }}"
+                                                                                                                  style=" height: 30px !important; width: 30px !important; margin: 0 10px 0 10px"
+                                                                                                                  alt="whatsapp"></a> <br>
+                                                </li>
+
+                                            @elseif($dato->id_tipocontacto == 2)
+                                                <li><span class="la la-map-marker"><i class="fa fa-map-marker"></i></span>{{ $dato->titulo }}</li>
+                                            @elseif($dato->id_tipocontacto == 3)
+                                                <li><span class="la la-envelope-o"><i class="fa fa-envelope" aria-hidden="true"></i></span><a href="#">{{ $dato->titulo }}</a></li>
+                                            @endif
+
+                                        @endforeach
+
                                     </ul>
-                                    <div class="agent-contact-form-sidebar">
-                                        <h4>Request Inquiry</h4>
-                                        <form name="contact_form" method="post" action="functions.php">
-                                            <input type="text" id="fname" name="full_name" placeholder="Full Name" required />
-                                            <input type="number" id="pnumber" name="phone_number" placeholder="Phone Number" required />
-                                            <input type="email" id="emailid" name="email_address" placeholder="Email Address" required />
-                                            <textarea placeholder="Message" name="message" required></textarea>
-                                            <input type="submit" name="sendmessage" class="multiple-send-message" value="Submit Request" />
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="main-search-field-2">
-                            <div class="widget-boxed mt-5">
-                                <div class="widget-boxed-header">
-                                    <h4>Recent Properties</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="recent-post">
-                                        <div class="recent-main">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-1.jpg" alt=""></a>
-                                            </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html"><h6>Family Home</h6></a>
-                                                <p>$230,000</p>
-                                            </div>
-                                        </div>
-                                        <div class="recent-main my-4">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-2.jpg" alt=""></a>
-                                            </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html"><h6>Family Home</h6></a>
-                                                <p>$230,000</p>
-                                            </div>
-                                        </div>
-                                        <div class="recent-main">
-                                            <div class="recent-img">
-                                                <a href="blog-details.html"><img src="images/feature-properties/fp-3.jpg" alt=""></a>
-                                            </div>
-                                            <div class="info-img">
-                                                <a href="blog-details.html"><h6>Family Home</h6></a>
-                                                <p>$230,000</p>
-                                            </div>
+
+
+
+
+                        @if(count($arrayPropiVendedor) > 0)
+
+                            <div class="main-search-field-2">
+                                <div class="widget-boxed mt-5">
+                                    <div class="widget-boxed-header">
+                                        <h4>Propiedades</h4>
+                                    </div>
+                                    <div class="widget-boxed-body">
+                                        <div class="recent-post">
+
+                                           @foreach($arrayPropiVendedor as $dato)
+
+                                                <div class="recent-main">
+                                                    @if($dato->imagen != null)
+                                                        <div class="recent-img">
+                                                            <a href="{{ url('propiedad/'.$dato->slug) }}"><img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt=""></a>
+                                                        </div>
+                                                    @endif
+
+                                                    <div class="info-img">
+                                                        <a href="{{ url('propiedad/'.$dato->slug) }}"><h6>{{ $dato->nombre }}</h6></a>
+                                                        <p>{{ $dato->precioFormat }}</p>
+                                                    </div>
+
+                                                </div>
+
+                                            @endforeach
+
+
+
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="widget-boxed mt-5">
-                                <div class="widget-boxed-header mb-5">
-                                    <h4>Feature Properties</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="slick-lancers">
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>New York</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-1.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>Los Angles</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-2.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>San Francisco</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-3.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>Miami FL</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-4.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 230,000</span>
-                                                        <span>For Sale</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>Chicago IL</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-5.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="agents-grid mr-0">
-                                            <div class="listing-item compact">
-                                                <a href="properties-details.html" class="listing-img-container">
-                                                    <div class="listing-badges">
-                                                        <span class="featured">$ 6,500</span>
-                                                        <span class="rent">For Rent</span>
-                                                    </div>
-                                                    <div class="listing-img-content">
-                                                        <span class="listing-compact-title">House Luxury <i>Toronto CA</i></span>
-                                                        <ul class="listing-hidden-content">
-                                                            <li>Area <span>720 sq ft</span></li>
-                                                            <li>Rooms <span>6</span></li>
-                                                            <li>Beds <span>2</span></li>
-                                                            <li>Baths <span>3</span></li>
-                                                        </ul>
-                                                    </div>
-                                                    <img src="images/feature-properties/fp-6.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Start: Specials offer -->
+
+
+                        @endif
+
+
+
+
+                            <!-- ANUNCIOS
                             <div class="widget-boxed popular mt-5">
                                 <div class="widget-boxed-header">
                                     <h4>Specials of the day</h4>
@@ -468,213 +320,123 @@
                                     <div class="banner"><img src="images/single-property/banner.jpg" alt=""></div>
                                 </div>
                             </div>
-                            <!-- End: Specials offer -->
-                            <div class="widget-boxed popular mt-5">
-                                <div class="widget-boxed-header">
-                                    <h4>Popular Tags</h4>
-                                </div>
-                                <div class="widget-boxed-body">
-                                    <div class="recent-post">
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Houses</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Real Home</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Baths</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Beds</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Garages</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Family</a></span>
-                                        </div>
-                                        <div class="tags">
-                                            <span><a href="#" class="btn btn-outline-primary">Real Estates</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Properties</a></span>
-                                        </div>
-                                        <div class="tags no-mb">
-                                            <span><a href="#" class="btn btn-outline-primary">Location</a></span>
-                                            <span><a href="#" class="btn btn-outline-primary">Price</a></span>
+                            -->
+
+
+
+                            @if(count($arrayTagPopular) > 0)
+
+                                <div class="widget-boxed popular mt-5">
+                                    <div class="widget-boxed-header">
+                                        <h4>Etiquetas</h4>
+                                    </div>
+                                    <div class="widget-boxed-body">
+                                        <div class="recent-post">
+
+                                            <div class="row">
+
+                                            @foreach($arrayTagPopular as $dato)
+
+                                                    <div class="tags">
+                                                        <span><a href="#" class="btn btn-outline-primary">{{ $dato->nombre }}</a></span>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
             </aside>
         </div>
-        <!-- START SIMILAR PROPERTIES -->
-        <section class="similar-property featured portfolio p-0 bg-white-inner">
-            <div class="container">
-                <h5>Similar Properties</h5>
-                <div class="row portfolio-items">
-                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt featured">Featured</div>
-                                        <div class="homes-tag button alt sale">For Sale</div>
-                                        <div class="homes-price">$9,000/mo</div>
-                                        <img src="images/blog/b-11.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Real House Luxury Villa</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <ul class="homes-list clearfix pb-3">
-                                    <li class="the-icons">
-                                        <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                        <span>6 Bedrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                        <span>3 Bathrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>720 sq ft</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>2 Garages</span>
-                                    </li>
-                                </ul>
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-1.jpg" alt="" class="mr-2"> Lisa Jhonson
-                                    </a>
-                                    <span>2 months ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item col-lg-4 col-md-6 col-xs-12 people">
-                        <div class="project-single">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button sale rent">For Rent</div>
-                                        <div class="homes-price">$3,000/mo</div>
-                                        <img src="images/blog/b-12.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+
+
+        @if(count($arrayPropiAletorias) > 0)
+
+            <!-- START SIMILAR PROPERTIES -->
+            <section class="similar-property featured portfolio p-0 bg-white-inner">
+                <div class="container">
+                    <h5>Propiedad Similares</h5>
+                    <div class="row portfolio-items">
+            @foreach($arrayPropiAletorias as $dato)
+
+                <div class="item col-lg-4 col-md-6 col-xs-12 landscapes">
+                                <div class="project-single">
+                                    <div class="project-inner project-head">
+                                        <div class="homes">
+                                            <!-- homes img -->
+                                            <a href="single-property-1.html" class="homes-img">
+                                                @if($dato->vineta_izquierda != null)
+                                                    <div class="homes-tag button alt featured">{{ $dato->vineta_izquierda }}</div>
+                                                @endif
+
+                                                @if($dato->vineta_derecha != null)
+                                                    <div class="homes-tag button alt sale">{{ $dato->vineta_derecha }}</div>
+                                                @endif
+
+                                                <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt="home-1" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="button-effect">
+                                            <a href="{{ url('propiedad/'.$dato->slug) }}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- homes content -->
+                                    <div class="homes-content">
+
+                                        <h3><a href="{{ url('propiedad/'.$dato->slug) }}">Real House Luxury Villa</a></h3>
+                                        <p class="homes-address mb-3">
+                                            <a href="single-property-1.html">
+                                                <i class="fa fa-dollar">{{ $dato->precioFormat }}</i><span></span>
+                                            </a>
+                                        </p>
+
+                                        <ul class="homes-list clearfix pb-3">
+                                            @foreach($dato->detalle as $jj)
+
+                                                <li class="the-icons">
+                                                    <img src="{{ url('storage/archivos/'.$jj->imagen) }}" style="height: 20px; width: 20px">
+                                                    <span style="margin-left: 2px"> {{ $jj->nombre }}</span>
+                                                </li>
+
+                                            @endforeach
+                                        </ul>
+
+                                        <div class="footer">
+                                            <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                <img src="{{ url('storage/archivos/'.$dato->imagenvendedor) }}" alt="" class="mr-2"> {{ $dato->nombrevendedor }}
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Real House Luxury Villa</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <ul class="homes-list clearfix pb-3">
-                                    <li class="the-icons">
-                                        <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                        <span>6 Bedrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                        <span>3 Bathrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>720 sq ft</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>2 Garages</span>
-                                    </li>
-                                </ul>
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-2.jpg" alt="" class="mr-2"> Karl Smith
-                                    </a>
-                                    <span>2 months ago</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item col-lg-4 col-md-6 col-xs-12 people landscapes no-pb pbp-3">
-                        <div class="project-single no-mb mbp-3">
-                            <div class="project-inner project-head">
-                                <div class="homes">
-                                    <!-- homes img -->
-                                    <a href="single-property-1.html" class="homes-img">
-                                        <div class="homes-tag button alt sale">For Sale</div>
-                                        <div class="homes-price">$9,000/mo</div>
-                                        <img src="images/blog/b-1.jpg" alt="home-1" class="img-responsive">
-                                    </a>
-                                </div>
-                                <div class="button-effect">
-                                    <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                    <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                                </div>
-                            </div>
-                            <!-- homes content -->
-                            <div class="homes-content">
-                                <!-- homes address -->
-                                <h3><a href="single-property-1.html">Real House Luxury Villa</a></h3>
-                                <p class="homes-address mb-3">
-                                    <a href="single-property-1.html">
-                                        <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                                    </a>
-                                </p>
-                                <!-- homes List -->
-                                <ul class="homes-list clearfix pb-3">
-                                    <li class="the-icons">
-                                        <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                        <span>6 Bedrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                        <span>3 Bathrooms</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                        <span>720 sq ft</span>
-                                    </li>
-                                    <li class="the-icons">
-                                        <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                        <span>2 Garages</span>
-                                    </li>
-                                </ul>
-                                <div class="footer">
-                                    <a href="agent-details.html">
-                                        <img src="images/testimonials/ts-3.jpg" alt="" class="mr-2"> katy Teddy
-                                    </a>
-                                    <span>2 months ago</span>
-                                </div>
-                            </div>
-                        </div>
+
+
+            @endforeach
+
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- END SIMILAR PROPERTIES -->
+            </section>
+            <!-- END SIMILAR PROPERTIES -->
+        @endif
+
     </div>
 </section>
 <!-- END SECTION PROPERTIES LISTING -->
@@ -682,13 +444,9 @@
 
 
 
-
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
-
-
-
 
 
 

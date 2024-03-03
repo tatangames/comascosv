@@ -319,22 +319,18 @@
 
                                 <div class="list-group b-0 mail-list" id="configuracion">
 
-                                    <button type="button" onclick="vistaEtiquetas();" class="btn btn-success btn-block waves-effect waves-light">Etiquetas</button>
-                                    <button type="button" onclick="modalVineta();" class="btn btn-warning btn-block waves-effect waves-light" style="color: white">Viñeta</button>
+                                    <button type="button" onclick="vistaEtiquetas();" class="btn btn-info btn-block waves-effect waves-light">Etiquetas</button>
+                                    <button type="button" onclick="modalVineta();" class="btn btn-info btn-block waves-effect waves-light" style="color: white">Viñeta</button>
                                     <button type="button" onclick="vista4Tag();" class="btn btn-info btn-block waves-effect waves-light" style="color: white">Etiqueta Inicio</button>
-                                    <button type="button" onclick="vistaImagenes();" class="btn btn-success btn-block waves-effect waves-light">Imágenes</button>
+                                    <button type="button" onclick="vistaImagenes();" class="btn btn-info btn-block waves-effect waves-light">Imágenes</button>
                                     <button type="button" onclick="modalDescripcion();" class="btn btn-info btn-block waves-effect waves-light">Descripción</button>
                                     <button type="button" onclick="vistaDetalleEtiqueta();" class="btn btn-info btn-block waves-effect waves-light">Detalle Etiqueta</button>
                                     <button type="button" onclick="vistaPlanos();" class="btn btn-info btn-block waves-effect waves-light">Planos</button>
-
-
+                                    <button type="button" onclick="vistaImagen360();" class="btn btn-info btn-block waves-effect waves-light">Imagen 360</button>
+                                    <button type="button" onclick="vistaTagPopular();" class="btn btn-info btn-block waves-effect waves-light">Etiqueta Popular</button>
 
 
                                 </div>
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -995,6 +991,16 @@
         function vistaPlanos(){
             var id = document.getElementById('id-opciones').value;
             window.location.href="{{ url('/admin/propiedadplanos/index') }}/" + id;
+        }
+
+        function vistaImagen360(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedadimagen360/index') }}/" + id;
+        }
+
+        function vistaTagPopular(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/propiedadtagpopular/index') }}/" + id;
         }
 
 

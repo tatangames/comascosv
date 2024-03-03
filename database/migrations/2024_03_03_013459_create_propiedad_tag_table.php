@@ -7,19 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * ETIQUETAS DE MUESTRA PARA PROPIEDAD
+     * ETIQUETA POPULAR, AL TOCAR CARGARA OTRA VENTANA CON LAS PROPIEDAD SIMILARES
      */
     public function up(): void
     {
-        Schema::create('propiedad_etiqueta', function (Blueprint $table) {
+        Schema::create('propiedad_tag', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_propiedad')->unsigned();
-            $table->bigInteger('id_etiqueta')->unsigned();
 
-            $table->integer('posicion');
+            $table->string('nombre', 100);
 
             $table->foreign('id_propiedad')->references('id')->on('propiedad');
-            $table->foreign('id_etiqueta')->references('id')->on('listado_etiqueta');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('propiedad_etiqueta');
+        Schema::dropIfExists('propiedad_tag');
     }
 };
