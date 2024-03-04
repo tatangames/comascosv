@@ -22,6 +22,10 @@ return new class extends Migration
 
             // PARA MOSTRAR WHASSAP EN VARIAS PARTES DE LA WEB
             $table->string('telefono', 25)->nullable();
+
+
+            // PIE DE PAGINA UN TEXTO DEBAJO DEL LOGO
+            $table->string('descripcion_pagina', 200)->nullable();
         });
     }
 

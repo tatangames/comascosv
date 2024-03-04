@@ -59,7 +59,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nuevo Vendedor</h4>
+                    <h4 class="modal-title">Registro</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,7 +71,7 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
-                                        <label class="control-label">Agente Vendedor</label>
+                                        <label class="control-label">Nombre de Propiedad</label>
                                         <select class="form-control" id="select-propiedad" onchange="buscarFoto(this)">
                                             <option value="0">Seleccionar Opción</option>
                                             @foreach($arrayPropiedad as $item)
@@ -178,7 +178,8 @@
                         let imagen = response.data.imagen;
 
                         $('#foto-ficha').prop("src","{{ url('storage/archivos') }}"+'/'+ imagen);
-                        document.getElementById('textofoto').innerHTML = "FOTOGRAFIA";
+                        let nombreVendedor = response.data.vendedor;
+                        document.getElementById('textofoto').innerHTML = "Vendedor: " + nombreVendedor;
 
                         $('#fechainicia').val(response.data.fechainicio);
                         $('#fechafin').val(response.data.fechafin);
@@ -224,6 +225,7 @@
                     }else if(response.data.success === 2){
                         toastr.success('Registrado correctamente');
                         $('#modalAgregar').modal('hide');
+
                         recargar();
                     }
                     else {

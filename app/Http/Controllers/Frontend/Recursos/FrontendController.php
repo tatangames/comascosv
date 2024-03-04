@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Recursos;
 
 use App\Http\Controllers\Controller;
+use App\InfoRecursosGet;
 use App\Models\Lugares;
 use App\Models\LugaresInicio;
 use App\Models\PresentacionInicio;
@@ -40,7 +41,10 @@ class FrontendController extends Controller
         }
 
         // listado de propiedades
-        $arrayPropiedades = PropiedadInicio::orderBy('posicion', 'ASC')->get();
+        $arrayPropiedades = PropiedadInicio::orderBy('posicion', 'ASC')
+            ->where('visible', 1)
+            ->get();
+
         $resultsBloque = array();
         $index = 0;
 
@@ -112,8 +116,14 @@ class FrontendController extends Controller
             $dato->conteo = $conteo;
         }
 
+        // DATOS PARA PIE DE PAGINA
+
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
-            'arrayPropiedades', 'arrayLugarInicio'));
+            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos'));
     }
 
 

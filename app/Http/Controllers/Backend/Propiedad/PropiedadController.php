@@ -105,7 +105,8 @@ class PropiedadController extends Controller
             return ['success' => 1,
                     'imagen' => $infoVendedor->imagen,
                     'fechainicio' => $fechainicia,
-                    'fechafin' => $fechafin
+                    'fechafin' => $fechafin,
+                    'vendedor' => $infoVendedor->nombre
                 ];
 
         }else{
