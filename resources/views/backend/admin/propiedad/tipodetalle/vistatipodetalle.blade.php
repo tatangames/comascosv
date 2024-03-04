@@ -41,6 +41,7 @@
                 @endforeach
             </select>
         </div>
+
     </section>
 
     <section class="content">
@@ -177,6 +178,10 @@
 
                     if(response.data.success === 1){
                         toastr.success('Registrado correctamente');
+
+                        document.getElementById('titulo-nuevo').value = '';
+                        document.getElementById('descripcion-nuevo').value = '';
+
                         recargar();
                     }
                     else {

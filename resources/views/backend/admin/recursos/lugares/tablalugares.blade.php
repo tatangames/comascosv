@@ -9,6 +9,7 @@
                             <tr>
                                 <th style="width: 5%">Nombre</th>
                                 <th style="width: 8%">Imagen</th>
+                                <th style="width: 8%">Visible</th>
                                 <th style="width: 4%">Opciones</th>
                             </tr>
                             </thead>
@@ -20,6 +21,16 @@
                                     <td>
                                         <center><img alt="Imagenes" src="{{ url('storage/archivos/'.$dato->imagen) }}" width="100px" height="100px" /></center>
                                     </td>
+
+                                    <td>
+                                        @if($dato->visible == 1)
+                                            <span class="badge bg-success">Activo</span>
+                                        @else
+                                            <span class="badge bg-danger">Inactivo</span>
+                                        @endif
+                                    </td>
+
+
 
                                     <td style="width: 4%">
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend\Recursos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lugares;
+use App\Models\LugaresInicio;
 use App\Models\PresentacionInicio;
 use App\Models\Propiedad;
 use App\Models\Propiedad4Tag;
@@ -10,6 +12,7 @@ use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
 use App\Models\Recursos;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,7 +85,35 @@ class FrontendController extends Controller
             $index++;
         }
 
-        return view('frontend.index', compact( 'arrayInicio', 'infoRecursos', 'arrayPropiedades'));
+        // LUGARES INICIO
+        $arrayLugarInicio = LugaresInicio::orderBy('posicion', 'ASC')->get();
+        $fechaActual = Carbon::now('America/El_Salvador');
+
+        foreach ($arrayLugarInicio as $dato){
+
+            $info = Lugares::where('id', $dato->id_lugares)->first();
+            $dato->nombre = $info->nombre;
+            $dato->imagen = $info->imagen;
+
+            $listaPropi = Propiedad::where('id_lugar', $dato->id_lugares)
+                ->where('visible', 1)->get();
+
+            $conteo = 0;
+            foreach ($listaPropi as $jj){
+
+                $fechaInicio = Carbon::create($jj->fecha_inicio);
+                $fechaFin = Carbon::create($jj->fecha_fin);
+
+                if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                    $conteo++;
+                }
+            }
+
+            $dato->conteo = $conteo;
+        }
+
+        return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
+            'arrayPropiedades', 'arrayLugarInicio'));
     }
 
 

@@ -209,6 +209,24 @@ Route::get('/admin/propiedadtagpopular/tabla/{idpropiedad}', [PropiedadControlle
 Route::post('/admin/propiedadtagpopular/registrar', [PropiedadController::class,'registrarTagPopular']);
 Route::post('/admin/propiedadtagpopular/borrar', [PropiedadController::class,'borrarTagPopular']);
 
+// --- LUGARES INICIO ---
+Route::get('/admin/lugaresinicio/index', [RecursosController::class,'indexLugaresInicio'])->name('admin.lugares.inicio');
+Route::get('/admin/lugaresinicio/tabla', [RecursosController::class,'tablaLugaresInicio']);
+Route::post('/admin/lugaresinicio/registrar', [RecursosController::class,'registrarLugaresInicio']);
+Route::post('/admin/lugaresinicio/posicion', [RecursosController::class,'actualizarPosicionLugaresInicio']);
+Route::post('/admin/lugaresinicio/borrar', [RecursosController::class,'borrarLugaresInicio']);
+
+// --- PIE DE PAGINA ---
+Route::get('/admin/piepagina/index', [RecursosController::class,'indexPiePagina'])->name('admin.pie.de.pagina');
+Route::post('/admin/piepagina/actualizar', [RecursosController::class,'actualizarColumnas']);
+
+Route::get('/admin/piepagina/columna/index/{idfila}', [RecursosController::class,'indexPieColumnasFila']);
+Route::get('/admin/piepagina/columna/tabla/{idfila}', [RecursosController::class,'tablaPieColumnasFila']);
+Route::post('/admin/piepagina/columna/posicion', [RecursosController::class,'actualizarPosicionColumnaFila']);
+Route::post('/admin/piepagina/columna/borrar', [RecursosController::class,'borrarColumnaFila']);
+Route::post('/admin/piepagina/columna/registrar', [RecursosController::class,'registrarFilaColumna']);
+Route::post('/admin/piepagina/columna/informacion', [RecursosController::class,'informacionFilaColumna']);
+Route::post('/admin/piepagina/columna/actualizar', [RecursosController::class,'actualizarFilaColumna']);
 
 
 

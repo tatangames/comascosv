@@ -36,10 +36,10 @@ return new class extends Migration
             $table->string('slug', 150)->unique();
 
             $table->string('video_url', 100)->nullable();
-            // es la imagen de portada preview video
-            $table->string('video_imagen', 100)->nullable();
 
             $table->text('descripcion')->nullable();
+
+            $table->boolean('visible');
 
             $table->foreign('id_vendedor')->references('id')->on('vendedores');
             $table->foreign('id_lugar')->references('id')->on('lugares');

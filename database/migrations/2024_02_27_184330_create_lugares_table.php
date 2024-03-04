@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 100);
             $table->string('imagen', 100);
+            $table->boolean('visible');
         });
     }
 

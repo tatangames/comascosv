@@ -13,6 +13,7 @@
                                 <th style="width: 5%">Dirección</th>
                                 <th style="width: 5%">Precio</th>
                                 <th style="width: 5%">Fecha Visible</th>
+                                <th style="width: 5%">Activo</th>
                                 <th style="width: 4%">Opciones</th>
                             </tr>
                             </thead>
@@ -26,6 +27,13 @@
                                     <td style="width: 8%">{{ $dato->direccion }}</td>
                                     <td style="width: 8%">{{ $dato->precioFormat }}</td>
                                     <td style="width: 8%">{{ $dato->fechaVisible }}</td>
+                                    <td>
+                                        @if($dato->visible == 1)
+                                            <span class="badge bg-success">Si</span>
+                                        @else
+                                            <span class="badge bg-danger">No</span>
+                                        @endif
+                                    </td>
 
                                     <td style="width: 4%">
                                         <button type="button" class="btn btn-success btn-xs" onclick="informacionEditar({{ $dato->id }})">

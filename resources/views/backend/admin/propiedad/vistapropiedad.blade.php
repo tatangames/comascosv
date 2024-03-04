@@ -4,6 +4,7 @@
     <link href="{{ asset('css/adminlte.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/toastr.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/estiloToggle.css') }}" type="text/css" rel="stylesheet" />
 
 @stop
 
@@ -103,7 +104,7 @@
 
                                     <div class="form-group">
                                         <label>Dirección (Opcional)</label>
-                                        <input type="text" maxlength="25" class="form-control" id="direccion-nuevo" autocomplete="off">
+                                        <input type="text" maxlength="100" class="form-control" id="direccion-nuevo" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
@@ -136,16 +137,6 @@
                                         <input type="text" maxlength="100" class="form-control" id="videourl-nuevo" autocomplete="off">
                                     </div>
 
-                                    <div class="form-group">
-                                        <div>
-                                            <label>Imagen Preview Video</label>
-                                            <p>Recomendación medidas: 698 x 500 px</p>
-                                        </div>
-                                        <br>
-                                        <div class="col-md-10">
-                                            <input type="file" style="color:#191818" id="imagen-nuevo" accept="image/jpeg, image/jpg, image/png"/>
-                                        </div>
-                                    </div>
 
                                     <br>
                                     <hr>
@@ -223,7 +214,7 @@
 
                                     <div class="form-group">
                                         <label>Dirección (Opcional)</label>
-                                        <input type="text" maxlength="25" class="form-control" id="direccion-editar" autocomplete="off">
+                                        <input type="text" maxlength="100" class="form-control" id="direccion-editar" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
@@ -253,17 +244,6 @@
                                         <input type="text" maxlength="100" class="form-control" id="videourl-editar" autocomplete="off">
                                     </div>
 
-                                    <div class="form-group">
-                                        <div>
-                                            <label>Imagen Preview Video</label>
-                                            <p>Recomendación medidas: 698 x 500 px</p>
-                                        </div>
-                                        <br>
-                                        <div class="col-md-10">
-                                            <input type="file" style="color:#191818" id="imagen-editar" accept="image/jpeg, image/jpg, image/png"/>
-                                        </div>
-                                    </div>
-
                                     <br>
                                     <hr>
 
@@ -277,6 +257,20 @@
                                     <div class="form-group">
                                         <label>Longitud (Opcional)</label>
                                         <input type="text" maxlength="100" class="form-control" id="longitud-editar" autocomplete="off">
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label>Visible</label>
+                                        <br>
+                                        <label class="switch" style="margin-top:10px">
+                                            <input type="checkbox" id="toggle">
+                                            <div class="slider round">
+                                                <span class="on">Activo</span>
+                                                <span class="off">Inactivo</span>
+                                            </div>
+                                        </label>
                                     </div>
 
                                 </div>
@@ -328,7 +322,6 @@
                                     <button type="button" onclick="vistaPlanos();" class="btn btn-info btn-block waves-effect waves-light">Planos</button>
                                     <button type="button" onclick="vistaImagen360();" class="btn btn-info btn-block waves-effect waves-light">Imagen 360</button>
                                     <button type="button" onclick="vistaTagPopular();" class="btn btn-info btn-block waves-effect waves-light">Etiqueta Popular</button>
-
 
                                 </div>
                             </div>
@@ -556,7 +549,6 @@
             var idlugar = document.getElementById('select-lugar').value;
             var slug = document.getElementById('slug-nuevo').value;
             var videourl = document.getElementById('videourl-nuevo').value;
-            var imagen = document.getElementById('imagen-nuevo');
 
 
             if(idvendedor == '0'){
@@ -611,18 +603,7 @@
                 return;
             }
 
-            if(videourl.length > 0){
-                // verificar que hay imagen preview
-                if(imagen.files && imagen.files[0]){ // si trae imagen
-                    if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
-                        toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
-                        return;
-                    }
-                }else{
-                    toastr.error('Imagen es Requerida')
-                    return;
-                }
-            }
+
 
             openLoading();
             let formData = new FormData();
@@ -637,7 +618,7 @@
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
             formData.append('videourl', videourl);
-            formData.append('imagen', imagen.files[0]);
+
 
             axios.post('/admin/propiedad/registrar', formData, {
             })
@@ -710,6 +691,12 @@
                         $('#slug-editar').val(response.data.info.slug);
                         $('#videourl-editar').val(response.data.info.video_url);
 
+                        if(response.data.info.visible === 1){
+                            $("#toggle").prop("checked", true);
+                        }else{
+                            $("#toggle").prop("checked", false);
+                        }
+
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -735,7 +722,8 @@
             var idlugar = document.getElementById('select-lugar-editar').value;
             var slug = document.getElementById('slug-editar').value;
             var videourl = document.getElementById('videourl-editar').value;
-            var imagen = document.getElementById('imagen-editar');
+            let t = document.getElementById('toggle').checked;
+            let toggle = t ? 1 : 0;
 
             if(idvendedor == '0'){
                 toastr.error('Seleccionar Vendedor')
@@ -803,7 +791,7 @@
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
             formData.append('videourl', videourl);
-            formData.append('imagen', imagen.files[0]);
+            formData.append('toggle', toggle);
 
             axios.post('/admin/propiedad/actualizar', formData, {
             })
@@ -811,9 +799,13 @@
                     closeLoading();
 
                     if(response.data.success === 1) {
+                        toastr.error('Imagenes son requeridas');
+                    }
+
+                    else if(response.data.success === 2) {
                         toastr.error('Slug ya registrado');
                     }
-                    else if(response.data.success === 2){
+                    else if(response.data.success === 3){
                         toastr.success('Actualizado correctamente');
                         $('#modalEditar').modal('hide');
                         recargar();

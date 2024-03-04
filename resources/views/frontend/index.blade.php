@@ -86,7 +86,7 @@
                             <h3>{{ $dato->titulo }}</h3>
                         </div>
                         <div class="service-text-p">
-                            <p class="text-center">
+                            <p class="text-center" style="color: black !important;">
                                 {!! $dato->descripcion !!}
                             </p>
 
@@ -218,77 +218,40 @@
 </section>
 <!-- END SECTION FEATURED PROPERTIES -->
 
-<!-- START SECTION POPULAR PLACES -->
-<section class="feature-categories bg-white rec-pro">
-    <div class="container-fluid">
-        <div class="sec-title">
-            <h2>Ubicaciones</h2>
-            <p></p>
-        </div>
-        <div class="row">
 
 
 
 
+    @if(count($arrayLugarInicio) > 0)
+        <section class="feature-categories bg-white rec-pro">
+            <div class="container-fluid">
+                <div class="sec-title">
+                    <h2>Ubicaciones</h2>
+                    <p></p>
+                </div>
+                <div class="row">
 
-            <!-- Single category -->
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Metapan</a></h4>
-                        <span>203 propiedades</span>
-                    </div>
+                    @foreach($arrayLugarInicio as $dato)
+
+                        <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
+                            <div class="small-category-2">
+                                <div class="small-category-2-thumb img-1">
+                                    <a href="properties-full-grid-1.html">
+                                        <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt=""></a>
+                                </div>
+                                <div class="sc-2-detail">
+                                    <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">{{ $dato->nombre }}</a></h4>
+                                    <span>{{ $dato->conteo }} propiedades
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
                 </div>
             </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Santa Ana</a></h4>
-                        <span>5 propeidades</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">Texistepeque</a></h4>
-                        <span>8 propiedades</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">El Congo</a></h4>
-                        <span>9 propiedades</span>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <!-- /row -->
-    </div>
-</section>
-<!-- END SECTION POPULAR PLACES -->
+        </section>
+    @endif
 
 
 @include("frontend.menu.footer")

@@ -55,8 +55,6 @@
 
                 <!-- DASHBOARD CLIENTE -->
 
-
-
                 <li class="nav-item">
 
                     <a href="#" class="nav-link nav-">
@@ -93,6 +91,13 @@
                             <a href="{{ route('admin.propiedad.lugares') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Lugares</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.lugares.inicio') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Lugares Inicio</p>
                             </a>
                         </li>
 
@@ -167,6 +172,13 @@
                             <a href="{{ route('admin.pagina.contactos') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Contacto</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.pie.de.pagina') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pie de Página</p>
                             </a>
                         </li>
 

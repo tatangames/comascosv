@@ -4,7 +4,8 @@
     <link href="{{ asset('css/adminlte.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/toastr.min.css') }}" type="text/css" rel="stylesheet" />
-
+    <link href="{{ asset('css/select2.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}" type="text/css" rel="stylesheet">
 @stop
 
 <style>
@@ -21,13 +22,13 @@
             <div class="col-sm-6">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Nueva Etiqueta
+                    Nueva Luga Inicio
                 </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Etiquetas</li>
+                    <li class="breadcrumb-item">Lugares Inicio</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
@@ -39,7 +40,7 @@
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Listado</h3>
+                    <h3 class="card-title">Listado de Propiedad en Inicio</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -58,7 +59,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Nueva Etiqueta Principal</h4>
+                    <h4 class="modal-title">Nuevo Vendedor</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,14 +71,10 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
-                                        <label>Descripción</label>
-                                        <input type="text" maxlength="100" class="form-control" id="nombre-nuevo" autocomplete="off">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label">Lista de Imágenes</label>
-                                        <select class="form-control" id="select-etiqueta">
-                                            @foreach($arrayImagenes as $item)
+                                        <label class="control-label">Lugares</label>
+                                        <select class="form-control" id="select-lugares">
+                                            <option value="0">Seleccionar Opción</option>
+                                            @foreach($arrayLugares as $item)
                                                 <option value="{{$item->id}}">{{$item->nombre}}</option>
                                             @endforeach
                                         </select>
@@ -95,8 +92,9 @@
             </div>
         </div>
     </div>
-
 </div>
+
+
 
 
 @extends('backend.menus.footerjs')
@@ -110,11 +108,11 @@
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/alertaPersonalizada.js') }}"></script>
 
+
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var idpropiedad = {{ $idpropi }};
-            var ruta = "{{ URL::to('/admin/propiedad4tag/tabla') }}/" + idpropiedad;
+            var ruta = "{{ URL::to('/admin/lugaresinicio/tabla') }}";
             $('#tablaDatatable').load(ruta);
 
             document.getElementById("divcontenedor").style.display = "block";
@@ -125,43 +123,39 @@
 
         // recarga tabla
         function recargar(){
-            var idpropiedad = {{ $idpropi }};
-            var ruta = "{{ URL::to('/admin/propiedad4tag/tabla') }}/" + idpropiedad;
+            var ruta = "{{ URL::to('/admin/lugaresinicio/tabla') }}";
             $('#tablaDatatable').load(ruta);
         }
 
 
+        // abre modal para agregar nuevo pais
         function modalAgregar(){
             document.getElementById("formulario-nuevo").reset();
             $('#modalAgregar').modal('show');
         }
 
-
         function nuevo(){
-            var nombre = document.getElementById('nombre-nuevo').value;
-            var etiqueta = document.getElementById('select-etiqueta').value;
+            var idlugar = document.getElementById('select-lugares').value;
 
-            let idpropiedad = {{ $idpropi }};
-
-            if(nombre === ''){
-                toastr.error('Nombre es requerido');
+            if(idlugar == '0'){
+                toastr.error('Seleccionar Lugar')
                 return;
             }
 
             openLoading();
             let formData = new FormData();
-            formData.append('nombre', nombre);
-            formData.append('etiqueta', etiqueta);
-            formData.append('idpropiedad', idpropiedad);
+            formData.append('idlugar', idlugar);
 
-            axios.post('/admin/propiedad4tag/registrar', formData, {
+            axios.post('/admin/lugaresinicio/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
 
-                    if(response.data.success === 1){
+                    if(response.data.success === 1) {
+                        toastr.error('Ubicación ya registrada');
+                    }else if(response.data.success === 2){
                         toastr.success('Registrado correctamente');
-                        document.getElementById('nombre-nuevo').value = '';
+                        $('#modalAgregar').modal('hide');
                         recargar();
                     }
                     else {
@@ -173,7 +167,6 @@
                     closeLoading();
                 });
         }
-
 
 
         function modalBorrar(idfila){
@@ -197,14 +190,14 @@
 
             openLoading();
 
-            axios.post('/admin/propiedad4tag/borrar',{
+            axios.post('/admin/lugaresinicio/borrar',{
                 'id': idfila
             })
                 .then((response) => {
                     closeLoading();
                     if(response.data.success === 1){
 
-                        toastr.success('Etiqueta Borrada');
+                        toastr.success('Fila Borrada');
                         recargar();
                     }else{
                         toastr.error('Error al borrar');
@@ -215,6 +208,9 @@
                     closeLoading();
                 });
         }
+
+
+
 
 
     </script>

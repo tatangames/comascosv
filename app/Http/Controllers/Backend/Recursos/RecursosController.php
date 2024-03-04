@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Backend\Recursos;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactoVendedor;
+use App\Models\DescripcionPiePagina;
 use App\Models\DetallesContacto;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
+use App\Models\LugaresInicio;
 use App\Models\PreguntasFrecuentes;
 use App\Models\PresentacionInicio;
 use App\Models\PropiedadEtiqueta;
@@ -14,6 +16,7 @@ use App\Models\PropiedadImagen4Tag;
 use App\Models\Recursos;
 use App\Models\TipoContactoVendedor;
 use App\Models\TiposContactos;
+use App\Models\TituloPiePagina;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -540,6 +543,7 @@ class RecursosController extends Controller
                 $nuevo = new Lugares();
                 $nuevo->nombre = $request->nombre;
                 $nuevo->imagen = $nombreFoto;
+                $nuevo->visible = 1;
                 $nuevo->save();
 
                 return ['success' => 1];
@@ -580,6 +584,7 @@ class RecursosController extends Controller
 
         $rules = array(
             'nombre' => 'required',
+            'toggle' => 'required'
         );
 
         // imagen
@@ -612,6 +617,7 @@ class RecursosController extends Controller
                     ->update([
                         'nombre' => $request->nombre,
                         'imagen' => $nombreFoto,
+                        'visible' => $request->toggle
                     ]);
 
                 if(Storage::disk('archivos')->exists($imagenOld)){
@@ -627,6 +633,7 @@ class RecursosController extends Controller
             Lugares::where('id', $request->id)
                 ->update([
                     'nombre' => $request->nombre,
+                    'visible' => $request->toggle
                 ]);
 
             return ['success' => 1];
@@ -987,11 +994,233 @@ class RecursosController extends Controller
 
 
 
+    // ************************* LUGARES INICIO *******************************
+
+
+    public function indexLugaresInicio()
+    {
+        $arrayLugares = Lugares::orderBy('nombre', 'ASC')->get();
+
+        return view('backend.admin.recursos.lugaresinicio.vistalugarinicio', compact('arrayLugares'));
+    }
+
+
+    public function tablaLugaresInicio()
+    {
+        $listado = LugaresInicio::orderBy('posicion', 'ASC')->get();
+
+        foreach ($listado as $dato){
+            $info = Lugares::where('id', $dato->id_lugares)->first();
+            $dato->nombre = $info->nombre;
+        }
+
+        return view('backend.admin.recursos.lugaresinicio.tablalugarinicio', compact('listado'));
+    }
+
+
+    public function registrarLugaresInicio(Request $request){
+
+        $rules = array(
+            'idlugar' => 'required',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if(LugaresInicio::where('id_lugares', $request->idlugar)->first()){
+            return ['success' => 1];
+        }
+
+        if($info = LugaresInicio::orderBy('posicion', 'DESC')->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        $nuevo = new LugaresInicio();
+        $nuevo->id_lugares = $request->idlugar;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->save();
+
+        return ['success' => 2];
+    }
+
+    public function actualizarPosicionLugaresInicio(Request $request){
+
+        $tasks = LugaresInicio::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarLugaresInicio(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(LugaresInicio::where('id', $request->id)->first()){
+
+            LugaresInicio::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+    //************************ PIE DE PAGINA **********************************
+
+
+    public function indexPiePagina(){
+
+        $dato1 = TituloPiePagina::where('id', 1)->first();
+        $columna1 = $dato1->titulo;
+        $dato2 = TituloPiePagina::where('id', 2)->select('titulo')->first();
+        $columna2 = $dato2->titulo;
+
+        return view('backend.admin.paginas.piepagina.vistatitulopiepagina', compact('columna1',
+            'columna2'));
+    }
+
+
+    public function actualizarColumnas(Request $request){
+
+        $regla = array(
+            'columna1' => 'required',
+            'columna2' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        TituloPiePagina::where('id', 1)->update([
+            'titulo' => $request->columna1,
+        ]);
+
+        TituloPiePagina::where('id', 2)->update([
+            'titulo' => $request->columna2,
+        ]);
+
+        return ['success' => 1];
+    }
+
+
+    // PUEDE SER COLUMNA ID 1 O ID 2
+    public function indexPieColumnasFila($idfila){
+
+        return view('backend.admin.paginas.piepagina.vistacolumnafila', compact('idfila'));
+    }
+
+
+    public function tablaPieColumnasFila($idfila){
+
+        $listado = DescripcionPiePagina::where('id_titulopiepagina', $idfila)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        return view('backend.admin.paginas.piepagina.tablacolumnafila', compact('listado'));
+    }
 
 
 
 
 
+
+    public function actualizarPosicionColumnaFila(Request $request){
+
+        $tasks = DescripcionPiePagina::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function borrarColumnaFila(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if(DescripcionPiePagina::where('id', $request->id)->first()){
+
+            DescripcionPiePagina::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+    public function registrarFilaColumna(Request $request){
+        $regla = array(
+            'id' => 'required', // puede ser ID 1 o 2
+            'nombre' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = DescripcionPiePagina::where('id_titulopiepagina', $request->id)
+            ->orderBy('posicion', 'DESC')
+            ->first()){
+            $nuevaPosicion = $info->posicion + 1;
+        }else{
+            $nuevaPosicion = 1;
+        }
+
+        $nuevo = new DescripcionPiePagina();
+        $nuevo->id_titulopiepagina = $request->id;
+        $nuevo->nombre = $request->nombre;
+        $nuevo->posicion = $nuevaPosicion;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+
+    public function informacionFilaColumna(Request $request){
+
+
+    }
+
+    public function actualizarFilaColumna(Request $request){
+
+
+    }
 
 
 

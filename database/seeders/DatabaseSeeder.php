@@ -23,5 +23,11 @@ class DatabaseSeeder extends Seeder
         $this->call(AdministradorSeeder::class);
         $this->call(TiposContactosSeeder::class);
         $this->call(RecursosSeeder::class);
+        $this->call(PresentacionInicioSeeder::class);
+        $this->call(DetalleContactosSeeder::class);
+        $this->call(PropiedadTipoDetalleSeeder::class);
+        $this->call(TituloPiePaginaSeeder::class);
+        $this->call(DescripcionPiePaginaSeeder::class);
+
     }
 }

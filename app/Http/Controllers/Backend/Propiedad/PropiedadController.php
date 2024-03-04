@@ -124,7 +124,7 @@ class PropiedadController extends Controller
             'slug' => 'required'
         );
 
-        // direccion, precio, latitud, longitud, videourl, imagen
+        // direccion, precio, latitud, longitud, videourl
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -139,65 +139,24 @@ class PropiedadController extends Controller
                 return ['success' => 1];
             }
 
-            if ($request->hasFile('imagen')) {
-
-                $cadena = Str::random(15);
-                $tiempo = microtime();
-                $union = $cadena . $tiempo;
-                $nombre = str_replace(' ', '_', $union);
-
-                $extension = '.' . $request->imagen->getClientOriginalExtension();
-                $nombreFoto = $nombre . strtolower($extension);
-                $avatar = $request->file('imagen');
-                $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
-
-                if ($upload) {
-
-                    $nuevo = new Propiedad();
-                    $nuevo->id_vendedor = $request->idvendedor;
-                    $nuevo->fecha = Carbon::now('America/El_Salvador');
-                    $nuevo->nombre = $request->nombre;
-                    $nuevo->direccion = $request->direccion;
-                    $nuevo->precio = $request->precio;
-                    $nuevo->fecha_inicio = $request->fechainicio;
-                    $nuevo->fecha_fin = $request->fechafin;
-                    $nuevo->latitud = $request->latitud;
-                    $nuevo->longitud = $request->longitud;
-                    $nuevo->id_lugar = $request->idlugar;
-                    $nuevo->vineta_derecha = null;
-                    $nuevo->vineta_izquierda = null;
-                    $nuevo->slug = $slug;
-                    $nuevo->video_url = $request->videourl;
-                    $nuevo->descripcion = null;
-                    $nuevo->video_imagen = $nombreFoto;
-                    $nuevo->save();
-
-                }
-                else{
-                return ['success' => 99];
-                }
-            }else{
-                $nuevo = new Propiedad();
-                $nuevo->id_vendedor = $request->idvendedor;
-                $nuevo->fecha = Carbon::now('America/El_Salvador');
-                $nuevo->nombre = $request->nombre;
-                $nuevo->direccion = $request->direccion;
-                $nuevo->precio = $request->precio;
-                $nuevo->fecha_inicio = $request->fechainicio;
-                $nuevo->fecha_fin = $request->fechafin;
-                $nuevo->latitud = $request->latitud;
-                $nuevo->longitud = $request->longitud;
-                $nuevo->id_lugar = $request->idlugar;
-                $nuevo->vineta_derecha = null;
-                $nuevo->vineta_izquierda = null;
-                $nuevo->slug = $slug;
-                $nuevo->video_url = $request->videourl;
-                $nuevo->descripcion = null;
-                $nuevo->video_imagen = null;
-                $nuevo->save();
-            }
-
-
+            $nuevo = new Propiedad();
+            $nuevo->id_vendedor = $request->idvendedor;
+            $nuevo->fecha = Carbon::now('America/El_Salvador');
+            $nuevo->nombre = $request->nombre;
+            $nuevo->direccion = $request->direccion;
+            $nuevo->precio = $request->precio;
+            $nuevo->fecha_inicio = $request->fechainicio;
+            $nuevo->fecha_fin = $request->fechafin;
+            $nuevo->latitud = $request->latitud;
+            $nuevo->longitud = $request->longitud;
+            $nuevo->id_lugar = $request->idlugar;
+            $nuevo->vineta_derecha = null;
+            $nuevo->vineta_izquierda = null;
+            $nuevo->slug = $slug;
+            $nuevo->video_url = $request->videourl;
+            $nuevo->descripcion = null;
+            $nuevo->visible = 0;
+            $nuevo->save();
 
             DB::commit();
             return ['success' => 2];
@@ -249,14 +208,27 @@ class PropiedadController extends Controller
             'nombre' => 'required',
             'fechainicio' => 'required',
             'fechafin' => 'required',
-            'idlugar' => 'required'
+            'idlugar' => 'required',
+            'toggle' => 'required'
         );
 
-        // direccion, precio, latitud, longitud, slug, imagen
+        // direccion, precio, latitud, longitud, slug
 
         $validar = Validator::make($request->all(), $regla);
 
         if ($validar->fails()){ return ['success' => 0];}
+
+
+
+        // Verificar que tenga imagenes ya registradas
+        // si va activar
+        if($request->toggle == 1){
+            if(PropiedadImagenes::where('id_propiedad', $request->id)->first()){
+                // si hay imagenes
+            }else{
+                return ['success' => 1];
+            }
+        }
 
 
         $slug = Str::slug($request->slug, '-');
@@ -265,69 +237,26 @@ class PropiedadController extends Controller
             ->where('id', '!=', $request->id)
             ->first()){
 
-            return ['success' => 1];
+            return ['success' => 2];
         }
 
-        if ($request->hasFile('imagen')) {
+        Propiedad::where('id', $request->id)
+            ->update([
+                'id_vendedor' => $request->idvendedor,
+                'nombre' => $request->nombre,
+                'direccion' => $request->direccion,
+                'precio' => $request->precio,
+                'fecha_inicio' => $request->fechainicio,
+                'fecha_fin' => $request->fechafin,
+                'latitud' => $request->latitud,
+                'longitud' => $request->longitud,
+                'id_lugar' => $request->idlugar,
+                'slug' => $slug,
+                'video_url' => $request->videourl,
+                'visible' => $request->toggle
+            ]);
 
-            $infoPropiedad = Propiedad::where('id', $request->id)->first();
-            $imagenOld = $infoPropiedad->video_imagen;
-
-            $cadena = Str::random(15);
-            $tiempo = microtime();
-            $union = $cadena . $tiempo;
-            $nombre = str_replace(' ', '_', $union);
-
-            $extension = '.' . $request->imagen->getClientOriginalExtension();
-            $nombreFoto = $nombre . strtolower($extension);
-            $avatar = $request->file('imagen');
-            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
-
-            if ($upload) {
-
-                if($imagenOld != null){
-                    if(Storage::disk('archivos')->exists($imagenOld)){
-                        Storage::disk('archivos')->delete($imagenOld);
-                    }
-                }
-
-                Propiedad::where('id', $request->id)
-                    ->update([
-                        'id_vendedor' => $request->idvendedor,
-                        'nombre' => $request->nombre,
-                        'direccion' => $request->direccion,
-                        'precio' => $request->precio,
-                        'fecha_inicio' => $request->fechainicio,
-                        'fecha_fin' => $request->fechafin,
-                        'latitud' => $request->latitud,
-                        'longitud' => $request->longitud,
-                        'id_lugar' => $request->idlugar,
-                        'slug' => $slug,
-                        'video_url' => $request->videourl,
-                        'video_imagen' => $nombreFoto
-                    ]);
-
-            }else{
-                return ['success' => 99];
-            }
-        }else{
-            Propiedad::where('id', $request->id)
-                ->update([
-                    'id_vendedor' => $request->idvendedor,
-                    'nombre' => $request->nombre,
-                    'direccion' => $request->direccion,
-                    'precio' => $request->precio,
-                    'fecha_inicio' => $request->fechainicio,
-                    'fecha_fin' => $request->fechafin,
-                    'latitud' => $request->latitud,
-                    'longitud' => $request->longitud,
-                    'id_lugar' => $request->idlugar,
-                    'slug' => $slug,
-                    'video_url' => $request->videourl
-                ]);
-        }
-
-        return ['success' => 2];
+        return ['success' => 3];
     }
 
     public function actualizarPropiedadDescripcion(Request $request){

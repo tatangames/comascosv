@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * SOLO PARA ETIQUETAS DE 2 ESTILOS
+     * SOLO SERAN 2 TITULOS PIE DE PAGINA
+     * ID 1 Y ID 2
      */
     public function up(): void
     {
-        Schema::create('propiedad_tipo_detalle', function (Blueprint $table) {
+        Schema::create('titulo_piepagina', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
+            $table->string('titulo', 100);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('propiedad_tipo_detalle');
+        Schema::dropIfExists('titulo_piepagina');
     }
 };

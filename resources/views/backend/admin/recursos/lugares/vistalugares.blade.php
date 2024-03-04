@@ -4,6 +4,7 @@
     <link href="{{ asset('css/adminlte.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/toastr.min.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/estiloToggle.css') }}" type="text/css" rel="stylesheet" />
 
 @stop
 
@@ -135,6 +136,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Visible</label>
+                                        <br>
+                                        <label class="switch" style="margin-top:10px">
+                                            <input type="checkbox" id="toggle">
+                                            <div class="slider round">
+                                                <span class="on">Activo</span>
+                                                <span class="off">Inactivo</span>
+                                            </div>
+                                        </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -147,6 +160,9 @@
             </div>
         </div>
     </div>
+
+
+
 </div>
 
 
@@ -179,7 +195,7 @@
             $('#tablaDatatable').load(ruta);
         }
 
-        // abre modal para agregar nuevo pais
+
         function modalAgregar(){
             document.getElementById("formulario-nuevo").reset();
             $('#modalAgregar').modal('show');
@@ -241,6 +257,12 @@
                         $('#modalEditar').modal('show');
                         $('#id-editar').val(id);
                         $('#nombre-editar').val(response.data.info.nombre);
+
+                        if(response.data.info.visible === 1){
+                            $("#toggle").prop("checked", true);
+                        }else{
+                            $("#toggle").prop("checked", false);
+                        }
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -256,6 +278,8 @@
             var id = document.getElementById('id-editar').value;
             var nombre = document.getElementById('nombre-editar').value;
             var imagen = document.getElementById('imagen-editar');
+            let t = document.getElementById('toggle').checked;
+            let toggle = t ? 1 : 0;
 
             if(nombre === ''){
                 toastr.error('Nombre es requerido');
@@ -274,6 +298,8 @@
             formData.append('id', id);
             formData.append('nombre', nombre);
             formData.append('imagen', imagen.files[0]);
+            formData.append('toggle', toggle);
+
 
             axios.post('/admin/lugares/actualizar', formData, {
             })

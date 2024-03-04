@@ -7,13 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * SOLO PARA ETIQUETAS DE 2 ESTILOS
+     * LISTA DE UBICACIONES PARA PAGINA INICIO
      */
     public function up(): void
     {
-        Schema::create('propiedad_tipo_detalle', function (Blueprint $table) {
+        Schema::create('lugares_inicio', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
+            $table->bigInteger('id_lugares')->unsigned();
+
+            $table->integer('posicion');
+
+            $table->foreign('id_lugares')->references('id')->on('lugares');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('propiedad_tipo_detalle');
+        Schema::dropIfExists('lugares_inicio');
     }
 };
