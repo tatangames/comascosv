@@ -314,21 +314,25 @@
                                                 <div class="recent-main">
                                                     @if($dato->imagen != null)
                                                         <div class="recent-img">
-                                                            <a href="{{ url('propiedad/'.$dato->slug) }}"><img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt=""></a>
+                                                            <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                                <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt=""></a>
                                                         </div>
                                                     @endif
 
                                                     <div class="info-img">
-                                                        <a href="{{ url('propiedad/'.$dato->slug) }}"><h6>{{ $dato->nombre }}</h6></a>
-                                                        <p>{{ $dato->precioFormat }}</p>
+                                                        <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                            <h6 style="margin-left: 5px;"> {{ $dato->nombre }}</h6>
+                                                        </a>
+
+                                                        <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                            <p style="color: #FF385C; font-weight: bold; margin-left: 5px;"> {{ $dato->precioFormat }}</p>
+                                                        </a>
+
                                                     </div>
 
                                                 </div>
 
                                             @endforeach
-
-
-
 
                                         </div>
                                     </div>

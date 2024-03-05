@@ -199,13 +199,11 @@
 
         </div>
         <div class="bg-all">
-            <a href="properties-full-grid-1.html" class="btn btn-outline-light">Ver Todos</a>
+            <a style="cursor: pointer" onclick="buscarPropiedad()" class="btn btn-outline-light">Ver Todos</a>
         </div>
     </div>
 </section>
 <!-- END SECTION FEATURED PROPERTIES -->
-
-
 
 
 
@@ -218,17 +216,17 @@
                 </div>
                 <div class="row">
 
-                    @foreach($arrayLugarInicio as $dato)
+                    @foreach($arrayLugarInicio as $jj)
 
                         <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
                             <div class="small-category-2">
                                 <div class="small-category-2-thumb img-1">
-                                    <a href="properties-full-grid-1.html">
-                                        <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt=""></a>
+                                    <a style="cursor: pointer" class="sc-jb-title" onclick="buscarPropiedadUbicacion({{ $jj->id_lugares }})">
+                                        <img src="{{ url('storage/archivos/'.$jj->imagen) }}" alt=""></a>
                                 </div>
                                 <div class="sc-2-detail">
-                                    <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">{{ $dato->nombre }}</a></h4>
-                                    <span>{{ $dato->conteo }} propiedades
+                                    <h4 style="cursor: pointer" class="sc-jb-title" onclick="buscarPropiedadUbicacion({{ $jj->id_lugares }})"><a>{{ $jj->nombre }}</a></h4>
+                                    <span>{{ $jj->conteo }} propiedades
                                     </span>
                                 </div>
                             </div>
@@ -259,8 +257,12 @@
 
     function buscarPropiedad(){
         var nombre = document.getElementById('nombre-propiedad').value;
-
         var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
+        window.location.href = url;
+    }
+
+    function buscarPropiedadUbicacion(idlugar){
+        var url = '/busqueda?ubicacion=' + encodeURIComponent(idlugar) ;
         window.location.href = url;
     }
 

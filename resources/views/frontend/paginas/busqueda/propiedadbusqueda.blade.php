@@ -61,6 +61,7 @@
                         <div class="detail-wrapper-body">
                             <div class="listing-title-bar">
                                 <h3>Propiedades</h3>
+                                <h4>{{ $nombreUbicacion }}</h4>
                             </div>
                         </div>
                     </div>

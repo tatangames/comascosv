@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\InfoRecursosGet;
 use App\Models\ContactoVendedor;
 use App\Models\DetallesContacto;
+use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
 use App\Models\Propiedad;
 use App\Models\Propiedad4Tag;
@@ -249,8 +250,7 @@ class FrontendRecursosController extends Controller
         $precioMinimo = $request->input('minimo');
         $precioMaximo = $request->input('maximo');
         $formaOrdenado = $request->input('ordenado'); // trae ASC o DESC
-        $page = $request->input('page', 1);
-        $limit = $request->input('limit', 10);
+        $ubicacion = $request->input('ubicacion');
 
         $precioMaximoDefecto = 20000000; // defecto 20 millones
         $hayValorMaximo = false;
@@ -286,10 +286,24 @@ class FrontendRecursosController extends Controller
 
         $pilaIdPropiedad = array();
 
-        // PRIMERO OBTENER TODOS LOS VISIBLES Y EL PRECIO
-        $arrayValidos = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximoDefecto])
-            ->where('visible', 1)
-            ->get();
+        $nombreUbicacion = null;
+
+        if($lu = Lugares::where('id', $ubicacion)->first()){
+            $nombreUbicacion = $lu->nombre;
+        }
+
+        if($ubicacion != null){
+            // PRIMERO OBTENER TODOS LOS VISIBLES Y EL PRECIO
+            $arrayValidos = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximoDefecto])
+                ->where('visible', 1)
+                ->where('id_lugar', $ubicacion)
+                ->get();
+        }else{
+            $arrayValidos = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximoDefecto])
+                ->where('visible', 1)
+                ->get();
+        }
+
 
         foreach ($arrayValidos as $dato){
 
@@ -358,7 +372,7 @@ class FrontendRecursosController extends Controller
         $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
         return view('frontend.paginas.busqueda.propiedadbusqueda', compact('arrayPropiedad',
-        'filasRecursos', 'nombre', 'precioMinimo', 'precioMaximo', 'formaOrdenado'));
+        'filasRecursos', 'nombre', 'precioMinimo', 'precioMaximo', 'formaOrdenado', 'nombreUbicacion'));
     }
 
 
