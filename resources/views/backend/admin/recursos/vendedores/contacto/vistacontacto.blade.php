@@ -80,6 +80,7 @@
 
                                     <div class="form-group">
                                         <label>Descripción</label>
+                                        <span>Si es Télefono, no colocar guion</span>
                                         <input type="text" class="form-control" id="titulo-nuevo" autocomplete="off">
                                     </div>
 

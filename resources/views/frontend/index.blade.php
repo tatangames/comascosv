@@ -248,9 +248,14 @@
 <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
 <script>
 
+    var inputNombre = document.getElementById("nombre-propiedad");
 
-
-
+    inputNombre.addEventListener("keyup", function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            buscarPropiedad();
+        }
+    });
 
     function buscarPropiedad(){
         var nombre = document.getElementById('nombre-propiedad').value;

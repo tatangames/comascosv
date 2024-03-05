@@ -27,7 +27,7 @@
                                         @endif
 
                                         <div class="mt-0">
-                                            <a href="#listing-location" class="listing-address">
+                                            <a class="listing-address">
                                                 <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>{{ $infoPropi->direccion }}
                                             </a>
                                         </div>
@@ -99,6 +99,34 @@
                             </ul>
                             <!-- main slider carousel items -->
                         </div>
+
+                        @if(count($arrayEtiquetaInicio) > 0)
+
+                            <div class="blog-info details mb-30">
+                                <h5 class="mb-4">Etiquetas</h5>
+
+                                <div class="row">
+
+
+                                @foreach($arrayEtiquetaInicio as $dato)
+
+                                    <li class="the-icons col-md-4">
+                                        <img src="{{ url('storage/archivos/'.$dato->imagen) }}" style="height: 20px; width: 20px">
+                                        <span style="margin-left: 2px"> {{ $dato->nombre }}</span>
+                                    </li>
+
+
+                                @endforeach
+                                </div>
+                            </div>
+
+                        @endif
+
+
+
+
+
+
                         <div class="blog-info details mb-30">
                             <h5 class="mb-4">Descripción</h5>
 
@@ -158,7 +186,7 @@
 
                     <div class="property wprt-image-video w50 pro">
                         <h5>Video</h5>
-                        <iframe width="100%" height="360" src="https://www.youtube.com/embed/{{ $infoPropi->video_url }}" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="100%" height="360" src="{{ $infoPropi->video_url }}" frameborder="0" allowfullscreen></iframe>
                     </div>
 
 
@@ -235,7 +263,8 @@
                                 <div class="sidebar-widget author-widget2">
                                     <div class="author-box clearfix">
                                         <img src="{{ asset('storage/archivos/'.$infoVendedor->imagen) }}" alt="author-image" class="author__img">
-                                        <h4 class="author__title">{{ $infoVendedor->nombre }}</h4>
+
+                                        <h4 style="cursor: pointer; " class="author__title" onclick="buscarPropiedad()" id="nombre-vendedor">{{ $infoVendedor->nombre }}</h4>
 
                                     </div>
                                     <ul class="author__contact">
@@ -382,7 +411,7 @@
                                     <div class="project-inner project-head">
                                         <div class="homes">
                                             <!-- homes img -->
-                                            <a href="single-property-1.html" class="homes-img">
+                                            <a href="{{ url('propiedad/'.$dato->slug) }}" class="homes-img">
                                                 @if($dato->vineta_izquierda != null)
                                                     <div class="homes-tag button alt featured">{{ $dato->vineta_izquierda }}</div>
                                                 @endif
@@ -401,12 +430,11 @@
                                     <!-- homes content -->
                                     <div class="homes-content">
 
-                                        <h3><a href="{{ url('propiedad/'.$dato->slug) }}">Real House Luxury Villa</a></h3>
+                                        <h3><a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->nombre }}</a></h3>
                                         <p class="homes-address mb-3">
-                                            <a href="single-property-1.html">
-                                                <i class="fa fa-dollar">{{ $dato->precioFormat }}</i><span></span>
-                                            </a>
-                                        </p>
+
+                                        <h3 style="color: #FF385C !important;"><a style="color: #FF385C !important;" href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a></h3>
+
 
                                         <ul class="homes-list clearfix pb-3">
                                             @foreach($dato->detalle as $jj)
@@ -449,5 +477,16 @@
 @include("frontend.menu.final")
 
 
+<script>
 
+    // por nombre de vendedor
+    function buscarPropiedad(){
+        var dato = document.getElementById('nombre-vendedor');
+        var nombre = dato.textContent;
+
+        var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
+        window.location.href = url;
+    }
+
+</script>
 

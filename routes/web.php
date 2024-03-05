@@ -253,7 +253,6 @@ Route::get('/quienes-somos', [FrontendRecursosController::class,'vistaQuienesSom
 Route::get('/propiedad/{slug}', [FrontendRecursosController::class,'propiedadSlug']);
 
 
-
 Route::get('/busqueda', [FrontendRecursosController::class,'paginaBusqueda'])->name('propiedad.buscada');
 
 

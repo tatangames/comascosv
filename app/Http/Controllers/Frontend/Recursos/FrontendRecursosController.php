@@ -74,7 +74,12 @@ class FrontendRecursosController extends Controller
                 $dato->contador = $contador;
             }
 
-            $precioFormat = '$ ' . number_format((float)$infoPropi->precio, 2, '.', ',');
+
+
+            $precioFormat = '$' . number_format((float)$infoPropi->precio, 2, '.', ',');
+
+
+
 
 
             // ETIQUETAS DETALLE
@@ -177,7 +182,7 @@ class FrontendRecursosController extends Controller
             foreach ($arrayPropiAletorias as $dato){
                 array_push($resultsBloque, $dato);
 
-                $dato->precioFormat = number_format((float)$dato->precio, 2, '.', ',');
+                $dato->precioFormat = '$'. number_format((float)$dato->precio, 2, '.', ',');
 
                 $imagen = null;
                 if($infoLista = PropiedadImagenes::where('id_propiedad', $dato->id)
@@ -207,11 +212,26 @@ class FrontendRecursosController extends Controller
                 $index++;
             }
 
+            $datosRecursosGet = new InfoRecursosGet();
+            $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+
+            // LISTADO DE ETIQUETAS QUE SALEN AL INICIO
+            $arrayEtiquetaInicio = Propiedad4Tag::where('id_propiedad', $infoPropi->id)
+                ->orderBy('posicion', 'ASC')
+                ->get();
+
+            foreach ($arrayEtiquetaInicio as $dato){
+
+                $infoImg = PropiedadImagen4Tag::where('id', $dato->id_imagen4tag)->first();
+                $dato->imagen = $infoImg->imagen;
+            }
+
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
-                'arrayPropiVendedor', 'arrayPropiAletorias'));
+                'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio'));
         }else{
             return view('errors.404');
         }
@@ -229,7 +249,8 @@ class FrontendRecursosController extends Controller
         $precioMinimo = $request->input('minimo');
         $precioMaximo = $request->input('maximo');
         $formaOrdenado = $request->input('ordenado'); // trae ASC o DESC
-
+        $page = $request->input('page', 1);
+        $limit = $request->input('limit', 10);
 
         $precioMaximoDefecto = 20000000; // defecto 20 millones
         $hayValorMaximo = false;
@@ -242,18 +263,18 @@ class FrontendRecursosController extends Controller
             $formaOrdenado = "ASC";
         }
 
-        if ($request->has('minimo')) {
+        if ($precioMinimo != null) {
             if ($request->filled('minimo') && !is_numeric($request->input('minimo'))) {
                 $precioMinimo = 0;
             }
 
-            if($precioMinimo == null){
-                $precioMinimo = 0;
-            }
+
+        }else{
+           $precioMinimo = 0;
         }
 
 
-        if ($request->has('maximo')) {
+        if ($precioMaximo != null) {
             if ($request->filled('maximo') && !is_numeric($request->input('maximo'))) {
                 // usar el por defecto
             }else{
@@ -269,7 +290,6 @@ class FrontendRecursosController extends Controller
         $arrayValidos = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximoDefecto])
             ->where('visible', 1)
             ->get();
-
 
         foreach ($arrayValidos as $dato){
 
@@ -292,33 +312,45 @@ class FrontendRecursosController extends Controller
         }
 
 
-
         // SI NOMBRE VIENE VACIO SE BUSCARAN  SOLO CON PRECIO
 
-        if ($request->has('nombre')) {
+        if ($nombre != null) {
+
             $arrayPropiedad = DB::table('propiedad AS p')
                 ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
-                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor')
+                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
+                'v.imagen AS imagenvendedor')
                 ->whereIn('p.id', $pilaIdPropiedad)
               ->where(function($query) use ($nombre) {
                   $query->where('p.nombre', 'like', '%' . $nombre . '%')
                       ->orWhere('v.nombre', 'like', '%' . $nombre . '%');
               })
                 ->orderBy('precio', $formaOrdenado)
-                ->paginate(2);
-
+                ->paginate(12);
         }else{
-
-            // No buscar por nombre
 
             $arrayPropiedad = DB::table('propiedad AS p')
                 ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
-                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor')
+                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
+                    'v.imagen AS imagenvendedor')
                 ->whereIn('p.id', $pilaIdPropiedad)
                 ->orderBy('precio', $formaOrdenado)
-                ->paginate(2);
+                ->paginate(12);
         }
 
+
+        foreach ($arrayPropiedad as $dato){
+
+            $imagen = null;
+            if($miimagen = PropiedadImagenes::where('id_propiedad', $dato->id)
+                ->orderBy('posicion', 'ASC')
+                ->first()){
+                $imagen = $miimagen->imagen;
+            }
+
+            $dato->imagen = $imagen;
+            $dato->precioFormat = '$ ' . number_format((float)$dato->precio, 2, '.', ',');
+        }
 
 
         // DATOS PARA PIE DE PAGINA
