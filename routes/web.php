@@ -228,6 +228,13 @@ Route::post('/admin/piepagina/columna/registrar', [RecursosController::class,'re
 Route::post('/admin/piepagina/columna/informacion', [RecursosController::class,'informacionFilaColumna']);
 Route::post('/admin/piepagina/columna/actualizar', [RecursosController::class,'actualizarFilaColumna']);
 
+// --- ETIQUETAS POPULARES ---
+Route::get('/admin/tagpopular/index', [RecursosController::class,'indexTagPopular'])->name('admin.tag.popular');
+Route::get('/admin/tagpopular/tabla', [RecursosController::class,'tablaTagPopular']);
+Route::post('/admin/tagpopular/registrar', [RecursosController::class,'registrarTagPopular']);
+Route::post('/admin/tagpopular/informacion', [RecursosController::class,'informacionTagPopular']);
+Route::post('/admin/tagpopular/actualizar', [RecursosController::class,'actualizarTagPopular']);
+
 
 
 

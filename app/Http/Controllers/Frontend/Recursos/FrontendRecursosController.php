@@ -229,10 +229,16 @@ class FrontendRecursosController extends Controller
             }
 
 
+            $arrayEtiquetaPopular = PropiedadTag::where('id_propiedad', $infoPropi->id)
+                ->orderBy('nombre', 'ASC')
+                ->get();
+
+
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
-                'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio'));
+                'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio',
+                'arrayEtiquetaPopular'));
         }else{
             return view('errors.404');
         }

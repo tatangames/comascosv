@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactoVendedor;
 use App\Models\DescripcionPiePagina;
 use App\Models\DetallesContacto;
+use App\Models\EtiquetasPopulares;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\LugaresInicio;
@@ -1213,15 +1214,112 @@ class RecursosController extends Controller
 
 
     public function informacionFilaColumna(Request $request){
+        $regla = array(
+            'id' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = DescripcionPiePagina::where('id', $request->id)->first()){
 
 
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 99];
+        }
     }
 
     public function actualizarFilaColumna(Request $request){
 
+        $regla = array(
+            'id' => 'required',
+            'nombre' => 'required'
+        );
 
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        DescripcionPiePagina::where('id', $request->id)->update([
+            'nombre' => $request->nombre,
+        ]);
+
+        return ['success' => 1];
     }
 
+
+
+
+    // ******************************* ETIQUETAS POPULARES ******************************
+
+
+    public function indexTagPopular(){
+
+        return view('backend.admin.recursos.etiquetapopular.vistatagpopular');
+    }
+
+    public function tablaTagPopular(){
+
+        $listado = EtiquetasPopulares::orderBy('nombre', 'ASC')->get();
+
+        return view('backend.admin.recursos.etiquetapopular.tablatagpopular', compact('listado'));
+    }
+
+
+
+    public function registrarTagPopular(Request $request){
+        $regla = array(
+            'nombre' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        $nuevo = new EtiquetasPopulares();
+        $nuevo->nombre = $request->nombre;
+        $nuevo->save();
+
+        return ['success' => 1];
+    }
+
+
+    public function informacionTagPopular(Request $request){
+        $regla = array(
+            'id' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = EtiquetasPopulares::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 99];
+        }
+    }
+
+    public function actualizarTagPopular(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+            'nombre' => 'required'
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        EtiquetasPopulares::where('id', $request->id)->update([
+            'nombre' => $request->nombre,
+        ]);
+
+        return ['success' => 1];
+    }
 
 
 }

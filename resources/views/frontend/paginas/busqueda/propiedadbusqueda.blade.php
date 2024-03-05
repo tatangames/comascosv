@@ -66,6 +66,7 @@
                         </div>
                     </div>
                 </section>
+
                 <div class="row">
                     <div class="col-lg-8 col-md-12 blog-pots">
                         <section class="headings-2 pt-0">
@@ -87,9 +88,11 @@
                                                 <option value="ASC">Precio (menor a mayor)</option>
                                                 <option value="DESC" selected>Precio (mayor a menor)</option>
                                             @endif
+
                                         </select>
                                     </div>
                                 </div>
+
                             </div>
                         </section>
 
@@ -342,13 +345,9 @@
             }
         }
 
-
-
-
         var url = '/busqueda?nombre=' + encodeURIComponent(nombre) + '&ordenado=' + encodeURIComponent(ordenado) + '&minimo=' + encodeURIComponent(minimo) + '&maximo=' + encodeURIComponent(maximo);
         window.location.href = url;
     }
-
 
 
 </script>

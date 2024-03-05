@@ -371,8 +371,9 @@
                                             @foreach($arrayTagPopular as $dato)
 
                                                     <div class="tags">
-                                                        <span><a href="#" class="btn btn-outline-primary">{{ $dato->nombre }}</a></span>
+                                                        <span style="cursor: pointer" onclick="buscadorEtiqueta({{ $dato->id }})"><a class="btn btn-outline-primary">{{ $dato->nombre }}</a></span>
                                                     </div>
+
                                                 @endforeach
 
                                             </div>
@@ -491,6 +492,12 @@
         var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
         window.location.href = url;
     }
+
+    function buscadorEtiqueta(idetiqueta){
+        var url = '/busqueda?etiqueta=' + encodeURIComponent(idetiqueta);
+        window.location.href = url;
+    }
+
 
 </script>
 

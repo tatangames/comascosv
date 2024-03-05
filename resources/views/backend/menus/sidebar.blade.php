@@ -116,6 +116,14 @@
                             </a>
                         </li>
 
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.tag.popular') }}" target="frameprincipal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Etiquetas Populares</p>
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('admin.otros.recursos') }}" target="frameprincipal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

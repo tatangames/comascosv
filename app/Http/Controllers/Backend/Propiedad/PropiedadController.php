@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Propiedad;
 
 use App\Http\Controllers\Controller;
+use App\Models\EtiquetasPopulares;
 use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\Propiedad;
@@ -1073,15 +1074,20 @@ class PropiedadController extends Controller
 
     public function indexTagPopular($idpropi)
     {
-        return view('backend.admin.propiedad.tagpopular.vistatagpopular', compact('idpropi'));
+        $arrayTagPopular = EtiquetasPopulares::orderBy('nombre', 'ASC')->get();
+
+        return view('backend.admin.propiedad.tagpopular.vistatagpopular', compact('idpropi', 'arrayTagPopular'));
     }
 
     public function tablaTagPopular($idpropi)
     {
+        $listado = PropiedadTag::where('id_propiedad', $idpropi)->get();
 
-        $listado = PropiedadTag::where('id_propiedad', $idpropi)
-            ->orderBy('nombre', 'ASC')
-            ->get();
+        foreach ($listado as $dato){
+
+            $infoFila = EtiquetasPopulares::where('id', $dato->id_tag_popular)->first();
+            $dato->nombre = $infoFila->nombre;
+        }
 
         return view('backend.admin.propiedad.tagpopular.tablatagpopular', compact('listado'));
     }
@@ -1091,19 +1097,24 @@ class PropiedadController extends Controller
     {
         $regla = array(
             'idpropiedad' => 'required',
-            'titulo' => 'required'
+            'idtag' => 'required'
         );
 
         $validar = Validator::make($request->all(), $regla);
 
         if ($validar->fails()){ return ['success' => 0];}
 
+        if(PropiedadTag::where('id_propiedad', $request->idpropiedad)
+            ->where('id_tag_popular', $request->idtag)->first()){
+           return ['success' => 1];
+        }
+
         $nuevo = new PropiedadTag();
         $nuevo->id_propiedad = $request->idpropiedad;
-        $nuevo->nombre = $request->titulo;
+        $nuevo->id_tag_popular = $request->idtag;
         $nuevo->save();
 
-        return ['success' => 1];
+        return ['success' => 2];
     }
 
     public function borrarTagPopular(Request $request)

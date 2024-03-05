@@ -21,16 +21,17 @@
             <div class="col-sm-6">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Nueva Etiqueta
+                    Nuevo Etiqueta
                 </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Etiquetas</li>
+                    <li class="breadcrumb-item">Propiedad Etiqueta</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>
+
         </div>
     </section>
 
@@ -54,7 +55,7 @@
 
 
     <div class="modal fade" id="modalAgregar">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Nueva Etiqueta</h4>
@@ -68,14 +69,9 @@
                             <div class="row">
                                 <div class="col-md-12">
 
-
                                     <div class="form-group">
-                                        <label class="control-label">Etiqueta</label>
-                                        <select class="form-control" id="select-tag">
-                                            @foreach($arrayTagPopular as $item)
-                                                <option value="{{$item->id}}">{{$item->nombre}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="100" class="form-control" id="nombre-nuevo" autocomplete="off">
                                     </div>
 
                                 </div>
@@ -91,8 +87,45 @@
         </div>
     </div>
 
-</div>
+    <!-- modal editar -->
+    <div class="modal fade" id="modalEditar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar Etiqueta</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
+                <div class="modal-body">
+                    <form id="formulario-editar">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <input type="hidden" id="id-editar">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" maxlength="100" class="form-control" id="nombre-editar" autocomplete="off">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="editar()">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @extends('backend.menus.footerjs')
@@ -109,8 +142,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var idpropiedad = {{ $idpropi }};
-            var ruta = "{{ URL::to('/admin/propiedadtagpopular/tabla') }}/" + idpropiedad;
+            var ruta = "{{ URL::to('/admin/tagpopular/tabla') }}";
             $('#tablaDatatable').load(ruta);
 
             document.getElementById("divcontenedor").style.display = "block";
@@ -121,35 +153,33 @@
 
         // recarga tabla
         function recargar(){
-            var idpropiedad = {{ $idpropi }};
-            var ruta = "{{ URL::to('/admin/propiedadtagpopular/tabla') }}/" + idpropiedad;
+            var ruta = "{{ URL::to('/admin/tagpopular/tabla') }}";
             $('#tablaDatatable').load(ruta);
         }
 
+        // abre modal para agregar nuevo pais
         function modalAgregar(){
             document.getElementById("formulario-nuevo").reset();
             $('#modalAgregar').modal('show');
         }
 
         function nuevo(){
-            var idtag = document.getElementById('select-tag').value;
-            let idpropiedad = {{ $idpropi }};
+            var nombre = document.getElementById('nombre-nuevo').value;
+
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
+                return;
+            }
 
             openLoading();
             let formData = new FormData();
-            formData.append('idpropiedad', idpropiedad);
-            formData.append('idtag', idtag);
+            formData.append('nombre', nombre);
 
-            axios.post('/admin/propiedadtagpopular/registrar', formData, {
+            axios.post('/admin/tagpopular/registrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
-
                     if(response.data.success === 1){
-                        toastr.error('Etiqueta ya registrada');
-                        return;
-                    }
-                    else if(response.data.success === 2){
                         toastr.success('Registrado correctamente');
                         $('#modalAgregar').modal('hide');
                         recargar();
@@ -164,42 +194,61 @@
                 });
         }
 
-        function modalBorrar(idfila){
-            Swal.fire({
-                title: 'Borrar?',
-                text: "",
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#28a745',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Si'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    solicitarBorrar(idfila);
-                }
-            })
-        }
-
-        function solicitarBorrar(idfila){
-
+        function informacionEditar(id){
             openLoading();
+            document.getElementById("formulario-editar").reset();
 
-            axios.post('/admin/propiedadtagpopular/borrar',{
-                'id': idfila
+            axios.post('/admin/tagpopular/informacion',{
+                'id': id
             })
                 .then((response) => {
                     closeLoading();
                     if(response.data.success === 1){
-
-                        toastr.success('Etiqueta Borrada');
-                        recargar();
+                        $('#modalEditar').modal('show');
+                        $('#id-editar').val(id);
+                        $('#nombre-editar').val(response.data.info.nombre);
                     }else{
-                        toastr.error('Error al borrar');
+                        toastr.error('Información no encontrada');
                     }
                 })
                 .catch((error) => {
-                    toastr.error('Error al borrar');
+                    closeLoading();
+                    toastr.error('Información no encontrada');
+                });
+        }
+
+
+        function editar(){
+            var id = document.getElementById('id-editar').value;
+            var nombre = document.getElementById('nombre-editar').value;
+
+            if(nombre === ''){
+                toastr.error('Nombre es requerido');
+                return;
+            }
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+            formData.append('nombre', nombre);
+
+            axios.post('/admin/tagpopular/actualizar', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Actualizado correctamente');
+                        $('#modalEditar').modal('hide');
+                        recargar();
+                    }
+                    else {
+                        toastr.error('Error al actualizar');
+                    }
+                })
+
+                .catch((error) => {
+                    toastr.error('Error al actualizar');
                     closeLoading();
                 });
         }
