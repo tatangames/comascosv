@@ -54,13 +54,16 @@
 
                                     @if ($loop->first)
 
-                                        <div class="active item carousel-item" data-slide-number="{{ $dato->contador }}">
-                                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
-                                        </div>
+                                            <div class="active item carousel-item" data-slide-number="{{ $dato->contador }}">
+                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                            </div>
+
                                     @else
-                                        <div class="item carousel-item" data-slide-number="{{ $dato->contador }}">
-                                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
-                                        </div>
+
+                                            <div class="item carousel-item" data-slide-number="{{ $dato->contador }}">
+                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                            </div>
+
                                     @endif
 
                                 @endforeach

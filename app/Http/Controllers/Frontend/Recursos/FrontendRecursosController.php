@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\InfoRecursosGet;
 use App\Models\ContactoVendedor;
 use App\Models\DetallesContacto;
+use App\Models\EtiquetasPopulares;
 use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
 use App\Models\Propiedad;
@@ -143,9 +144,17 @@ class FrontendRecursosController extends Controller
                 $dato->telefonoFormat = $telefonoFormat;
             }
 
-            $arrayTagPopular = PropiedadTag::where('id_propiedad', $infoPropi->id)
-                ->orderBy('nombre', 'ASC')
-                ->get();
+
+
+            $arrayTagPop = PropiedadTag::where('id_propiedad', $infoPropi->id)->get();
+
+
+            foreach ($arrayTagPop as $dato){
+                $info = EtiquetasPopulares::where('id', $dato->id_tag_popular)->first();
+                $dato->nombre = $info->nombre;
+            }
+
+            $arrayTagPopular = $arrayTagPop->sortBy('nombre')->values();
 
 
             // PROPIEDADES DEL MISMO VENDEDOR
@@ -229,10 +238,14 @@ class FrontendRecursosController extends Controller
             }
 
 
-            $arrayEtiquetaPopular = PropiedadTag::where('id_propiedad', $infoPropi->id)
-                ->orderBy('nombre', 'ASC')
-                ->get();
+            $arrayEtiqPopu = PropiedadTag::where('id_propiedad', $infoPropi->id)->get();
 
+            foreach ($arrayEtiqPopu as $dato){
+                $info = EtiquetasPopulares::where('id', $dato->id_tag_popular)->first();
+                $dato->nombre = $info->nombre;
+            }
+
+            $arrayEtiquetaPopular = $arrayEtiqPopu->sortBy('nombre')->values();
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
