@@ -1,3 +1,3 @@
-<body class="inner-pages homepage-4 agents hp-6 full hd-white">
+<body class="inner-pages listing homepage-4 agents hd-white">
 <!-- Wrapper -->
 <div id="wrapper">

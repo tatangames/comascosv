@@ -24,6 +24,8 @@ class FrontendController extends Controller
     {
         $arrayInicio = PresentacionInicio::orderBy('posicion', 'ASC')->get();
         $infoRecursos = Recursos::where('id', 1)->first();
+        $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
+        $fechaActual = Carbon::parse($fechaActualPuro);
 
         foreach ($arrayInicio as $dato){
 
@@ -41,8 +43,39 @@ class FrontendController extends Controller
         }
 
         // listado de propiedades
-        $arrayPropiedades = PropiedadInicio::orderBy('posicion', 'ASC')
-            ->where('visible', 1)
+        $arrayPropiDato = PropiedadInicio::all();
+
+        // guardar id propiedad inicio y despues buscar por posicion
+        $pilaIdPropiInicio = array();
+
+        foreach ($arrayPropiDato as $info){
+
+            $infoPropi = Propiedad::where('id', $info->id_propiedad)->first();
+
+            // verificar que este disponible
+            if($infoPropi->visible == 1){
+
+                $fechaInicio = Carbon::parse($infoPropi->fecha_inicio);
+                $fechaFin = Carbon::parse($infoPropi->fecha_fin);
+
+                // Verificar si son el mismo dia
+                if($fechaInicio->equalTo($fechaFin)){
+
+                    // solo camparar con fecha actual
+                    if ($fechaActual->equalTo($fechaInicio)) {
+                        array_push($pilaIdPropiInicio, $info->id);
+                    }
+                }else{
+                    if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                        array_push($pilaIdPropiInicio, $info->id);
+                    }
+                }
+            }
+
+        }
+
+        $arrayPropiedades = PropiedadInicio::whereIn('id', $pilaIdPropiInicio)
+            ->orderBy('posicion', 'ASC')
             ->get();
 
         $resultsBloque = array();
@@ -91,7 +124,7 @@ class FrontendController extends Controller
 
         // LUGARES INICIO
         $arrayLugarInicio = LugaresInicio::orderBy('posicion', 'ASC')->get();
-        $fechaActual = Carbon::now('America/El_Salvador');
+
 
         foreach ($arrayLugarInicio as $dato){
 
@@ -108,8 +141,17 @@ class FrontendController extends Controller
                 $fechaInicio = Carbon::create($jj->fecha_inicio);
                 $fechaFin = Carbon::create($jj->fecha_fin);
 
-                if ($fechaActual->between($fechaInicio, $fechaFin)) {
-                    $conteo++;
+                // Verificar si son el mismo dia
+                if($fechaInicio->equalTo($fechaFin)){
+
+                    // solo camparar con fecha actual
+                    if ($fechaActual->equalTo($fechaInicio)) {
+                        $conteo++;
+                    }
+                }else{
+                    if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                        $conteo++;
+                    }
                 }
             }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Recursos;
 
 use App\Http\Controllers\Controller;
+use App\InfoRecursosGet;
 use App\Models\ContactoVendedor;
 use App\Models\DetallesContacto;
 use App\Models\PreguntasFrecuentes;
@@ -16,7 +17,9 @@ use App\Models\PropiedadPlanos;
 use App\Models\PropiedadTag;
 use App\Models\Recursos;
 use App\Models\Vendedores;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\HtmlString;
 use Mews\Purifier\Facades\Purifier;
@@ -215,33 +218,115 @@ class FrontendRecursosController extends Controller
     }
 
 
-
     public function paginaBusqueda(Request $request)
     {
+
+        $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
+        $fechaActual = Carbon::parse($fechaActualPuro);
+
         // Obtener los valores de nombre y apellido de la solicitud
         $nombre = $request->input('nombre');
         $precioMinimo = $request->input('minimo');
         $precioMaximo = $request->input('maximo');
+        $formaOrdenado = $request->input('ordenado'); // trae ASC o DESC
 
 
-        // NI NOMBRE VIENE VACIO SE BUSCARAN  SOLO CON PRECIO
+        $precioMaximoDefecto = 20000000; // defecto 20 millones
+        $hayValorMaximo = false;
 
-        if($nombre != null){
 
-            $arrayPropiedad = Propiedad::where('nombre', 'LIKE', '%' . $nombre . '%')
-                ->whereBetween('precio', [$precioMinimo, $precioMaximo])
-                ->orderBy('nombre', 'ASC')
-                ->paginate(10);
+        if($formaOrdenado == "ASC" || $formaOrdenado == "DESC"){
+            // no hacer nada
         }else{
-
-            // No buscar por nombre, solo precio
-
-            $arrayPropiedad = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximo])
-                ->orderBy('nombre', 'ASC')
-                ->paginate(10);
+            // defecto ASC
+            $formaOrdenado = "ASC";
         }
 
-        return view('frontend.paginas.busqueda.propiedadbusqueda', compact('arrayPropiedad'));
+        if ($request->has('minimo')) {
+            if ($request->filled('minimo') && !is_numeric($request->input('minimo'))) {
+                $precioMinimo = 0;
+            }
+
+            if($precioMinimo == null){
+                $precioMinimo = 0;
+            }
+        }
+
+
+        if ($request->has('maximo')) {
+            if ($request->filled('maximo') && !is_numeric($request->input('maximo'))) {
+                // usar el por defecto
+            }else{
+                if($precioMaximo != null){
+                    $precioMaximoDefecto = $precioMaximo;
+                }
+            }
+        }
+
+        $pilaIdPropiedad = array();
+
+        // PRIMERO OBTENER TODOS LOS VISIBLES Y EL PRECIO
+        $arrayValidos = Propiedad::whereBetween('precio', [$precioMinimo, $precioMaximoDefecto])
+            ->where('visible', 1)
+            ->get();
+
+
+        foreach ($arrayValidos as $dato){
+
+            // verificar si coincide fechas
+            $fechaInicio = Carbon::parse($dato->fecha_inicio);
+            $fechaFin = Carbon::parse($dato->fecha_fin);
+
+            // Verificar si son el mismo dia
+            if($fechaInicio->equalTo($fechaFin)){
+
+                // solo camparar con fecha actual
+                if ($fechaActual->equalTo($fechaInicio)) {
+                    array_push($pilaIdPropiedad, $dato->id);
+                }
+            }else{
+                if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                    array_push($pilaIdPropiedad, $dato->id);
+                }
+            }
+        }
+
+
+
+        // SI NOMBRE VIENE VACIO SE BUSCARAN  SOLO CON PRECIO
+
+        if ($request->has('nombre')) {
+            $arrayPropiedad = DB::table('propiedad AS p')
+                ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
+                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor')
+                ->whereIn('p.id', $pilaIdPropiedad)
+              ->where(function($query) use ($nombre) {
+                  $query->where('p.nombre', 'like', '%' . $nombre . '%')
+                      ->orWhere('v.nombre', 'like', '%' . $nombre . '%');
+              })
+                ->orderBy('precio', $formaOrdenado)
+                ->paginate(2);
+
+        }else{
+
+            // No buscar por nombre
+
+            $arrayPropiedad = DB::table('propiedad AS p')
+                ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
+                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor')
+                ->whereIn('p.id', $pilaIdPropiedad)
+                ->orderBy('precio', $formaOrdenado)
+                ->paginate(2);
+        }
+
+
+
+        // DATOS PARA PIE DE PAGINA
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+        return view('frontend.paginas.busqueda.propiedadbusqueda', compact('arrayPropiedad',
+        'filasRecursos', 'nombre', 'precioMinimo', 'precioMaximo', 'formaOrdenado'));
     }
 
 

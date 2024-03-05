@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\InfoRecursosGet;
+use http\Env\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
@@ -41,6 +43,19 @@ class Handler extends ExceptionHandler
 
                 ], 401);
         }
+
+
+        if ($this->isHttpException($exception) && $exception->getStatusCode() == 404) {
+            // Aquí puedes pasar tus variables a la vista 404
+
+
+            $datosRecursosGet = new InfoRecursosGet();
+            $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+            // Renderizas la vista 404 con las variables personalizadas
+            return response()->view('errors.404', compact('filasRecursos'));
+        }
+
 
         return parent::render($request, $exception);
     }
