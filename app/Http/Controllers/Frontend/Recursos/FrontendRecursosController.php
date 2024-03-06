@@ -401,10 +401,12 @@ class FrontendRecursosController extends Controller
         $datosRecursosGet = new InfoRecursosGet();
         $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
+        $apiKey = config('googleapi.ApiGoogle');
 
-        $marcadores = Propiedad::whereIn('id', [1,3])->get();
+        $marcadores = Propiedad::whereIn('id', [1,2])->get();
 
-        return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores'));
+
+        return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores', 'apiKey'));
     }
 
 

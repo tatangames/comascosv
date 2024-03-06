@@ -48,21 +48,6 @@
         <!-- END HEADER SEARCH -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="row service-1" style="margin-top: 50px">
             @foreach($arrayInicio as $dato)
 
@@ -98,14 +83,6 @@
                 </article>
 
             @endforeach
-
-
-
-
-
-
-
-
 
 
         </div>
@@ -244,6 +221,10 @@
 @include("frontend.menu.final")
 
 <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
+
+
 <script>
 
     var inputNombre = document.getElementById("nombre-propiedad");
@@ -271,4 +252,11 @@
 
 </script>
 
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YC9JVQ7Y2Y');
+</script>
 

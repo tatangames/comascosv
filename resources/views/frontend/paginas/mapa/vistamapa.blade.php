@@ -52,48 +52,61 @@
 <script src="{{ asset('frontend/js/leaflet.markercluster.js') }}"></script>
 
 <script>
-    var map = L.map('map').setView([51.5, -0.09], 13);
 
+    var inputNombre = document.getElementById("nombre-propiedad");
 
-
-
-
-    @foreach($arrayPropiedades as $marcador)
-
-    var customIcon = L.divIcon({
-        className: 'custom-marker',
-        html: '<div class="leaflet-marker-icon leaflet-div-icon leaflet-zoom-animated leaflet-clickable" tabindex="0" style="margin-left: -50px; margin-top: -50px; width: 50px; height: 50px; transform: translate3d(248px, 799px, 0px); z-index: 799; opacity: 1;"> <i class="fa fa-home"></i> </div>',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+    inputNombre.addEventListener("keyup", function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            buscarPropiedad();
+        }
     });
 
-
-
-    var marker = L.marker([{{ $marcador['latitud'] }}, {{ $marcador['longitud'] }}]).addTo(map);
-    marker.bindPopup("{{ $marcador['titulo'] }}");
-
-    @endforeach
-
-
+    function buscarPropiedad(){
+        var nombre = document.getElementById('nombre-propiedad').value;
+        var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
+        window.location.href = url;
+    }
 
 
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            options: {
+                gestureHandling: 'greedy'
+            },
+            center: {lat: 14.33202641066866, lng: -89.44123588597019} // Ajusta el centro y el zoom según tus necesidades
+        });
 
+        // Itera sobre los marcadores
+        @foreach($marcadores as $marcador)
+        var marker = new google.maps.Marker({
+            position: {lat: {{ $marcador->latitud }}, lng: {{ $marcador->longitud }}},
+            map: map,
+            title: "Propiedad",
+            icon: {
+                url: '{{ asset("images/marcadorgoogle.png") }}', // Ruta a tu icono personalizado
+                scaledSize: new google.maps.Size(50, 70) // Ajusta el tamaño del icono según tu preferencia
+            },
+            id: "{{ $marcador->slug }}"
+        });
+
+        // Agregar evento click al marcador
+        marker.addListener('click', function() {
+            // Llama a la función handleClickMarker con el ID del marcador
+           redireccionar(this.id)
+        });
+
+        @endforeach
+    }
+
+    function redireccionar(slug){
+        var nuevaURL = "{{ url('/propiedad') }}/" + slug;
+        window.open(nuevaURL, '_blank');
+    }
 
 </script>
 
-<style>
-    .custom-marker {
-        background-color: transparent;
-        border: none;
-    }
-
-    .marker-content {
-        font-size: 24px;
-    }
-</style>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap" async defer></script>
 
