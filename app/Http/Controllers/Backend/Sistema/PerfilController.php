@@ -27,8 +27,10 @@ class PerfilController extends Controller
 
         $regla = array(
             'correo' => 'required',
-            'password' => 'required',
+            'actualizarpass' => 'required'
         );
+
+        // password
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -38,10 +40,19 @@ class PerfilController extends Controller
 
         $usuario = auth()->user();
 
-        Administrador::where('id', $usuario->id)
-            ->update([
-                'email' => $request->correo,
-                'password' => Hash::make($request->password)]);
+
+        if($request->actualizarpass == 1){
+
+            Administrador::where('id', $usuario->id)
+                ->update([
+                    'email' => $request->correo,
+                    'password' => Hash::make($request->password)]);
+        }else{
+
+            Administrador::where('id', $usuario->id)
+                ->update([
+                    'email' => $request->correo]);
+        }
 
         return ['success' => 1];
     }

@@ -28,7 +28,13 @@
     }
     body {
         font-family: 'Roboto', sans-serif;
-        background-image: url({{ asset('images/fondo-hojas.jpg') }});
+        margin: 0;
+        padding: 0;
+        background-image: url({{ asset('images/portada.jpg') }}); /* Ruta de tu imagen */
+        background-size: contain; /* Esto ajusta la imagen dentro del contenedor sin estirarla */
+        background-position: center; /* Centra la imagen */
+        background-repeat: no-repeat; /* Evita que la imagen se repita */
+        height: 100vh; /* Establece la altura al 100% del viewport height */
     }
     .demo-container {
         height: 100%;
@@ -85,10 +91,10 @@
         <div class="row" style="margin-top: 60px">
             <div class="col-lg-6 col-12 mx-auto">
                 <div class="text-center image-size-small position-relative">
-                    <img src="{{ asset('images/abba-logo.jpg') }}" class="rounded-circle p-2 bg-white">
+                    <img src="{{ asset('images/iconlogo.png') }}" class="rounded-circle p-2 bg-white">
                 </div>
                 <div class="p-5 bg-white rounded shadow-lg">
-                    <h3 class="mb-2 text-center pt-5">Mi Caminar con Dios</h3>
+                    <h3 class="mb-2 text-center pt-5">COMASCOSV</h3>
                     <p class="text-center lead">Panel de Administración</p>
                     <form class=" validate-form">
 
@@ -140,7 +146,7 @@
 <script>
 
     var inputPassword = document.getElementById("password");
-    var inputUsuario = document.getElementById("usuario");
+    var inputUsuario = document.getElementById("correo");
 
     inputPassword.addEventListener("keyup", function(event) {
         if (event.key === 'Enter') {

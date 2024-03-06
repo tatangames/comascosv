@@ -14,60 +14,77 @@
 <section class="how-it-works bg-white rec-pro">
     <div class="container-fluid">
         <div class="sec-title">
-            <h2>Bienvenido a comascosv</h2>
+            <h2>Buscar Propiedades</h2>
         </div>
-        <div class="row service-1">
-            <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                <div class="serv-flex">
-                    <div class="art-1 img-13">
-                        <img src="{{ asset('images/icons/casa-svg.svg') }}" style="fill: red" alt="">
-                        <h3>¿Que hacemos?</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Comascosv ofrece servicios de promoción de inmuebles y crea pequeños
-                            proyectos inmobiliarios.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up" data-aos-delay="450">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/casallave-svg.svg') }}" alt="">
-                        <h3>¿Porque unirse?</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Tu Anuncio Estará Visible Nacional E Internacional. <br>
-                            Todo Esto A Un Super Costo, Ya Que Pretendemos Ayudar.</p>
-                    </div>
-                </div>
-            </article>
-            <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="250">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/mano-svg.svg') }}" alt="">
-                        <h3>Beneficios</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Vender sin pagar altos precios de comisión.<br>
-                            - Te permite administrar la información del anuncio; subir fotos etc.</p>
-                    </div>
-                </div>
-            </article>
 
-            <article class="col-lg-3 col-md-6 col-xs-12 serv mb-0 pt its-2" data-aos="fade-up" data-aos-delay="450">
-                <div class="serv-flex">
-                    <div class="art-1 img-14">
-                        <img src="{{ asset('images/icons/casallave-svg.svg') }}" alt="">
-                        <h3>Como unirte a Comascosv</h3>
-                    </div>
-                    <div class="service-text-p">
-                        <p class="text-center">Consulta el precio para solicitar que te promocione comascosv. <a
-                                href="https://wa.me/50372068714"> <img src="{{ asset('images/logowasap.png') }}"
-                                                                       style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
-                                                                       alt="whatsapp"></a></p>
-                    </div>
+
+
+
+
+
+
+
+
+        <!-- STAR HEADER SEARCH -->
+        <section style="
+         display: flex;
+    justify-content: center;
+    align-items: center;">
+
+            <div class="tab-pane fade show active">
+                <div class="row">
+
+                        <div class="rld-single-input">
+                            <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 455px !important;">
+                        </div>
+
+                        <a class="btn btn-yellow" onclick="buscarPropiedad()" style="margin-left: 5px">Buscar</a>
+
                 </div>
-            </article>
+
+            </div>
+
+        </section>
+        <!-- END HEADER SEARCH -->
+
+
+        <div class="row service-1" style="margin-top: 50px">
+            @foreach($arrayInicio as $dato)
+
+                <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
+                    <div class="serv-flex">
+                        <div class="art-1 img-13">
+                            <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" style="fill: red" alt="">
+                            <h3>{{ $dato->titulo }}</h3>
+                        </div>
+                        <div class="service-text-p">
+                            <p class="text-center" style="color: black !important;">
+                                {!! $dato->descripcion !!}
+                            </p>
+
+                            @if($dato->id == 1)
+
+                                @if($infoRecursos->telefono != null)
+
+                                    <p class="text-center">{{ $dato->telefonoFormat }}<a
+                                            href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
+                                                                                   style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                                   alt="whatsapp"></a> <br>
+
+                                    </p>
+
+                                @endif
+
+
+
+                            @endif
+                        </div>
+                    </div>
+                </article>
+
+            @endforeach
+
+
         </div>
     </div>
 </section>
@@ -78,450 +95,168 @@
 <section class="featured portfolio bg-white-2 rec-pro full-l">
     <div class="container-fluid">
         <div class="sec-title">
-            <h2><span>Featured </span>Properties</h2>
-            <p>These are our featured properties</p>
+            <h2>Propiedades</h2>
+            <p></p>
         </div>
         <div class="row portfolio-items">
 
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
 
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
+            @foreach($arrayPropiedades as $dato)
+
+
+                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
+                    <div class="project-single" data-aos="fade-right">
+                        <div class="project-inner project-head">
+                            <div class="homes">
+                                <!-- homes img -->
+                                <a href="{{ url('propiedad/'.$dato->slug) }}" class="homes-img">
+
+                                    @if($dato->etiquetaizquierda != null)
+                                        <div class="homes-tag button alt featured">{{ $dato->etiquetaizquierda }}</div>
+                                    @endif
+
+                                    @if($dato->etiquetaderecha != null)
+                                        <div class="homes-tag button alt sale">{{ $dato->etiquetaderecha }}</div>
+                                    @endif
+
+                                    <img src="{{ asset('storage/archivos/'.$dato->propiimagen) }}" alt="home-1" class="img-responsive">
+
                                 </a>
+                            </div>
+                            <div class="button-effect">
+                                @if($dato->video_url != null)
+                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
+                                @endif
+                                <a href="{{ url('propiedad/'.$dato->slug) }}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                            </div>
+                        </div>
+                        <!-- homes content -->
+                        <div class="homes-content">
+                            <!-- homes address -->
+                            <h3><a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->titulo }}</a></h3>
+                            <p class="homes-address mb-3">
+                                <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                    <i class="fa fa-map-marker"></i><span>{{ $dato->subtitulo }}</span>
+                                </a>
+                            </p>
+                            <!-- homes List -->
+                            <ul class="homes-list clearfix pb-3">
 
+                                @foreach($dato->detalle as $jj)
+
+                                    <li class="the-icons">
+                                        <img src="{{ url('storage/archivos/'.$jj->imagen) }}" style="height: 20px; width: 20px">
+                                        <span style="margin-left: 2px"> {{ $jj->nombre }}</span>
+                                    </li>
+
+                                @endforeach
+
+
+                            </ul>
+                            <div class="price-properties footer pt-3 pb-0">
+                                <h3 class="title mt-3">
+                                    <a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a>
+                                </h3>
+                                <div class="compare">
+                                    <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
+                                        <i class="fa fa-eye" style="font-size:28px"></i>
+                                    </a>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
 
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
+            @endforeach
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
 
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
-
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
-
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                <div class="project-single" data-aos="fade-right">
-                    <div class="project-inner project-head">
-                        <div class="homes">
-                            <!-- homes img -->
-                            <a href="single-property-1.html" class="homes-img">
-                                <img src="{{ asset('images/b-11.jpg') }}" alt="home-1" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="button-effect">
-                            <a href="single-property-1.html" class="btn"><i class="fa fa-link"></i></a>
-                            <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i
-                                    class="fas fa-video"></i></a>
-                            <a href="single-property-2.html" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                        </div>
-                    </div>
-                    <!-- homes content -->
-                    <div class="homes-content">
-                        <!-- homes address -->
-                        <h3><a href="single-property-1.html">Real Luxury Family House Villa</a></h3>
-                        <p class="homes-address mb-3">
-                            <a href="single-property-1.html">
-                                <i class="fa fa-map-marker"></i><span>Est St, 77 - Central Park South, NYC</span>
-                            </a>
-                        </p>
-                        <!-- homes List -->
-                        <ul class="homes-list clearfix pb-3">
-                            <li class="the-icons">
-                                <i class="flaticon-bed mr-2" aria-hidden="true"></i>
-                                <span>6 Bedrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-bathtub mr-2" aria-hidden="true"></i>
-                                <span>3 Bathrooms</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-square mr-2" aria-hidden="true"></i>
-                                <span>720 sq ft</span>
-                            </li>
-                            <li class="the-icons">
-                                <i class="flaticon-car mr-2" aria-hidden="true"></i>
-                                <span>2 Garages</span>
-                            </li>
-
-                        </ul>
-                        <div class="price-properties footer pt-3 pb-0">
-                            <h3 class="title mt-3">
-                                <a href="single-property-1.html">$ 150,000</a>
-                            </h3>
-                            <div class="compare">
-                                <a href="#" title="Compare">
-                                    <i class="flaticon-compare"></i>
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
         <div class="bg-all">
-            <a href="properties-full-grid-1.html" class="btn btn-outline-light">View More</a>
+            <a style="cursor: pointer" onclick="buscarPropiedad()" class="btn btn-outline-light">Ver Todos</a>
         </div>
     </div>
 </section>
 <!-- END SECTION FEATURED PROPERTIES -->
 
 
-<!-- START SECTION POPULAR PLACES -->
-<section class="feature-categories bg-white rec-pro">
-    <div class="container-fluid">
-        <div class="sec-title">
-            <h2><span>Popular </span>Places</h2>
-            <p>Properties In Most Popular Places.</p>
-        </div>
-        <div class="row">
-            <!-- Single category -->
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
-                    </div>
+
+    @if(count($arrayLugarInicio) > 0)
+        <section class="feature-categories bg-white rec-pro">
+            <div class="container-fluid">
+                <div class="sec-title">
+                    <h2>Ubicaciones</h2>
+                    <p></p>
+                </div>
+                <div class="row">
+
+                    @foreach($arrayLugarInicio as $jj)
+
+                        <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="150">
+                            <div class="small-category-2">
+                                <div class="small-category-2-thumb img-1">
+                                    <a style="cursor: pointer" class="sc-jb-title" onclick="buscarPropiedadUbicacion({{ $jj->id_lugares }})">
+                                        <img src="{{ url('storage/archivos/'.$jj->imagen) }}" alt=""></a>
+                                </div>
+                                <div class="sc-2-detail">
+                                    <h4 style="cursor: pointer" class="sc-jb-title" onclick="buscarPropiedadUbicacion({{ $jj->id_lugares }})"><a>{{ $jj->nombre }}</a></h4>
+                                    <span>{{ $jj->conteo }} propiedades
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
                 </div>
             </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="250">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="350">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-lg-6 col-sm-6" data-aos="fade-up" data-aos-delay="450">
-                <div class="small-category-2">
-                    <div class="small-category-2-thumb img-1">
-                        <a href="properties-full-grid-1.html"><img src="{{ asset('images/b-11.jpg') }}" alt=""></a>
-                    </div>
-                    <div class="sc-2-detail">
-                        <h4 class="sc-jb-title"><a href="properties-full-grid-1.html">New York</a></h4>
-                        <span>203 Properties</span>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-        <!-- /row -->
-    </div>
-</section>
-<!-- END SECTION POPULAR PLACES -->
+        </section>
+    @endif
 
 
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
 
+<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
+
+
+<script>
+
+    var inputNombre = document.getElementById("nombre-propiedad");
+
+    inputNombre.addEventListener("keyup", function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            buscarPropiedad();
+        }
+    });
+
+    function buscarPropiedad(){
+        var nombre = document.getElementById('nombre-propiedad').value;
+        var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
+        window.location.href = url;
+    }
+
+    function buscarPropiedadUbicacion(idlugar){
+        var url = '/busqueda?ubicacion=' + encodeURIComponent(idlugar) ;
+        window.location.href = url;
+    }
+
+
+
+
+</script>
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YC9JVQ7Y2Y');
+</script>
 
