@@ -58,7 +58,10 @@ class FrontendRecursosController extends Controller
     {
         $infoRecursos = Recursos::where('id', 1)->first();
 
-        return view('frontend.paginas.acercade.vistaacercade', compact('infoRecursos'));
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+        return view('frontend.paginas.acercade.vistaacercade', compact('infoRecursos', 'filasRecursos'));
     }
 
 
