@@ -3,10 +3,6 @@
 @include("frontend.menu.navbar")
 
 
-<style>
-
-
-</style>
 
 <!-- IMAGEN DE PORTADA-->
 <section class="headings">

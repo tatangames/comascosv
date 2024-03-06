@@ -46,8 +46,6 @@ class Handler extends ExceptionHandler
 
 
         if ($this->isHttpException($exception) && $exception->getStatusCode() == 404) {
-            // Aquí puedes pasar tus variables a la vista 404
-
 
             $datosRecursosGet = new InfoRecursosGet();
             $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
@@ -55,7 +53,6 @@ class Handler extends ExceptionHandler
             // Renderizas la vista 404 con las variables personalizadas
             return response()->view('errors.404', compact('filasRecursos'));
         }
-
 
         return parent::render($request, $exception);
     }

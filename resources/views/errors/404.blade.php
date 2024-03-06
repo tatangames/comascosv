@@ -19,6 +19,6 @@
 <!-- END SECTION 404 -->
 
 
-@include("frontend.menu.footer")
+
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")

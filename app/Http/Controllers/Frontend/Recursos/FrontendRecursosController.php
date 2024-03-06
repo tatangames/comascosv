@@ -33,8 +33,11 @@ class FrontendRecursosController extends Controller
     {
         $listado = PreguntasFrecuentes::orderBy('posicion', 'ASC')->get();
 
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
-        return view('frontend.paginas.dudas.vistadudas', compact('listado'));
+
+        return view('frontend.paginas.dudas.vistadudas', compact('listado', 'filasRecursos'));
     }
 
     public function vistaContacto()
@@ -51,7 +54,12 @@ class FrontendRecursosController extends Controller
             $dato->numeroFormat = $modificado;
         }
 
-        return view('frontend.paginas.contacto.vistacontacto', compact('arrayContacto'));
+
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+
+        return view('frontend.paginas.contacto.vistacontacto', compact('arrayContacto', 'filasRecursos'));
     }
 
     public function vistaQuienesSomos()
@@ -240,7 +248,6 @@ class FrontendRecursosController extends Controller
                 $dato->imagen = $infoImg->imagen;
             }
 
-
             $arrayEtiqPopu = PropiedadTag::where('id_propiedad', $infoPropi->id)->get();
 
             foreach ($arrayEtiqPopu as $dato){
@@ -249,6 +256,7 @@ class FrontendRecursosController extends Controller
             }
 
             $arrayEtiquetaPopular = $arrayEtiqPopu->sortBy('nombre')->values();
+
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
@@ -263,7 +271,6 @@ class FrontendRecursosController extends Controller
 
     public function paginaBusqueda(Request $request)
     {
-
         $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
         $fechaActual = Carbon::parse($fechaActualPuro);
 
