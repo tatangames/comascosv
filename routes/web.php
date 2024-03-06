@@ -30,6 +30,14 @@ Route::post('/admin/login', [LoginController::class, 'login']);
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 
 
+// --- VISTA PARA INGRESAR CORREO ---
+Route::get('/admin/ingreso/de/correo', [LoginController::class,'indexIngresoDeCorreo']);
+Route::post('/admin/enviar/correo/password', [LoginController::class, 'enviarCorreoAdministrador']);
+Route::get('/admin/resetear/contrasena/administrador/{token}', [LoginController::class,'indexIngresoNuevaPasswordLink']);
+Route::post('/admin/administrador/actualizacion/password', [LoginController::class, 'actualizarPasswordAdministrador']);
+
+
+
 // --- ROLES ---
 Route::get('/admin/roles/index', [RolesController::class,'index'])->name('admin.roles.index');
 Route::get('/admin/roles/tabla', [RolesController::class,'tablaRoles']);
@@ -259,9 +267,11 @@ Route::get('/quienes-somos', [FrontendRecursosController::class,'vistaQuienesSom
 // --- PROPIEDAD REDIRECCIONAR SLUG ---
 Route::get('/propiedad/{slug}', [FrontendRecursosController::class,'propiedadSlug']);
 
-
+// --- BUSQUEDA PROPIEDAD ---
 Route::get('/busqueda', [FrontendRecursosController::class,'paginaBusqueda'])->name('propiedad.buscada');
 
+// --- MAPA DE PROPIEDADES ---
+Route::get('/mapa', [FrontendRecursosController::class,'mapaPropiedades'])->name('propiedad.mapa');
 
 
 

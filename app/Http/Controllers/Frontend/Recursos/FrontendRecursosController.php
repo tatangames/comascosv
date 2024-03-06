@@ -395,4 +395,21 @@ class FrontendRecursosController extends Controller
     }
 
 
+
+    public function mapaPropiedades()
+    {
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+
+        $marcadores = Propiedad::whereIn('id', [1,3])->get();
+
+        return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores'));
+    }
+
+
+
+
+
+
 }
