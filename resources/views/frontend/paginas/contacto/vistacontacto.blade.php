@@ -52,7 +52,7 @@
 
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 2)
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Canal Youtube
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important; font-weight: bold">Canal Youtube
                                                                     <img src="{{ asset('images/youtube.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
 
                                                                 <br>
@@ -63,7 +63,7 @@
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 3)
 
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Facebook
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important; font-weight: bold">Facebook
                                                                     <img src="{{ asset('images/facebook.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>

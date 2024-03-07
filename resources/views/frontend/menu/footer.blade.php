@@ -85,7 +85,7 @@
 
     <div class="second-footer bg-white-3">
         <div class="container">
-            <p>2024 © Copyright - Comascosv.</p>
+            <p style="color: white !important;">2024 © Copyright - Comascosv.</p>
             <ul class="netsocials">
                 <li><a href="https://wa.me/503{{ $filasRecursos['telefono'] }}">   <img src="{{ asset('images/logowasap.png') }}" style=" height: 45px !important; width: 45px !important; margin: 0 10px 0 10px" alt="whatsapp"> </a></li>
                 <li><a href="https://www.facebook.com/icenterelsalvador/?locale=es_LA">   <img src="{{ asset('images/facebook.png') }}" style=" height: 38px !important; width: 38px !important; margin: 0 10px 0 10px" alt="Facebook"> </a></li>

@@ -136,6 +136,8 @@
                                         </div>
                                     </div>
 
+                                    <!--
+
                                     <div class="form-group">
                                         <label>Visible</label>
                                         <br>
@@ -147,6 +149,8 @@
                                             </div>
                                         </label>
                                     </div>
+
+                                    -->
 
                                 </div>
                             </div>
@@ -258,11 +262,11 @@
                         $('#id-editar').val(id);
                         $('#nombre-editar').val(response.data.info.nombre);
 
-                        if(response.data.info.visible === 1){
+                       /* if(response.data.info.visible === 1){
                             $("#toggle").prop("checked", true);
                         }else{
                             $("#toggle").prop("checked", false);
-                        }
+                        }*/
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -278,8 +282,9 @@
             var id = document.getElementById('id-editar').value;
             var nombre = document.getElementById('nombre-editar').value;
             var imagen = document.getElementById('imagen-editar');
-            let t = document.getElementById('toggle').checked;
-            let toggle = t ? 1 : 0;
+           // let t = document.getElementById('toggle').checked;
+          //  let toggle = t ? 1 : 0;
+            let toggle = 1;
 
             if(nombre === ''){
                 toastr.error('Nombre es requerido');

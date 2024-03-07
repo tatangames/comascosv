@@ -614,12 +614,26 @@ class PropiedadController extends Controller
         if($info = PropiedadImagenes::where('id', $request->id)->first()){
 
             $imagenOld = $info->imagen;
+            $propiId = $info->id_propiedad;
 
             if(Storage::disk('archivos')->exists($imagenOld)){
                 Storage::disk('archivos')->delete($imagenOld);
             }
 
             PropiedadImagenes::where('id', $info->id)->delete();
+
+
+            // si ya no hay imagenes se debe desactivar
+            $conteo = PropiedadImagenes::where('id_propiedad', $propiId)->count();
+
+            if($conteo == 0){
+                Propiedad::where('id', $propiId)
+                    ->update([
+                        'visible' => 0
+                    ]);
+            }
+
+
 
             // fue borrada
             return ['success' => 1];

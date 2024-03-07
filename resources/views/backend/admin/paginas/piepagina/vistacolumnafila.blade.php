@@ -265,6 +265,47 @@
         }
 
 
+        function modalBorrar(idfila){
+            Swal.fire({
+                title: 'Borrar?',
+                text: "",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    solicitarBorrar(idfila);
+                }
+            })
+        }
+
+        function solicitarBorrar(idfila){
+
+            openLoading();
+
+            axios.post('/admin/piepagina/columna/borrar',{
+                'id': idfila
+            })
+                .then((response) => {
+                    closeLoading();
+                    if(response.data.success === 1){
+
+                        toastr.success('Fila Borrada');
+                        recargar();
+                    }else{
+                        toastr.error('Error al borrar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al borrar');
+                    closeLoading();
+                });
+        }
+
+
     </script>
 
 

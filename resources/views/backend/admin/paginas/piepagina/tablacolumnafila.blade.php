@@ -23,6 +23,10 @@
                                     <button type="button" class="btn btn-info btn-xs" onclick="informacionEditar({{ $dato->id }})">
                                         <i class="fas fa-edit" title="Editar"></i>&nbsp; Editar
                                     </button>
+
+                                    <button type="button" style="margin: 3px" class="btn btn-danger btn-xs" onclick="modalBorrar({{ $dato->id }})">
+                                        <i class="fas fa-trash" title="Editar"></i>&nbsp; Borrar
+                                    </button>
                                 </td>
 
                             </tr>

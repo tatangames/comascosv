@@ -7,11 +7,13 @@ use App\InfoRecursosGet;
 use App\Models\ContactoVendedor;
 use App\Models\DetallesContacto;
 use App\Models\EtiquetasPopulares;
+use App\Models\ListadoEtiqueta;
 use App\Models\Lugares;
 use App\Models\PreguntasFrecuentes;
 use App\Models\Propiedad;
 use App\Models\Propiedad4Tag;
 use App\Models\PropiedadDetalle;
+use App\Models\PropiedadEtiqueta;
 use App\Models\PropiedadImagen360;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
@@ -258,12 +260,21 @@ class FrontendRecursosController extends Controller
 
             $arrayEtiquetaPopular = $arrayEtiqPopu->sortBy('nombre')->values();
 
+            $arrayPropiedadEtiquetas = PropiedadEtiqueta::where('id_propiedad', $infoPropi->id)
+                ->orderBy('posicion', 'ASC')
+                ->get();
+
+            foreach ($arrayPropiedadEtiquetas as $dato){
+                $infoDato = ListadoEtiqueta::where('id', $dato->id_etiqueta)->first();
+                $dato->nombre = $infoDato->nombre;
+            }
+
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
                 'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio',
-                'arrayEtiquetaPopular'));
+                'arrayEtiquetaPopular', 'arrayPropiedadEtiquetas'));
         }else{
             return view('errors.404');
         }
@@ -414,7 +425,37 @@ class FrontendRecursosController extends Controller
 
         $apiKey = config('googleapi.ApiGoogle');
 
-        $marcadores = Propiedad::whereIn('id', [1,2])->get();
+        $pilaIdPropiedad = array();
+        $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
+        $fechaActual = Carbon::parse($fechaActualPuro);
+
+        $arrayValidos = Propiedad::where('visible', 1)->get();
+
+        foreach ($arrayValidos as $dato){
+
+            // verificar si coincide fechas
+            $fechaInicio = Carbon::parse($dato->fecha_inicio);
+            $fechaFin = Carbon::parse($dato->fecha_fin);
+
+            // Verificar si son el mismo dia
+            if($fechaInicio->equalTo($fechaFin)){
+
+                // solo camparar con fecha actual
+                if ($fechaActual->equalTo($fechaInicio)) {
+                    if($dato->latitud != null && $dato->longitud != null){
+                        array_push($pilaIdPropiedad, $dato->id);
+                    }
+                }
+            }else{
+                if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                    if($dato->latitud != null && $dato->longitud != null) {
+                        array_push($pilaIdPropiedad, $dato->id);
+                    }
+                }
+            }
+        }
+
+        $marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
 
 
         return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores', 'apiKey'));

@@ -106,10 +106,9 @@
                         @if(count($arrayEtiquetaInicio) > 0)
 
                             <div class="blog-info details mb-30">
-                                <h5 class="mb-4">Etiquetas</h5>
+                                <h5 class="mb-4">Etiquetas Principales</h5>
 
                                 <div class="row">
-
 
                                 @foreach($arrayEtiquetaInicio as $dato)
 
@@ -126,6 +125,25 @@
                         @endif
 
 
+                        @if(count($arrayPropiedadEtiquetas) > 0)
+
+                            <div class="blog-info details mb-30">
+                                <h5 class="mb-4">Etiquetas</h5>
+
+                                <div class="row">
+
+                                    @foreach($arrayPropiedadEtiquetas as $dato)
+
+                                        <li class="the-icons col-md-4">
+                                            <span style="margin-left: 2px"> {{ $dato->nombre }}</span>
+                                        </li>
+
+
+                                    @endforeach
+                                </div>
+                            </div>
+
+                        @endif
 
 
 
