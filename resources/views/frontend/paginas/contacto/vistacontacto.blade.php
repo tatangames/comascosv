@@ -36,7 +36,7 @@
                                             <ul>
                                                 <li>
                                                     <div class="info">
-                                                        <p class="mb-5" style="color: white !important; font-weight: normal; font-size: 16px">Puedes contactarnos en nuestras Redes Sociales</p>
+                                                        <p class="mb-5" style="color: white !important; font-weight: normal; font-size: 16px">{{ $infoRecursos->texto_contacto }}</p>
 
                                                         @foreach($arrayContacto as $dato)
 
@@ -72,7 +72,7 @@
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 4)
 
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Facebook
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Tik Tok
                                                                     <img src="{{ asset('images/tiktok.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>
@@ -81,7 +81,7 @@
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 5)
 
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Facebook
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Instagram
                                                                     <img src="{{ asset('images/instagram.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>

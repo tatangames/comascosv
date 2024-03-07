@@ -27,7 +27,7 @@ class OtrosController extends Controller
             'texto' => 'required',
         );
 
-        // telefono, descripcion
+        // telefono, descripcion, textocontacto
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -38,7 +38,8 @@ class OtrosController extends Controller
         Recursos::where('id', 1)->update([
             'quienes_somos' => $request->texto,
             'telefono' => $request->telefono,
-            'descripcion_pagina' => $request->descripcion
+            'descripcion_pagina' => $request->descripcion,
+            'texto_contacto' => $request->textocontacto
         ]);
 
         return ['success' => 1];

@@ -52,6 +52,17 @@
                             </div>
                         </div>
 
+
+                        <hr>
+                        <div class="card-body">
+                            <p style="font-weight: bold">Texto para página Contacto</p>
+                            <div class="form-group" style="width: 25%">
+                                <input type="text" maxlength="300" class="form-control" id="texto-contacto" value="{{ $infoRecursos->texto_contacto }}">
+                            </div>
+                        </div>
+
+
+
                         <div class="card-footer" style="float: right;">
                             <button type="button" style="font-weight: bold; background-color: #28a745; color: white !important;" class="button button-3d button-rounded button-pill button-small" onclick="actualizar()">Actualizar</button>
                         </div>
@@ -102,6 +113,7 @@
             const editorData = varGlobalEditorNuevo.getData();
             var telefono = document.getElementById('telefono').value;
             var descripcionPagina = document.getElementById('descripcion-pagina').value;
+            var textoContacto = document.getElementById('texto-contacto').value;
 
             if (editorData.trim() === '') {
                 toastr.error("Descripción es requerida");
@@ -113,6 +125,7 @@
             formData.append('texto', editorData);
             formData.append('telefono', telefono);
             formData.append('descripcion', descripcionPagina);
+            formData.append('textocontacto', textoContacto);
 
             axios.post('/admin/otrosrecursos/actualizar', formData, {
             })

@@ -26,6 +26,9 @@ return new class extends Migration
 
             // PIE DE PAGINA UN TEXTO DEBAJO DEL LOGO
             $table->string('descripcion_pagina', 200)->nullable();
+
+            // TEXTO PARA PAGINAS CONTACTO
+            $table->string('texto_contacto', 300)->nullable();
         });
     }
 
