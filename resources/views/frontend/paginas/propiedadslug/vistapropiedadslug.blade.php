@@ -185,14 +185,18 @@
                     </div>
                 @endif
 
-                @if($infoPropi->video_url != null)
-
-                    <div class="property wprt-image-video w50 pro">
-                        <h5>Video</h5>
-                        <iframe width="100%" height="360" src="{{ $infoPropi->video_url }}" frameborder="0" allowfullscreen></iframe>
-                    </div>
 
 
+                @if(count($arrayPropiVideo) > 0)
+
+                    @foreach($arrayPropiVideo as $dato)
+
+                        <div class="property wprt-image-video w50 pro">
+                            <h5>{{ $dato->titulo }}</h5>
+                            <iframe width="100%" height="360" src="{{ $dato->url_video }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                    @endforeach
                 @endif
 
                 @if(count($array360) > 0)

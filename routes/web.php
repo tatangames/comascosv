@@ -244,6 +244,15 @@ Route::post('/admin/tagpopular/informacion', [RecursosController::class,'informa
 Route::post('/admin/tagpopular/actualizar', [RecursosController::class,'actualizarTagPopular']);
 
 
+// --- PROPIEDAD VIDEOS ---
+Route::get('/admin/porpiedadvideo/index/{idpropiedad}', [PropiedadController::class,'indexPropiedadVideo']);
+Route::get('/admin/porpiedadvideo/tabla/{idpropiedad}', [PropiedadController::class,'tablaPropiedadVideo']);
+Route::post('/admin/porpiedadvideo/registrar', [PropiedadController::class,'registrarPropiedadVideo']);
+Route::post('/admin/porpiedadvideo/informacion', [PropiedadController::class,'infoPropiedadVideo']);
+Route::post('/admin/porpiedadvideo/posicion', [PropiedadController::class,'posicionPropiedadVideo']);
+Route::post('/admin/porpiedadvideo/actualizar', [PropiedadController::class,'actualizarPropiedadVideo']);
+Route::post('/admin/porpiedadvideo/borrar', [PropiedadController::class,'borrarPropiedadVideo']);
+
 
 
 

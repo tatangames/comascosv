@@ -12,6 +12,10 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 
+
+
+
+
 <div id="map" style="height: 600px;"></div>
 
 
@@ -69,10 +73,9 @@
     }
 
 
-
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 12,
             options: {
                 gestureHandling: 'greedy'
             },
@@ -81,22 +84,23 @@
 
         // Itera sobre los marcadores
         @foreach($marcadores as $marcador)
-        var marker = new google.maps.Marker({
-            position: {lat: {{ $marcador->latitud }}, lng: {{ $marcador->longitud }}},
-            map: map,
-            title: "Propiedad",
-            icon: {
-                url: '{{ asset("images/marcadorgoogle.png") }}', // Ruta a tu icono personalizado
-                scaledSize: new google.maps.Size(50, 70) // Ajusta el tamaño del icono según tu preferencia
-            },
-            id: "{{ $marcador->slug }}"
-        });
 
-        // Agregar evento click al marcador
-        marker.addListener('click', function() {
-            // Llama a la función handleClickMarker con el ID del marcador
-           redireccionar(this.id)
-        });
+            var marker = new google.maps.Marker({
+                position: {lat: {{ $marcador->latitud }}, lng: {{ $marcador->longitud }}},
+                map: map,
+                title: "Propiedad",
+                icon: {
+                    url: '{{ asset("images/marcadorgoogle.png") }}', // Ruta a tu icono personalizado
+                    scaledSize: new google.maps.Size(50, 70) // Ajusta el tamaño del icono según tu preferencia
+                },
+                id: "{{ $marcador->slug }}"
+            });
+
+            // Agregar evento click al marcador
+            marker.addListener('click', function() {
+                // Llama a la función handleClickMarker con el ID del marcador
+               redireccionar(this.id)
+            });
 
         @endforeach
     }

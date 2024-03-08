@@ -17,6 +17,7 @@ use App\Models\PropiedadInicio;
 use App\Models\PropiedadPlanos;
 use App\Models\PropiedadTag;
 use App\Models\PropiedadTipoDetalle;
+use App\Models\PropiedadVideos;
 use App\Models\Vendedores;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -126,7 +127,7 @@ class PropiedadController extends Controller
             'slug' => 'required'
         );
 
-        // direccion, precio, latitud, longitud, videourl
+        // direccion, precio, latitud, longitud,
 
         $validar = Validator::make($request->all(), $regla);
 
@@ -155,7 +156,6 @@ class PropiedadController extends Controller
             $nuevo->vineta_derecha = null;
             $nuevo->vineta_izquierda = null;
             $nuevo->slug = $slug;
-            $nuevo->video_url = $request->videourl;
             $nuevo->descripcion = null;
             $nuevo->visible = 0;
             $nuevo->save();
@@ -220,8 +220,6 @@ class PropiedadController extends Controller
 
         if ($validar->fails()){ return ['success' => 0];}
 
-
-
         // Verificar que tenga imagenes ya registradas
         // si va activar
         if($request->toggle == 1){
@@ -254,7 +252,6 @@ class PropiedadController extends Controller
                 'longitud' => $request->longitud,
                 'id_lugar' => $request->idlugar,
                 'slug' => $slug,
-                'video_url' => $request->videourl,
                 'visible' => $request->toggle
             ]);
 
@@ -1139,6 +1136,148 @@ class PropiedadController extends Controller
 
 
 
+    // *********************** PROPIEDAD VIDEO *************************************
+
+
+    public function indexPropiedadVideo($idpropiedad){
+
+        return view('backend.admin.propiedad.videos.vistavideos', compact('idpropiedad'));
+    }
+
+
+    public function tablaPropiedadVideo($idpropiedad){
+
+        $listado = PropiedadVideos::where('id_propiedad', $idpropiedad)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+        return view('backend.admin.propiedad.videos.tablavideos', compact('listado'));
+    }
+
+
+    public function registrarPropiedadVideo(Request $request){
+
+        $regla = array(
+            'idpropiedad' => 'required',
+            'urlvideo' => 'required',
+        );
+
+        // titulo
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        DB::beginTransaction();
+        try {
+
+            if($info = PropiedadVideos::where('id_propiedad', $request->idpropiedad)
+                ->orderBy('posicion', 'DESC')
+                ->first()){
+                $nuevaPosicion = $info->posicion + 1;
+            }else{
+                $nuevaPosicion = 1;
+            }
+
+            $nuevo = new PropiedadVideos();
+            $nuevo->id_propiedad = $request->idpropiedad;
+            $nuevo->url_video = $request->urlvideo;
+            $nuevo->titulo = $request->titulo;
+            $nuevo->posicion = $nuevaPosicion;
+            $nuevo->save();
+
+
+            DB::commit();
+            return ['success' => 1];
+        }catch(\Throwable $e){
+            Log::info('error: ' . $e);
+            DB::rollback();
+            return ['success' => 99];
+        }
+    }
+
+
+    public function infoPropiedadVideo(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PropiedadVideos::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 1];
+        }
+    }
+
+
+    public function posicionPropiedadVideo(Request $request){
+
+        $tasks = PropiedadVideos::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+
+        return ['success' => 1];
+    }
+
+
+    public function actualizarPropiedadVideo(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+            'urlvideo' => 'required',
+        );
+
+        // titulo
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        PropiedadVideos::where('id', $request->id)
+            ->update([
+                'url_video' => $request->urlvideo,
+                'titulo' => $request->titulo,
+            ]);
+
+        return ['success' => 1];
+    }
+
+
+    public function borrarPropiedadVideo(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = PropiedadVideos::where('id', $request->id)->first()){
+
+            PropiedadVideos::where('id', $info->id)->delete();
+
+            // fue borrada
+            return ['success' => 1];
+        }else{
+            // decir que fue borrado
+            return ['success' => 1];
+        }
+    }
 
 
 }

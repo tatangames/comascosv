@@ -17,6 +17,7 @@ use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadPlanos;
 use App\Models\PropiedadTag;
+use App\Models\PropiedadVideos;
 use App\Models\Recursos;
 use App\Models\Vendedores;
 use Carbon\Carbon;
@@ -257,12 +258,15 @@ class FrontendRecursosController extends Controller
 
             $arrayEtiquetaPopular = $arrayEtiqPopu->sortBy('nombre')->values();
 
+            $arrayPropiVideo = PropiedadVideos::where('id_propiedad', $infoPropi->id)
+                ->orderBy('posicion', 'ASC')
+                ->get();
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
                 'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio',
-                'arrayEtiquetaPopular'));
+                'arrayEtiquetaPopular', 'arrayPropiVideo'));
         }else{
             return view('errors.404');
         }
@@ -412,8 +416,36 @@ class FrontendRecursosController extends Controller
         $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
         $apiKey = config('googleapi.ApiGoogle');
+        $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
+        $fechaActual = Carbon::parse($fechaActualPuro);
+        $pilaIdPropiedad = array();
+        $arrayValidos = Propiedad::where('visible', 1)->get();
 
-        $marcadores = Propiedad::whereIn('id', [1,2])->get();
+        foreach ($arrayValidos as $dato) {
+
+            // verificar si coincide fechas
+            $fechaInicio = Carbon::parse($dato->fecha_inicio);
+            $fechaFin = Carbon::parse($dato->fecha_fin);
+
+            // Verificar si son el mismo dia
+            if ($fechaInicio->equalTo($fechaFin)) {
+
+                // solo camparar con fecha actual
+                if ($fechaActual->equalTo($fechaInicio)) {
+                    if($dato->latitud != null && $dato->longitud != null){
+                        array_push($pilaIdPropiedad, $dato->id);
+                    }
+                }
+            } else {
+                if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                    if($dato->latitud != null && $dato->longitud != null){
+                        array_push($pilaIdPropiedad, $dato->id);
+                    }
+                }
+            }
+        }
+
+        $marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
 
 
         return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores', 'apiKey'));
