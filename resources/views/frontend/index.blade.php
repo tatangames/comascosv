@@ -3,6 +3,29 @@
 @include("frontend.menu.navbar")
 
 
+<style>
+
+    #contenedor {
+        text-align: center; /* Centrar el contenido horizontalmente */
+    }
+
+    #boton {
+        margin-left: 100px;
+    }
+
+    /* Media query para pantallas con un ancho máximo de 600px (dispositivos móviles) */
+    @media only screen and (max-width: 600px) {
+        #contenedor {
+            text-align: left; /* Alineación izquierda del contenido */
+        }
+
+        #boton {
+            margin-left: 20px; /* Aplicar margen izquierdo al botón */
+        }
+    }
+
+</style>
+
 <!-- PORTADA -->
 <div id="container">
     <img style="width: 100%;" src="{{ asset('images/portada.jpg') }}">
@@ -37,9 +60,7 @@
                         <div class="rld-single-input">
                             <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 455px !important;">
                         </div>
-
-                        <a class="btn btn-yellow" onclick="buscarPropiedad()" style="margin-left: 5px">Buscar</a>
-
+                        <a class="btn btn-yellow" id="boton" onclick="buscarPropiedad()" style="margin-left: 5px">Buscar</a>
                 </div>
 
             </div>

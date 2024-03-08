@@ -13,12 +13,12 @@
 
 
 
-<div class="blog-info details mb-30">
-    <h5 class="mb-4">Propiedades Disponibles: {{ $conteo }}</h5>
+<div style="margin-left: 15px; margin-top: 15px">
+    <h5 style="color: black;"><strong>Propiedades Disponibles: </strong> {{ $conteo }}</h5>
 </div>
 
 
-<div id="map" style="height: 600px;"></div>
+<div id="map" style="height: 600px; margin-top: 20px"></div>
 
 
 <!-- STAR HEADER SEARCH -->
