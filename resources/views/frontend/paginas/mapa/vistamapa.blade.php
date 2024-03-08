@@ -13,7 +13,9 @@
 
 
 
-
+<div class="blog-info details mb-30">
+    <h5 class="mb-4">Propiedades Disponibles: {{ $conteo }}</h5>
+</div>
 
 
 <div id="map" style="height: 600px;"></div>

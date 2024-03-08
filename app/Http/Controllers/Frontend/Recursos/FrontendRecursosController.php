@@ -446,9 +446,9 @@ class FrontendRecursosController extends Controller
         }
 
         $marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
+        $conteo = Propiedad::whereIn('id', $pilaIdPropiedad)->count();
 
-
-        return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores', 'apiKey'));
+        return view('frontend.paginas.mapa.vistamapa', compact('filasRecursos', 'marcadores', 'apiKey', 'conteo'));
     }
 
 
