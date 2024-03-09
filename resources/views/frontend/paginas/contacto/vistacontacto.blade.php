@@ -43,7 +43,7 @@
 
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 1)
 
-                                                                <span class="fa fa-phone" style="color: white !important; font-size: 17px"/>
+                                                                <span class="fa fa-phone" style="color: white !important; font-size: 17px; font-weight: bold"/>
                                                                 <a href="https://wa.me/503{{ $dato->nombre }}" style="color: #ffffff !important;">{{ $dato->numeroFormat }}
                                                                     <img src="{{ asset('images/logowasap.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
 
@@ -73,7 +73,7 @@
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 4)
 
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Tik Tok
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important; font-weight: bold">Tik Tok
                                                                     <img src="{{ asset('images/tiktok.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>
@@ -82,7 +82,7 @@
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 5)
 
 
-                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important;">Instagram
+                                                                <a href="{{ $dato->nombre }}" style="color: #ffffff !important; font-weight: bold">Instagram
                                                                     <img src="{{ asset('images/instagram.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>

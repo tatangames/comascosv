@@ -91,13 +91,7 @@ class FrontendRecursosController extends Controller
                 $dato->contador = $contador;
             }
 
-
-
             $precioFormat = '$' . number_format((float)$infoPropi->precio, 2, '.', ',');
-
-
-
-
 
             // ETIQUETAS DETALLE
 
@@ -261,7 +255,7 @@ class FrontendRecursosController extends Controller
 
             $arrayEtiquetaPopular = $arrayEtiqPopu->sortBy('nombre')->values();
 
-<<<<<<< HEAD
+
             $arrayPropiedadEtiquetas = PropiedadEtiqueta::where('id_propiedad', $infoPropi->id)
                 ->orderBy('posicion', 'ASC')
                 ->get();
@@ -271,21 +265,18 @@ class FrontendRecursosController extends Controller
                 $dato->nombre = $infoDato->nombre;
             }
 
-=======
+
+
             $arrayPropiVideo = PropiedadVideos::where('id_propiedad', $infoPropi->id)
                 ->orderBy('posicion', 'ASC')
                 ->get();
->>>>>>> 1d1080fda77c61460ba2ec9087943705649125c2
+
 
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
                 'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio',
-<<<<<<< HEAD
-                'arrayEtiquetaPopular', 'arrayPropiedadEtiquetas'));
-=======
-                'arrayEtiquetaPopular', 'arrayPropiVideo'));
->>>>>>> 1d1080fda77c61460ba2ec9087943705649125c2
+                'arrayEtiquetaPopular', 'arrayPropiVideo', 'arrayPropiedadEtiquetas'));
         }else{
             return view('errors.404');
         }
@@ -440,7 +431,7 @@ class FrontendRecursosController extends Controller
         $pilaIdPropiedad = array();
         $arrayValidos = Propiedad::where('visible', 1)->get();
 
-<<<<<<< HEAD
+
         $pilaIdPropiedad = array();
         $fechaActualPuro = Carbon::now('America/El_Salvador')->toDateString();
         $fechaActual = Carbon::parse($fechaActualPuro);
@@ -472,9 +463,8 @@ class FrontendRecursosController extends Controller
         }
 
         $marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
-=======
+
         foreach ($arrayValidos as $dato) {
->>>>>>> 1d1080fda77c61460ba2ec9087943705649125c2
 
             // verificar si coincide fechas
             $fechaInicio = Carbon::parse($dato->fecha_inicio);
