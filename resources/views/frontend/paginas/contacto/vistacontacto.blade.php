@@ -74,7 +74,7 @@
 
 
                                                                 <a href="{{ $dato->nombre }}" style="color: #ffffff !important; font-weight: bold">Tik Tok
-                                                                    <img src="{{ asset('images/tiktok.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
+                                                                    <img src="{{ asset('images/tiktokblanco.png') }}" style="width: 30px; height: 30px; margin-left: 15px"></a>
                                                                 <br>
                                                                 <br>
                                                             @endif
