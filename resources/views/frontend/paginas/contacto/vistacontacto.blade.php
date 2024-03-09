@@ -38,6 +38,7 @@
                                                     <div class="info">
                                                         <p class="mb-5" style="color: white !important; font-weight: normal; font-size: 16px">{{ $infoRecursos->texto_contacto }}</p>
 
+
                                                         @foreach($arrayContacto as $dato)
 
                                                             @if($dato->visible == 1 && $dato->id_tipos_contactos == 1)
@@ -106,12 +107,6 @@
                             </div>
                         </section>
                     </div>
-
-
-
-
-
-
 
 
                 </div>
