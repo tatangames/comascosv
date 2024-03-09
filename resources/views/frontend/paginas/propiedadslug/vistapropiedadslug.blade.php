@@ -55,13 +55,17 @@
                                     @if ($loop->first)
 
                                             <div class="active item carousel-item" data-slide-number="{{ $dato->contador }}">
-                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                                <div class="col-md-12 animate-box">
+                                                    <img class="img-responsive img-fluid" src="{{ asset('storage/archivos/'.$dato->imagen)}}" alt="comascosv" data-toggle="modal" data-target="#modal1" onclick="getPath(this)">
+                                                </div>
                                             </div>
 
                                     @else
 
                                             <div class="item carousel-item" data-slide-number="{{ $dato->contador }}">
-                                                <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" class="img-fluid" alt="slider-listing">
+                                                <div class="col-md-12 animate-box">
+                                                    <img class="img-responsive img-fluid" src="{{ asset('storage/archivos/'.$dato->imagen)}}" alt="comascosv" data-toggle="modal" data-target="#modal1" onclick="getPath(this)">
+                                                </div>
                                             </div>
 
                                     @endif
@@ -203,14 +207,18 @@
                     </div>
                 @endif
 
-                @if($infoPropi->video_url != null)
-
-                    <div class="property wprt-image-video w50 pro">
-                        <h5>Video</h5>
-                        <iframe width="100%" height="360" src="{{ $infoPropi->video_url }}" frameborder="0" allowfullscreen></iframe>
-                    </div>
 
 
+                @if(count($arrayPropiVideo) > 0)
+
+                    @foreach($arrayPropiVideo as $dato)
+
+                        <div class="property wprt-image-video w50 pro">
+                            <h5>{{ $dato->titulo }}</h5>
+                            <iframe width="100%" height="360" src="{{ $dato->url_video }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                    @endforeach
                 @endif
 
                 @if(count($array360) > 0)
@@ -498,6 +506,30 @@
 
 
 
+
+
+<!--Cuadro modal para el Zoom de las fotos-->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <!--Contenido-->
+        <div class="modal-content">
+            <div class="modal-body mb-0 p-0">
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                    <img id="imgModal" src=""  class="embed-responsive-item" alt="">
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        <!--Fin Contenido-->
+    </div>
+</div>
+<!--End Cuadro modal-->
+
+
+
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
@@ -520,5 +552,12 @@
     }
 
 
+
 </script>
 
+<script type="text/javascript">
+    function getPath(img) {
+        atributo = img.getAttribute("src");
+        document.getElementById("imgModal").setAttribute("src", atributo);
+    }
+</script>

@@ -35,8 +35,6 @@ return new class extends Migration
 
             $table->string('slug', 150)->unique();
 
-            $table->string('video_url', 100)->nullable();
-
             $table->text('descripcion')->nullable();
 
             $table->boolean('visible');

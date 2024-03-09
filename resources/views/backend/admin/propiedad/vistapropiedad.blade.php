@@ -130,14 +130,6 @@
                                         <input type="text" maxlength="150" class="form-control" id="slug-nuevo" autocomplete="off">
                                     </div>
 
-
-
-                                    <div class="form-group">
-                                        <label>Video URL (Opcional)</label>
-                                        <input type="text" maxlength="100" class="form-control" id="videourl-nuevo" autocomplete="off">
-                                    </div>
-
-
                                     <br>
                                     <hr>
 
@@ -239,11 +231,6 @@
                                         <input type="text" maxlength="150" class="form-control" id="slug-editar" autocomplete="off">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Video URL (Opcional)</label>
-                                        <input type="text" maxlength="100" class="form-control" id="videourl-editar" autocomplete="off">
-                                    </div>
-
                                     <br>
                                     <hr>
 
@@ -285,6 +272,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 
 
@@ -322,6 +311,7 @@
                                     <button type="button" onclick="vistaPlanos();" class="btn btn-info btn-block waves-effect waves-light">Planos</button>
                                     <button type="button" onclick="vistaImagen360();" class="btn btn-info btn-block waves-effect waves-light">Imagen 360</button>
                                     <button type="button" onclick="vistaTagPopular();" class="btn btn-info btn-block waves-effect waves-light">Etiqueta Popular</button>
+                                    <button type="button" onclick="vistaVideos();" class="btn btn-info btn-block waves-effect waves-light">Videos</button>
 
                                 </div>
                             </div>
@@ -548,7 +538,6 @@
             var longitud = document.getElementById('longitud-nuevo').value;
             var idlugar = document.getElementById('select-lugar').value;
             var slug = document.getElementById('slug-nuevo').value;
-            var videourl = document.getElementById('videourl-nuevo').value;
 
 
             if(idvendedor == '0'){
@@ -617,7 +606,6 @@
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
-            formData.append('videourl', videourl);
 
 
             axios.post('/admin/propiedad/registrar', formData, {
@@ -689,7 +677,6 @@
                         $('#latitud-editar').val(response.data.info.latitud);
                         $('#longitud-editar').val(response.data.info.longitud);
                         $('#slug-editar').val(response.data.info.slug);
-                        $('#videourl-editar').val(response.data.info.video_url);
 
                         if(response.data.info.visible === 1){
                             $("#toggle").prop("checked", true);
@@ -721,7 +708,6 @@
             var longitud = document.getElementById('longitud-editar').value;
             var idlugar = document.getElementById('select-lugar-editar').value;
             var slug = document.getElementById('slug-editar').value;
-            var videourl = document.getElementById('videourl-editar').value;
             let t = document.getElementById('toggle').checked;
             let toggle = t ? 1 : 0;
 
@@ -790,7 +776,6 @@
             formData.append('longitud', longitud);
             formData.append('idlugar', idlugar);
             formData.append('slug', slug);
-            formData.append('videourl', videourl);
             formData.append('toggle', toggle);
 
             axios.post('/admin/propiedad/actualizar', formData, {
@@ -994,6 +979,12 @@
             var id = document.getElementById('id-opciones').value;
             window.location.href="{{ url('/admin/propiedadtagpopular/index') }}/" + id;
         }
+
+        function vistaVideos(){
+            var id = document.getElementById('id-opciones').value;
+            window.location.href="{{ url('/admin/porpiedadvideo/index') }}/" + id;
+        }
+
 
 
     </script>
