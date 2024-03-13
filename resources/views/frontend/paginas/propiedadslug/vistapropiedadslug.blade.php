@@ -14,8 +14,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <section class="headings-2 pt-0">
-                            <div class="pro-wrapper">
+                            <div>
 
+
+                                <div class="row" style="float: right; padding-left: 15px; padding-right: 5px">
+
+                                    <h4 style="color: #FF385C !important; font-size: 20px">{{ $precioFormat }}</h4>
+
+                                </div>
 
                                 <div class="detail-wrapper-body">
                                     <div class="listing-title-bar">
@@ -38,16 +44,7 @@
                                 </div>
 
 
-                                <div class="single detail-wrapper mr-2">
-                                    <div class="detail-wrapper-body">
-                                        <div class="listing-title-bar">
-                                            <h4>{{ $precioFormat }}</h4>
-                                            <div class="mt-0">
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                             </div>
