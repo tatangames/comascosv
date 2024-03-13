@@ -87,7 +87,7 @@
 
                                 @if($infoRecursos->telefono != null)
 
-                                    <p class="text-center">{{ $dato->telefonoFormat }}<a
+                                    <p class="text-center"><a {{ $dato->telefonoFormat }}
                                             href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
                                                                                    style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
                                                                                    alt="whatsapp"></a> <br>
