@@ -378,29 +378,16 @@
 
 
 
-
+                            <!-- ANUNCIOS
                             <div class="widget-boxed popular mt-5">
                                 <div class="widget-boxed-header">
                                     <h4>Specials of the day</h4>
                                 </div>
                                 <div class="widget-boxed-body">
-
-                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6402182700266251"
-                                            crossorigin="anonymous"></script>
-                                    <!-- anuncioVertical1 -->
-                                    <ins class="adsbygoogle"
-                                         style="display:block"
-                                         data-ad-client="ca-pub-6402182700266251"
-                                         data-ad-slot="5225510515"
-                                         data-ad-format="auto"
-                                         data-full-width-responsive="true"></ins>
-                                    <script>
-                                        (adsbygoogle = window.adsbygoogle || []).push({});
-                                    </script>
-
+                                    <div class="banner"><img src="images/single-property/banner.jpg" alt=""></div>
                                 </div>
                             </div>
-
+                            -->
 
 
 
