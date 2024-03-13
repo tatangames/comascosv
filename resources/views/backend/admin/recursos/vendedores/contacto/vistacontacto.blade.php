@@ -80,7 +80,9 @@
 
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <span>Para Télefono, si puede agregar guion</span>
+                                        <span>Para Télefono, puede llevar Gion, Simbolo +, espacios, y parentesis</span><br>
+                                        <span>Ejemplo El Salvador +503 7292-4881</span><br>
+                                        <span>Ejemplo USA +1 (617) 708-6840 </span>
                                         <input type="text" class="form-control" id="titulo-nuevo" autocomplete="off">
                                     </div>
 
