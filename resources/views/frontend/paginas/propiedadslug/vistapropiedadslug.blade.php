@@ -15,24 +15,29 @@
                     <div class="col-md-12">
                         <section class="headings-2 pt-0">
                             <div class="pro-wrapper">
+
+
                                 <div class="detail-wrapper-body">
                                     <div class="listing-title-bar">
-                                        <h3>{{ $infoPropi->nombre }}
+                                        <p style="font-size: 25px!important; font-weight: bold; color: black">{{ $infoPropi->nombre }} </p>
                                             @if($infoPropi->vineta_izquierda != null)
-                                            <span class="mrg-l-5 category-tag">
-
+                                            <span class="mrg-l-5 category-tag" style="margin-top: 15px !important;">
                                                     {{ $infoPropi->vineta_izquierda }}
 
-                                            </span></h3>
-                                        @endif
+                                            </span>
 
-                                        <div class="mt-0">
+                                           @endif
+
+
+                                        <div class="mt-0" style="margin-top: 15px !important;">
                                             <a class="listing-address">
                                                 <i class="fa fa-map-marker pr-2 ti-location-pin mrg-r-5"></i>{{ $infoPropi->direccion }}
                                             </a>
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="single detail-wrapper mr-2">
                                     <div class="detail-wrapper-body">
                                         <div class="listing-title-bar">
@@ -43,6 +48,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </section>
                         <!-- main slider carousel items -->
