@@ -147,7 +147,8 @@ class FrontendRecursosController extends Controller
 
                 $telefonoFormat = "";
                 if($dato->id_tipocontacto == 1){
-                    $telefonoFormat = substr_replace($dato->titulo, '-', 4, 0);
+                    // quitarle el gion
+                    $telefonoFormat = str_replace('-', '', $dato->titulo);
                 }
 
                 $dato->telefonoFormat = $telefonoFormat;

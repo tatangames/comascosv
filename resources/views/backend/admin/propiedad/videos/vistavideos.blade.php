@@ -21,13 +21,13 @@
             <div class="col-sm-6">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
-                    Nueva Etiqueta
+                    Nuevo Video
                 </button>
             </div>
 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Etiquetas</li>
+                    <li class="breadcrumb-item">Videos</li>
                     <li class="breadcrumb-item active">Listado</li>
                 </ol>
             </div>

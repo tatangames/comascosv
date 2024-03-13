@@ -79,8 +79,8 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Descripción</label>
+                                    <div class="form-group" style="margin-top: 25px">
+                                        <label>Descripción (Si es Teléfono, no agregar guion)</label>
                                         <input type="text" maxlength="100" class="form-control" id="descripcion-editar" autocomplete="off">
                                     </div>
 

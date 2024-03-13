@@ -291,8 +291,10 @@
                             <div class="widget-boxed-body">
                                 <div class="sidebar-widget author-widget2">
                                     <div class="author-box clearfix">
-                                        <img src="{{ asset('storage/archivos/'.$infoVendedor->imagen) }}" alt="author-image" class="author__img">
+                                        <div class="col-md-12 animate-box">
+                                            <img class="author__img" src="{{ asset('storage/archivos/'.$infoVendedor->imagen)}}" alt="comascosv" data-toggle="modal" data-target="#modal2" onclick="getPath2(this)">
 
+                                        </div>
                                         <h4 style="cursor: pointer; " class="author__title" onclick="buscarPropiedad()" id="nombre-vendedor">{{ $infoVendedor->nombre }}</h4>
 
                                     </div>
@@ -307,10 +309,13 @@
                                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                                     </span>
                                                     <a
-                                                        href="https://wa.me/503{{$dato->titulo}}">{{ $dato->telefonoFormat }} <img src="{{ asset('images/logowasap.png') }}"
+                                                        href="https://wa.me/{{$dato->telefonoFormat}}">{{ $dato->titulo }} <img src="{{ asset('images/logowasap.png') }}"
                                                                                                                   style=" height: 30px !important; width: 30px !important; margin: 0 10px 0 10px"
                                                                                                                   alt="whatsapp"></a> <br>
                                                 </li>
+
+
+
 
                                             @elseif($dato->id_tipocontacto == 2)
                                                 <li><span class="la la-map-marker"><i class="fa fa-map-marker"></i></span>{{ $dato->titulo }}</li>
@@ -373,16 +378,29 @@
 
 
 
-                            <!-- ANUNCIOS
+
                             <div class="widget-boxed popular mt-5">
                                 <div class="widget-boxed-header">
                                     <h4>Specials of the day</h4>
                                 </div>
                                 <div class="widget-boxed-body">
-                                    <div class="banner"><img src="images/single-property/banner.jpg" alt=""></div>
+
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6402182700266251"
+                                            crossorigin="anonymous"></script>
+                                    <!-- anuncioVertical1 -->
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-client="ca-pub-6402182700266251"
+                                         data-ad-slot="5225510515"
+                                         data-ad-format="auto"
+                                         data-full-width-responsive="true"></ins>
+                                    <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+
                                 </div>
                             </div>
-                            -->
+
 
 
 
@@ -509,8 +527,8 @@
 
 
 <!--Cuadro modal para el Zoom de las fotos-->
-<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <!--Contenido-->
         <div class="modal-content">
             <div class="modal-body mb-0 p-0">
@@ -520,7 +538,7 @@
             </div>
 
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                <button class="btn btn-primary btn-anis ml-0" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
         <!--Fin Contenido-->
@@ -528,7 +546,30 @@
 </div>
 <!--End Cuadro modal-->
 
+<!--Cuadro modal para ver el vendedor-->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <!--Contenido-->
+        <div class="modal-content">
 
+                <div class="contenedor" style=" display: flex;
+                  justify-content: center; /* Centra horizontalmente */
+                  align-items: center; /* Centra verticalmente */
+                  width: 100%; /* Ajusta el ancho según sea necesario */
+                  height: 300px; /* Altura deseada del contenedor */
+                  background-color: #f0f0f0;">
+                    <img id="imgModal2" src="" style="height: 250px !important; width: 250px !important;"  class="embed-responsive-item" alt="">
+                </div>
+
+
+            <div class="modal-footer justify-content-center">
+                <button class="btn btn-primary btn-anis ml-0" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        <!--Fin Contenido-->
+    </div>
+</div>
+<!--End Cuadro modal-->
 
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
@@ -559,5 +600,10 @@
     function getPath(img) {
         atributo = img.getAttribute("src");
         document.getElementById("imgModal").setAttribute("src", atributo);
+    }
+
+    function getPath2(img) {
+        atributo = img.getAttribute("src");
+        document.getElementById("imgModal2").setAttribute("src", atributo);
     }
 </script>
