@@ -212,10 +212,10 @@ class FrontendRecursosController extends Controller
                 }
                 $dato->imagen = $imagen;
 
-                $infoVendedor = Vendedores::where('id', $dato->id_vendedor)->first();
+                $infoVen = Vendedores::where('id', $dato->id_vendedor)->first();
 
-                $dato->imagenvendedor = $infoVendedor->imagen;
-                $dato->nombrevendedor = $infoVendedor->nombre;
+                $dato->imagenvendedor = $infoVen->imagen;
+                $dato->nombrevendedor = $infoVen->nombre;
 
                 // listado de etiquetas principales
                 $listado4Tag = Propiedad4Tag::where('id_propiedad', $dato->id)

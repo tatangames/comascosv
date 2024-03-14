@@ -644,6 +644,8 @@
                         $('#modalEditar').modal('show');
                         $('#id-editar').val(id);
 
+                        console.log(response)
+
                         // listado de vendedores
                         document.getElementById("select-vendedor-editar").options.length = 0;
                         document.getElementById("select-lugar-editar").options.length = 0;
