@@ -254,7 +254,8 @@ Route::post('/admin/porpiedadvideo/actualizar', [PropiedadController::class,'act
 Route::post('/admin/porpiedadvideo/borrar', [PropiedadController::class,'borrarPropiedadVideo']);
 
 
-
+// --- ELIMINACION TOTAL DE PROPIEDAD ---
+Route::post('/admin/propiedad/eliminacion', [PropiedadController::class,'eliminacionPropiedad']);
 
 
 

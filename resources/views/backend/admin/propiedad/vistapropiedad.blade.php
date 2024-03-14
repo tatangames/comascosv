@@ -312,6 +312,7 @@
                                     <button type="button" onclick="vistaImagen360();" class="btn btn-info btn-block waves-effect waves-light">Imagen 360</button>
                                     <button type="button" onclick="vistaTagPopular();" class="btn btn-info btn-block waves-effect waves-light">Etiqueta Popular</button>
                                     <button type="button" onclick="vistaVideos();" class="btn btn-info btn-block waves-effect waves-light">Videos</button>
+                                    <button type="button" onclick="modalBorrar();" class="btn btn-danger btn-block waves-effect waves-light">Borrar</button>
 
                                 </div>
                             </div>
@@ -987,7 +988,49 @@
             window.location.href="{{ url('/admin/porpiedadvideo/index') }}/" + id;
         }
 
+        function modalBorrar(){
+            Swal.fire({
+                title: 'Borrar',
+                text: "Se eliminara la Propiedad",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#b6b2b2',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Eliminar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    borrar();
+                }
+            })
+        }
 
+
+        function borrar(){
+            var id = document.getElementById('id-opciones').value;
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+
+            axios.post('/admin/propiedad/eliminacion', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Eliminado correctamente');
+                        $('#modalOpciones').modal('hide');
+                        recargar();
+                    }
+                    else {
+                        toastr.error('Error al borrar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al borrar');
+                    closeLoading();
+                });
+        }
 
     </script>
 

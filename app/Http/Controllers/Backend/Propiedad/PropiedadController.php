@@ -14,6 +14,7 @@ use App\Models\PropiedadImagen360;
 use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
+use App\Models\PropiedadItem;
 use App\Models\PropiedadPlanos;
 use App\Models\PropiedadTag;
 use App\Models\PropiedadTipoDetalle;
@@ -1290,6 +1291,82 @@ class PropiedadController extends Controller
         }else{
             // decir que fue borrado
             return ['success' => 1];
+        }
+    }
+
+
+
+    public function eliminacionPropiedad(Request $request)
+    {
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+        if ($validar->fails()){ return ['success' => 0];}
+
+        DB::beginTransaction();
+        try {
+
+            $id = $request->id;
+
+            if(Propiedad::where('id', $request->id)->first()) {
+
+
+                // ELIMINAR VIDEOS
+                PropiedadVideos::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR PROPIEDAD TAG
+                PropiedadTag::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR IMAGEN 360
+                PropiedadImagen360::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR PLANOS
+                PropiedadPlanos::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR DETALLE
+                PropiedadDetalle::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR IMAGENES
+                $arrayImagenes = PropiedadImagenes::where('id_propiedad', $id)->get();
+
+                foreach ($arrayImagenes as $dato){
+
+                    if(Storage::disk('archivos')->exists($dato->imagen)){
+                        Storage::disk('archivos')->delete($dato->imagen);
+                    }
+                }
+
+                PropiedadImagenes::where('id_propiedad', $id)->delete();
+
+
+                // ELIMINAR 4 TAG
+                Propiedad4Tag::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR DE PROPIEDAD INICIO
+                PropiedadInicio::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR ITEM
+                PropiedadItem::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR ETIQUETA
+                PropiedadEtiqueta::where('id_propiedad', $id)->delete();
+
+                // ELIMINAR PROPIEDAD
+                Propiedad::where('id', $id)->delete();
+
+
+                DB::commit();
+            }
+
+
+            return ['success' => 1];
+        }catch(\Throwable $e){
+            Log::info('error: ' . $e);
+            DB::rollback();
+            return ['success' => 99];
         }
     }
 
