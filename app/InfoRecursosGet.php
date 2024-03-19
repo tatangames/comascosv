@@ -42,7 +42,9 @@ class InfoRecursosGet
                 'listado2' => $listaColumna2,
             'descripcionPagina' => $descripcionPagina,
             'telefonoFormat' => $telefonoFormat,
-            'telefono' => $infoRecursos->telefono
+            'telefono' => $infoRecursos->telefono,
+            'url_youtube' => $infoRecursos->url_youtube,
+            'url_facebook' => $infoRecursos->url_facebook
             ];
     }
 }

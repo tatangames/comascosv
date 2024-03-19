@@ -179,7 +179,6 @@ Route::post('/admin/presentacioninicio/actualizar', [RecursosController::class,'
 
 // --- RECURSOS VARIOS ---
 
-// --- QUIENES SOMOS ---
 Route::get('/admin/otrosrecursos/index', [OtrosController::class,'indexOtros'])->name('admin.otros.recursos');
 Route::post('/admin/otrosrecursos/actualizar', [OtrosController::class,'actualizarOtrosRecursos']);
 
@@ -257,6 +256,11 @@ Route::post('/admin/porpiedadvideo/borrar', [PropiedadController::class,'borrarP
 // --- ELIMINACION TOTAL DE PROPIEDAD ---
 Route::post('/admin/propiedad/eliminacion', [PropiedadController::class,'eliminacionPropiedad']);
 
+
+// --- REDES SOCIALES FOOTER ---
+
+Route::get('/admin/redessociales/index', [OtrosController::class,'indexRedesFooter'])->name('admin.redes.footer');
+Route::post('/admin/redessociales/actualizar', [OtrosController::class,'actualizarRedesFooter']);
 
 
 

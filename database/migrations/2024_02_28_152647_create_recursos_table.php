@@ -29,6 +29,12 @@ return new class extends Migration
 
             // TEXTO PARA PAGINAS CONTACTO
             $table->string('texto_contacto', 300)->nullable();
+
+
+            // URL PARA CANALES DE YOUTUBE, FACEBOOK, WASSAPT DE LA PARTE DE ABAJO
+            $table->string('url_youtube', 200)->nullable();
+            $table->string('url_facebook', 200)->nullable();
+
         });
     }
 

@@ -45,4 +45,26 @@ class OtrosController extends Controller
         return ['success' => 1];
     }
 
+
+
+    public function indexRedesFooter()
+    {
+        $infoRecursos = Recursos::where('id', 1)->first();
+
+        return view('backend.admin.redes.vistaredesfooter', compact('infoRecursos'));
+    }
+
+
+    public function actualizarRedesFooter(Request $request)
+    {
+
+
+        Recursos::where('id', 1)->update([
+            'url_youtube' => $request->youtube,
+            'url_facebook' => $request->facebook,
+        ]);
+
+        return ['success' => 1];
+    }
+
 }
