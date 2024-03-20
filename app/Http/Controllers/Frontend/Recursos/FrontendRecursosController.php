@@ -391,7 +391,8 @@ class FrontendRecursosController extends Controller
               ->where(function($query) use ($nombre) {
                   $query->where('p.nombre', 'like', '%' . $nombre . '%')
                         ->orWhere('v.nombre', 'like', '%' . $nombre . '%')
-                        ->orWhere('l.nombre', 'like', '%' . $nombre . '%');
+                        ->orWhere('l.nombre', 'like', '%' . $nombre . '%')
+                        ->orWhere('p.direccion', 'like', '%' . $nombre . '%');
               })
                 ->orderBy('precio', $formaOrdenado);
                // ->paginate(12);
