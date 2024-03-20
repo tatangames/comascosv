@@ -193,8 +193,11 @@
                                         </div>
 
 
-                                        <h4 style="margin-top: 15px">Ubicaciones</h4>
+                                        <div class="form-group looking">
+                                            <div class="first-select wide">
 
+                                        <p style="margin-top: 15px">Ubicaciones</p>
+                                            </div> </div>
                                         <div>
                                             <!-- Checkboxes -->
                                             <div class="checkboxes one-in-row margin-bottom-10 ch-1">
