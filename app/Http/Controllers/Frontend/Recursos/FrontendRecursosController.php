@@ -300,6 +300,14 @@ class FrontendRecursosController extends Controller
         $hayValorMaximo = false;
 
 
+
+        // Acceder a los parámetros de la URL
+        $opcionesSeleccionadas = $request->input('opciones');
+
+        // Si deseas decodificar la cadena JSON de opciones seleccionadas
+        $opcionesSeleccionadas = json_decode($opcionesSeleccionadas);
+
+
         if($formaOrdenado == "ASC" || $formaOrdenado == "DESC"){
             // no hacer nada
         }else{
@@ -374,27 +382,46 @@ class FrontendRecursosController extends Controller
 
         if ($nombre != null) {
 
-            $arrayPropiedad = DB::table('propiedad AS p')
+            $arrayPropiedadQuery = DB::table('propiedad AS p')
                 ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
-                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
+                ->join('lugares AS l', 'p.id_lugar', '=', 'l.id')
+                ->select( 'p.id', 'p.id_lugar', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
                 'v.imagen AS imagenvendedor')
                 ->whereIn('p.id', $pilaIdPropiedad)
               ->where(function($query) use ($nombre) {
                   $query->where('p.nombre', 'like', '%' . $nombre . '%')
-                      ->orWhere('v.nombre', 'like', '%' . $nombre . '%');
+                        ->orWhere('v.nombre', 'like', '%' . $nombre . '%')
+                        ->orWhere('l.nombre', 'like', '%' . $nombre . '%');
               })
-                ->orderBy('precio', $formaOrdenado)
-                ->paginate(12);
+                ->orderBy('precio', $formaOrdenado);
+               // ->paginate(12);
         }else{
 
-            $arrayPropiedad = DB::table('propiedad AS p')
+            $arrayPropiedadQuery = DB::table('propiedad AS p')
                 ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
-                ->select( 'p.id', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
+                ->select( 'p.id', 'p.id_lugar', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
                     'v.imagen AS imagenvendedor')
                 ->whereIn('p.id', $pilaIdPropiedad)
-                ->orderBy('precio', $formaOrdenado)
-                ->paginate(12);
+                ->orderBy('precio', $formaOrdenado);
+              //  ->paginate(12);
         }
+        $arrayIdUbicaciones = [];
+
+        if (is_array($opcionesSeleccionadas)) {
+            foreach ($opcionesSeleccionadas as $opcionSeleccionada) {
+                // Asumiendo que cada elemento de $opcionesSeleccionadas es el ID de una ubicación
+                $arrayIdUbicaciones[] = $opcionSeleccionada;
+            }
+        }
+
+        // Agregar filtro por id_ubicacion solo si el array no está vacío
+        if (!empty($arrayIdUbicaciones)) {
+            $arrayPropiedadQuery->whereIn('p.id_lugar', $arrayIdUbicaciones);
+        }
+
+
+
+        $arrayPropiedad = $arrayPropiedadQuery->paginate(12);
 
 
         foreach ($arrayPropiedad as $dato){
@@ -410,13 +437,35 @@ class FrontendRecursosController extends Controller
             $dato->precioFormat = '$ ' . number_format((float)$dato->precio, 2, '.', ',');
         }
 
+        $arrayUbicaciones = Lugares::orderBy('nombre', 'ASC')->get();
+
+        foreach ($arrayUbicaciones as $ubicacion){
+
+            //$marcada = in_array($ubicacion->id, $opcionesSeleccionadas);
+             $marcada = is_array($opcionesSeleccionadas) && in_array($ubicacion->id, $opcionesSeleccionadas);
+
+            // Hacer lo que necesites con la información de la ubicación
+            if ($marcada) {
+                $ubicacion->marcado = true;
+            } else {
+                $ubicacion->marcado = false;
+            }
+        }
+
+
+
+
+
+
+
+
 
         // DATOS PARA PIE DE PAGINA
         $datosRecursosGet = new InfoRecursosGet();
         $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
         return view('frontend.paginas.busqueda.propiedadbusqueda', compact('arrayPropiedad',
-        'filasRecursos', 'nombre', 'precioMinimo', 'precioMaximo', 'formaOrdenado', 'nombreUbicacion'));
+        'filasRecursos', 'nombre', 'precioMinimo', 'precioMaximo', 'formaOrdenado', 'nombreUbicacion', 'arrayUbicaciones'));
     }
 
 

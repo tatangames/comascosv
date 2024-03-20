@@ -193,9 +193,30 @@
                                         </div>
 
 
+                                        <h4 style="margin-top: 15px">Ubicaciones</h4>
+
+                                        <div>
+                                            <!-- Checkboxes -->
+                                            <div class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                @foreach ($arrayUbicaciones as $opcion)
+
+                                                    @if($opcion->marcado)
+                                                        <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" checked value="{{ $opcion->id }}">
+                                                    @else
+                                                        <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" value="{{ $opcion->id }}">
+                                                    @endif
 
 
-                                        <!--/ End Form Bathrooms -->
+                                                    <label for="check-{{ $opcion->id }}">{{ $opcion->nombre }}</label>
+                                                @endforeach
+
+
+
+                                            </div>
+                                            <!-- Checkboxes / End -->
+                                        </div>
+
+
                                     </form>
                                 </div>
 
@@ -298,7 +319,14 @@
             }
         }
 
-        var url = '/busqueda?nombre=' + encodeURIComponent(nombre) + '&ordenado=' + encodeURIComponent(ordenado) + '&minimo=' + encodeURIComponent(minimo) + '&maximo=' + encodeURIComponent(maximo);
+        var opcionesSeleccionadas = document.querySelectorAll('input[name="opciones[]"]:checked');
+        var valoresSeleccionados = [];
+        opcionesSeleccionadas.forEach(function(opcion) {
+            valoresSeleccionados.push(opcion.value);
+        });
+
+
+        var url = '/busqueda?nombre=' + encodeURIComponent(nombre) + '&ordenado=' + encodeURIComponent(ordenado) + '&minimo=' + encodeURIComponent(minimo) + '&maximo=' + encodeURIComponent(maximo) + '&opciones=' + encodeURIComponent(JSON.stringify(valoresSeleccionados));
         window.location.href = url;
     }
 
@@ -345,12 +373,27 @@
             }
         }
 
-        var url = '/busqueda?nombre=' + encodeURIComponent(nombre) + '&ordenado=' + encodeURIComponent(ordenado) + '&minimo=' + encodeURIComponent(minimo) + '&maximo=' + encodeURIComponent(maximo);
+        var opcionesSeleccionadas = document.querySelectorAll('input[name="opciones[]"]:checked');
+        var valoresSeleccionados = [];
+        opcionesSeleccionadas.forEach(function(opcion) {
+            valoresSeleccionados.push(opcion.value);
+        });
+
+
+        var url = '/busqueda?nombre=' + encodeURIComponent(nombre) + '&ordenado=' + encodeURIComponent(ordenado) + '&minimo=' + encodeURIComponent(minimo) + '&maximo=' + encodeURIComponent(maximo) + '&opciones=' + encodeURIComponent(JSON.stringify(valoresSeleccionados));
         window.location.href = url;
     }
 
 
 </script>
 
+<script>
+    $(".dropdown-filter").on('click', function() {
+
+        $(".explore__form-checkbox-list").toggleClass("filter-block");
+
+    });
+
+</script>
 
 
