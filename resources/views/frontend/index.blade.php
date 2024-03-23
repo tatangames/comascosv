@@ -24,6 +24,49 @@
         }
     }
 
+
+
+
+    /* Estilos para la sección 1 */
+    .section1 {
+        background-color: #f0f0f0;
+        padding: 20px;
+    }
+
+    /* Estilos para la sección 2 */
+    .section2 {
+        background-color: #e0e0e0;
+        padding: 20px;
+    }
+
+    /* Media query para pantallas más pequeñas, como teléfonos */
+    @media only screen and (max-width: 768px) {
+        /* Cambiar la disposición de las secciones */
+        .caja {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*buscador*/
+        .caja .section1 {
+            order: 1;
+        }
+        /*cuadros*/
+        .caja .section2 {
+            order: 3;
+        }
+        /*propiedades*/
+        .caja .section3 {
+            order: 2;
+        }
+        /*ubicaciones*/
+        .caja .section4 {
+            order: 4;
+        }
+    }
+
+
+
 </style>
 
 <!-- PORTADA -->
@@ -33,41 +76,34 @@
 <!-- END PORTADA -->
 
 
-<!-- SECCION - PORQUE ESCOGERNOS-->
-<section class="how-it-works bg-white rec-pro">
+
+<div class="caja">
+
+
+<!-- BUSCADOR -->
+<section class="how-it-works bg-white rec-pro section1">
     <div class="container-fluid">
         <div class="sec-title">
             <h2>Buscar Propiedades</h2>
         </div>
 
-
-
-
-
-
-
-
-
-        <!-- STAR HEADER SEARCH -->
-        <section style="
-         display: flex;
-    justify-content: center;
-    align-items: center;">
-
-            <div class="tab-pane fade show active">
-                <div class="row">
-
-                        <div class="rld-single-input">
-                            <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 455px !important;">
-                        </div>
-                        <a class="btn btn-yellow" id="boton" onclick="buscarPropiedad()" style="margin-left: 5px">Buscar</a>
-                </div>
-
+        <div class="rld-single-input" style="display: flex; justify-content: center;">
+                <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 500px !important;">
             </div>
 
-        </section>
-        <!-- END HEADER SEARCH -->
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+            <a class="btn btn-yellow" id="boton" onclick="buscarPropiedad()" style="margin-left: 0px">Buscar</a>
+        </div>
+    </div>
+</section>
 
+<!-- END SECCION - PORQUE ESCOGERNOS-->
+
+
+
+<!-- SECCION - PORQUE ESCOGERNOS-->
+<section class="how-it-works bg-white rec-pro section2">
+    <div class="container-fluid">
 
         <div class="row service-1" style="margin-top: 50px">
             @foreach($arrayInicio as $dato)
@@ -91,12 +127,9 @@
                                             href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
                                                                                    style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
                                                                                    alt="whatsapp"></a> <br>
-
                                     </p>
 
                                 @endif
-
-
 
                             @endif
                         </div>
@@ -112,105 +145,107 @@
 <!-- END SECCION - PORQUE ESCOGERNOS-->
 
 
-<!-- START SECTION FEATURED PROPERTIES -->
-<section class="featured portfolio bg-white-2 rec-pro full-l">
-    <div class="container-fluid">
-        <div class="sec-title">
-            <h2>Propiedades</h2>
-            <p></p>
-        </div>
-        <div class="row portfolio-items">
 
 
-            @foreach($arrayPropiedades as $dato)
+    <!-- START SECTION FEATURED PROPERTIES -->
+    <section class="featured portfolio bg-white-2 rec-pro full-l section3">
+        <div class="container-fluid">
+            <div class="sec-title">
+                <h2>Propiedades</h2>
+                <p></p>
+            </div>
+            <div class="row portfolio-items">
 
 
-                <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
-                    <div class="project-single" data-aos="fade-right">
-                        <div class="project-inner project-head">
-                            <div class="homes">
-                                <!-- homes img -->
-                                <a href="{{ url('propiedad/'.$dato->slug) }}" class="homes-img">
+                @foreach($arrayPropiedades as $dato)
 
-                                    @if($dato->etiquetaizquierda != null)
-                                        <div class="homes-tag button alt featured">{{ $dato->etiquetaizquierda }}</div>
+
+                    <div class="item col-xl-6 col-lg-12 col-md-12 col-xs-12 landscapes sale">
+                        <div class="project-single" data-aos="fade-right">
+                            <div class="project-inner project-head">
+                                <div class="homes">
+                                    <!-- homes img -->
+                                    <a href="{{ url('propiedad/'.$dato->slug) }}" class="homes-img">
+
+                                        @if($dato->etiquetaizquierda != null)
+                                            <div class="homes-tag button alt featured">{{ $dato->etiquetaizquierda }}</div>
+                                        @endif
+
+                                        @if($dato->etiquetaderecha != null)
+                                            <div class="homes-tag button alt sale">{{ $dato->etiquetaderecha }}</div>
+                                        @endif
+
+                                        <img src="{{ asset('storage/archivos/'.$dato->propiimagen) }}" alt="comascosv" class="img-responsive">
+
+                                    </a>
+                                </div>
+                                <div class="button-effect">
+                                    @if($dato->video_url != null)
+                                        <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
                                     @endif
-
-                                    @if($dato->etiquetaderecha != null)
-                                        <div class="homes-tag button alt sale">{{ $dato->etiquetaderecha }}</div>
-                                    @endif
-
-                                    <img src="{{ asset('storage/archivos/'.$dato->propiimagen) }}" alt="comascosv" class="img-responsive">
-
-                                </a>
+                                    <a href="{{ url('propiedad/'.$dato->slug) }}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
+                                </div>
                             </div>
-                            <div class="button-effect">
-                                @if($dato->video_url != null)
-                                    <a href="https://www.youtube.com/watch?v=14semTlwyUY" class="btn popup-video popup-youtube"><i class="fas fa-video"></i></a>
-                                @endif
-                                <a href="{{ url('propiedad/'.$dato->slug) }}" class="img-poppu btn"><i class="fa fa-photo"></i></a>
-                            </div>
-                        </div>
-                        <!-- homes content -->
-                        <div class="homes-content">
-                            <!-- homes address -->
-                            <h3><a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->titulo }}</a></h3>
-                            <p class="homes-address mb-3">
-                                <a href="{{ url('propiedad/'.$dato->slug) }}">
-                                    <i class="fa fa-map-marker"></i><span>{{ $dato->subtitulo }}</span>
-                                </a>
-                            </p>
-                            <!-- homes List -->
-                            <ul class="homes-list clearfix pb-3">
+                            <!-- homes content -->
+                            <div class="homes-content">
+                                <!-- homes address -->
+                                <h3><a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->titulo }}</a></h3>
+                                <p class="homes-address mb-3">
+                                    <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                        <i class="fa fa-map-marker"></i><span>{{ $dato->subtitulo }}</span>
+                                    </a>
+                                </p>
+                                <!-- homes List -->
+                                <ul class="homes-list clearfix pb-3">
 
-                                @foreach($dato->detalle as $jj)
+                                    @foreach($dato->detalle as $jj)
 
-                                    <li class="the-icons">
-                                        <img src="{{ url('storage/archivos/'.$jj->imagen) }}" style="height: 20px; width: 20px">
-                                        <span style="margin-left: 2px"> {{ $jj->nombre }}</span>
-                                    </li>
+                                        <li class="the-icons">
+                                            <img src="{{ url('storage/archivos/'.$jj->imagen) }}" style="height: 20px; width: 20px">
+                                            <span style="margin-left: 2px"> {{ $jj->nombre }}</span>
+                                        </li>
 
-                                @endforeach
+                                    @endforeach
 
 
-                            </ul>
-                            <div class="price-properties footer pt-3 pb-0">
-                                <h3 class="title mt-3">
-                                    <a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a>
-                                </h3>
-                                <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
-                                <h3 style="margin-top: 15px; font-weight: bold; color: #114beb">Ver Más</h3>
-                                </a>
-
-                                <div class="compare">
+                                </ul>
+                                <div class="price-properties footer pt-3 pb-0">
+                                    <h3 class="title mt-3">
+                                        <a href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a>
+                                    </h3>
                                     <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
-                                        <i class="fa fa-eye" style="font-size:28px"></i>
+                                        <h3 style="margin-top: 15px; font-weight: bold; color: #114beb">Ver Más</h3>
                                     </a>
 
+                                    <div class="compare">
+                                        <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
+                                            <i class="fa fa-eye" style="font-size:28px"></i>
+                                        </a>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-            @endforeach
+                @endforeach
 
 
 
 
+            </div>
+            <div class="bg-all">
+                <a style="cursor: pointer" onclick="buscarPropiedad()" class="btn btn-outline-light">Ver Todos</a>
+            </div>
         </div>
-        <div class="bg-all">
-            <a style="cursor: pointer" onclick="buscarPropiedad()" class="btn btn-outline-light">Ver Todos</a>
-        </div>
-    </div>
-</section>
-<!-- END SECTION FEATURED PROPERTIES -->
+    </section>
+    <!-- END SECTION FEATURED PROPERTIES -->
 
 
 
     @if(count($arrayLugarInicio) > 0)
-        <section class="feature-categories bg-white rec-pro">
+        <section class="feature-categories bg-white rec-pro section4">
             <div class="container-fluid">
                 <div class="sec-title">
                     <h2>Ubicaciones</h2>
@@ -239,6 +274,17 @@
             </div>
         </section>
     @endif
+
+
+
+
+</div> <!-- END CAJA -->
+
+
+
+
+
+
 
 
 @include("frontend.menu.footer")
