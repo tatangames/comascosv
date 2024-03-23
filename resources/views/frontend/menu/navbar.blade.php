@@ -1,3 +1,20 @@
+
+<style>
+    @media only screen and (max-width: 768px) {
+        .mobile-only {
+            display: block !important; /* Mostrar el elemento en dispositivos móviles */
+        }
+    }
+
+    /* Opcional: ocultar el elemento en dispositivos que no son móviles */
+    @media only screen and (min-width: 769px) {
+        .mobile-only {
+            display: none !important; /* Ocultar el elemento en dispositivos que no son móviles */
+        }
+    }
+</style>
+
+
 <header id="header-container">
     <!-- Header -->
     <div id="header">
@@ -25,6 +42,8 @@
                         <li><a href="{{ route('preguntas.frecuentes') }}">Preguntas Frecuentes</a></li>
                         <li><a href="{{ route('quienes.somos') }}">Quienes Somos</a></li>
                         <li><a href="{{ route('contacto') }}">Contacto</a></li>
+
+                        <li class="mobile-only"><a href="{{ route('propiedad.buscada') }}">Propiedades</a></li>
 
                     </ul>
                 </nav>
