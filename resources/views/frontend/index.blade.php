@@ -13,16 +13,7 @@
         margin-left: 100px;
     }
 
-    /* Media query para pantallas con un ancho máximo de 600px (dispositivos móviles) */
-    @media only screen and (max-width: 600px) {
-        #contenedor {
-            text-align: left; /* Alineación izquierda del contenido */
-        }
 
-        #boton {
-            margin-left: 20px; /* Aplicar margen izquierdo al botón */
-        }
-    }
 
 
 
@@ -88,7 +79,7 @@
         </div>
 
         <div class="rld-single-input" style="display: flex; justify-content: center;">
-                <input type="text" id="nombre-propiedad" placeholder="Buscar..." style="width: 500px !important;">
+                <input type="text" id="nombre-propiedad" autocomplete="off" placeholder="Buscar..." style="width: 500px !important;">
             </div>
 
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
@@ -298,14 +289,13 @@
 
 <script>
 
-    var inputNombre = document.getElementById("nombre-propiedad");
 
-    inputNombre.addEventListener("keyup", function(event) {
+    document.getElementById('nombre-propiedad').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
-            event.preventDefault();
             buscarPropiedad();
         }
     });
+
 
     function buscarPropiedad(){
         var nombre = document.getElementById('nombre-propiedad').value;

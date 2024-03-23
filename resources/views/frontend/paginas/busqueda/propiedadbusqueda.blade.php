@@ -43,6 +43,31 @@
         border-color: #dee2e6;
     }
 
+
+
+
+    @media only screen and (max-width: 768px) {
+        /* Cambiar la disposición de las secciones */
+        .caja {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*buscador*/
+        .caja .section2 {
+            order: 1;
+        }
+        /*cuadros*/
+        .caja .section1 {
+            order: 2;
+        }
+
+
+    }
+
+
+
+
 </style>
 
 
@@ -66,174 +91,184 @@
                         </div>
                     </div>
                 </section>
+                <div class="caja">
 
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 blog-pots">
-                        <section class="headings-2 pt-0">
-                            <div class="pro-wrapper">
-                                <div class="detail-wrapper-body">
-                                    <div class="listing-title-bar">
+
+
+
+
+                        <div class="col-lg-8 col-md-12 blog-pots section1">
+                            <section class="headings-2 pt-0">
+                                <div class="pro-wrapper">
+                                    <div class="detail-wrapper-body">
+                                        <div class="listing-title-bar">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center grid">
-                                    <div class="input-group border rounded input-group-lg w-auto mr-4">
-                                        <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Ordenar:</label>
-                                        <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="select-ordenado"
-                                                onchange="cambiarOrdenada()">
+                                    <div class="cod-pad single detail-wrapper mr-2 mt-0 d-flex justify-content-md-end align-items-center grid">
+                                        <div class="input-group border rounded input-group-lg w-auto mr-4">
+                                            <label class="input-group-text bg-transparent border-0 text-uppercase letter-spacing-093 pr-1 pl-3" for="inputGroupSelect01"><i class="fas fa-align-left fs-16 pr-2"></i>Ordenar:</label>
+                                            <select class="form-control border-0 bg-transparent shadow-none p-0 selectpicker sortby" data-style="bg-transparent border-0 font-weight-600 btn-lg pl-0 pr-3" id="select-ordenado"
+                                                    onchange="cambiarOrdenada()">
 
-                                            @if($formaOrdenado == 'ASC')
-                                                <option value="ASC" selected>Precio (menor a mayor)</option>
-                                                <option value="DESC">Precio (mayor a menor)</option>
-                                            @else
-                                                <option value="ASC">Precio (menor a mayor)</option>
-                                                <option value="DESC" selected>Precio (mayor a menor)</option>
-                                            @endif
+                                                @if($formaOrdenado == 'ASC')
+                                                    <option value="ASC" selected>Precio (menor a mayor)</option>
+                                                    <option value="DESC">Precio (mayor a menor)</option>
+                                                @else
+                                                    <option value="ASC">Precio (menor a mayor)</option>
+                                                    <option value="DESC" selected>Precio (mayor a menor)</option>
+                                                @endif
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
+
                                 </div>
-
-                            </div>
-                        </section>
+                            </section>
 
 
 
-                        @if ($arrayPropiedad->isEmpty())
-                            <p>Ninguna Propiedad encontrada</p>
-                        @else
-                            <div class="row">
+                            @if ($arrayPropiedad->isEmpty())
+                                <p>Ninguna Propiedad encontrada</p>
+                            @else
+                                <div class="row">
 
-                                @foreach ($arrayPropiedad as $dato)
+                                    @foreach ($arrayPropiedad as $dato)
 
 
-                                    <div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
-                                        <div class="project-single" data-aos="fade-up">
-                                            <a href="{{ url('propiedad/'.$dato->slug) }}">
-                                            <div class="project-inner project-head">
-                                                <div class="homes">
-                                                    <!-- homes img -->
+                                        <div class="item col-lg-4 col-md-6 col-xs-12 landscapes sale">
+                                            <div class="project-single" data-aos="fade-up">
+                                                <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                    <div class="project-inner project-head">
+                                                        <div class="homes">
+                                                            <!-- homes img -->
 
-                                                        <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt="home-1" class="img-responsive">
-                                                </div>
-                                            </div>
-                                            </a>
+                                                            <img src="{{ url('storage/archivos/'.$dato->imagen) }}" alt="home-1" class="img-responsive">
+                                                        </div>
+                                                    </div>
+                                                </a>
 
-                                            <div class="homes-content">
+                                                <div class="homes-content">
 
-                                                <h3 style="color: #FF385C !important;"><a style="color: #FF385C !important;" href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a></h3>
+                                                    <h3 style="color: #FF385C !important;"><a style="color: #FF385C !important;" href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->precioFormat }}</a></h3>
 
-                                                <p><a style="color: #444444 !important; font-weight: bold" href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->nombre }}</a></p>
+                                                    <p><a style="color: #444444 !important; font-weight: bold" href="{{ url('propiedad/'.$dato->slug) }}">{{ $dato->nombre }}</a></p>
 
-                                                <p class="homes-address mb-3">
-                                                    @if($dato->direccion != null)
+                                                    <p class="homes-address mb-3">
+                                                        @if($dato->direccion != null)
+                                                            <a href="{{ url('propiedad/'.$dato->slug) }}">
+                                                                <i class="fa fa-map-marker"></i><span>{{ $dato->direccion }}</span>
+                                                            </a>
+                                                        @endif
+                                                    </p>
+
+
+                                                    <div class="footer">
                                                         <a href="{{ url('propiedad/'.$dato->slug) }}">
-                                                            <i class="fa fa-map-marker"></i><span>{{ $dato->direccion }}</span>
+                                                            <img src="{{ url('storage/archivos/'.$dato->imagenvendedor) }}" alt="" class="mr-2"> {{ $dato->nombrevendedor }}
                                                         </a>
-                                                    @endif
-                                                </p>
-
-
-                                                <div class="footer">
-                                                    <a href="{{ url('propiedad/'.$dato->slug) }}">
-                                                        <img src="{{ url('storage/archivos/'.$dato->imagenvendedor) }}" alt="" class="mr-2"> {{ $dato->nombrevendedor }}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                @endforeach
-
-
-                            </div> <!-- END ROW -->
-
-
-
-
-                        @endif
-                    </div>
-
-
-                    <!-- BUSCADOR -->
-
-                    <aside class="col-lg-4 col-md-12 car">
-                        <div class="widget">
-                            <!-- Search Fields -->
-                            <div class="widget-boxed main-search-field">
-                                <div class="widget-boxed-header">
-                                    <h4>Buscador</h4>
-                                </div>
-                                <!-- Search Form -->
-                                <div class="trip-search">
-                                    <form class="form">
-
-
-                                        <div class="form-group looking">
-                                            <div class="first-select wide">
-                                                <div class="main-search-input-item">
-                                                    <input type="text" placeholder="Buscar..."  id="nombre-propiedad" value="{{ $nombre }}" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
 
-                                        <div class="form-group looking">
-                                            <div class="first-select wide">
-                                                <p>Rango de Precios</p>
-                                                <div class="main-search-input-item">
-                                                    <input type="number" placeholder="Mínimo" min="0" id="minimo-propiedad" value="{{ $precioMinimo }}" />
-                                                </div>
 
-                                                <div class="main-search-input-item" style="margin-top: 25px">
-                                                    <input type="number" placeholder="Máximo"  min="0" max="15000000" id="maximo-propiedad" value="{{ $precioMaximo }}" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                    @endforeach
 
 
-                                        <div class="form-group looking">
-                                            <div class="first-select wide">
-
-                                        <p style="margin-top: 15px">Ubicaciones</p>
-                                            </div> </div>
-                                        <div>
-                                            <!-- Checkboxes -->
-                                            <div class="checkboxes one-in-row margin-bottom-10 ch-1">
-                                                @foreach ($arrayUbicaciones as $opcion)
-
-                                                    @if($opcion->marcado)
-                                                        <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" checked value="{{ $opcion->id }}">
-                                                    @else
-                                                        <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" value="{{ $opcion->id }}">
-                                                    @endif
-
-
-                                                    <label for="check-{{ $opcion->id }}">{{ $opcion->nombre }}</label>
-                                                @endforeach
+                                </div> <!-- END ROW -->
 
 
 
-                                            </div>
-                                            <!-- Checkboxes / End -->
-                                        </div>
 
-
-                                    </form>
-                                </div>
-
-                                <div class="col-lg-12 no-pds">
-                                    <div class="at-col-default-mar">
-                                        <button class="btn btn-default hvr-bounce-to-right" type="button" onclick="buscador()">Buscar</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                            @endif
                         </div>
-                    </aside>
-                </div>
 
+
+                        <!-- BUSCADOR -->
+
+                        <aside class="col-lg-4 col-md-12 car section2">
+                            <div class="widget">
+                                <!-- Search Fields -->
+                                <div class="widget-boxed main-search-field">
+                                    <div class="widget-boxed-header">
+                                        <h4>Buscador</h4>
+                                    </div>
+                                    <!-- Search Form -->
+                                    <div class="trip-search">
+                                        <form class="form">
+
+
+                                            <div class="form-group looking">
+                                                <div class="first-select wide">
+                                                    <div class="main-search-input-item">
+                                                        <input type="text" placeholder="Buscar..."  id="nombre-propiedad" value="{{ $nombre }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group looking">
+                                                <div class="first-select wide">
+                                                    <p>Rango de Precios</p>
+                                                    <div class="main-search-input-item">
+                                                        <input type="number" placeholder="Mínimo" min="0" id="minimo-propiedad" value="{{ $precioMinimo }}" />
+                                                    </div>
+
+                                                    <div class="main-search-input-item" style="margin-top: 25px">
+                                                        <input type="number" placeholder="Máximo"  min="0" max="15000000" id="maximo-propiedad" value="{{ $precioMaximo }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group looking">
+                                                <div class="first-select wide">
+
+                                                    <p style="margin-top: 15px">Ubicaciones</p>
+                                                </div> </div>
+                                            <div>
+                                                <!-- Checkboxes -->
+                                                <div class="checkboxes one-in-row margin-bottom-10 ch-1">
+                                                    @foreach ($arrayUbicaciones as $opcion)
+
+                                                        @if($opcion->marcado)
+                                                            <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" checked value="{{ $opcion->id }}">
+                                                        @else
+                                                            <input type="checkbox" id="check-{{ $opcion->id }}" name="opciones[]" value="{{ $opcion->id }}">
+                                                        @endif
+
+
+                                                        <label for="check-{{ $opcion->id }}">{{ $opcion->nombre }}</label>
+                                                    @endforeach
+
+
+
+                                                </div>
+                                                <!-- Checkboxes / End -->
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+
+                                    <div class="col-lg-12 no-pds">
+                                        <div class="at-col-default-mar">
+                                            <button class="btn btn-default hvr-bounce-to-right" type="button" onclick="buscador()">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </aside>
+
+
+
+
+
+                </div>
+                </div>
 
             </div>
         </section>
@@ -265,6 +300,33 @@
 
 
 <script>
+
+
+    document.getElementById('nombre-propiedad').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            buscador();
+        }
+    });
+
+    // Event listener para el segundo input
+    document.getElementById('minimo-propiedad').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            buscador();
+        }
+    });
+
+    // Event listener para el tercer input
+    document.getElementById('maximo-propiedad').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            buscador();
+        }
+    });
+
+
+
+
+
+
 
     var opcionesPersonalizadas = {
         closeButton: true,
