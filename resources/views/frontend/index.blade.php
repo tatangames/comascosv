@@ -208,6 +208,11 @@
                                         <h3 style="margin-top: 15px; font-weight: bold; color: #114beb">Ver Más</h3>
                                     </a>
 
+
+
+
+
+
                                     <div class="compare">
                                         <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
                                             <i class="fa fa-eye" style="font-size:28px"></i>

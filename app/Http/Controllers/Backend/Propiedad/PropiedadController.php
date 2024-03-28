@@ -1166,6 +1166,16 @@ class PropiedadController extends Controller
             ->orderBy('posicion', 'ASC')
             ->get();
 
+        foreach ($listado as $dato){
+
+            if($dato->tipo == 1){
+                $dato->tiponombre = "Youtube";
+            }else{
+                $dato->tiponombre = "Tik Tok";
+            }
+
+        }
+
         return view('backend.admin.propiedad.videos.tablavideos', compact('listado'));
     }
 
@@ -1173,6 +1183,7 @@ class PropiedadController extends Controller
     public function registrarPropiedadVideo(Request $request){
 
         $regla = array(
+            'tipo' => 'required',
             'idpropiedad' => 'required',
             'urlvideo' => 'required',
         );
@@ -1200,8 +1211,8 @@ class PropiedadController extends Controller
             $nuevo->url_video = $request->urlvideo;
             $nuevo->titulo = $request->titulo;
             $nuevo->posicion = $nuevaPosicion;
+            $nuevo->tipo = $request->tipo;
             $nuevo->save();
-
 
             DB::commit();
             return ['success' => 1];
@@ -1255,6 +1266,7 @@ class PropiedadController extends Controller
         $regla = array(
             'id' => 'required',
             'urlvideo' => 'required',
+            'tipo' => 'required'
         );
 
         // titulo
@@ -1267,6 +1279,7 @@ class PropiedadController extends Controller
             ->update([
                 'url_video' => $request->urlvideo,
                 'titulo' => $request->titulo,
+                'tipo' => $request->tipo,
             ]);
 
         return ['success' => 1];

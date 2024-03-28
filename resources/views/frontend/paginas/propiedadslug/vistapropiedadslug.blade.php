@@ -27,13 +27,11 @@
                                     <div class="listing-title-bar">
                                         <p style="font-size: 25px!important; font-weight: bold; color: black">{{ $infoPropi->nombre }} </p>
                                             @if($infoPropi->vineta_izquierda != null)
-                                            <span class="mrg-l-5 category-tag" style="margin-top: 15px !important;">
-                                                    {{ $infoPropi->vineta_izquierda }}
+                                                <span class="mrg-l-5 category-tag" style="margin-top: 15px !important;">
+                                                        {{ $infoPropi->vineta_izquierda }}
 
-                                            </span>
-
+                                                </span>
                                            @endif
-
 
                                         <div class="mt-0" style="margin-top: 15px !important;">
                                             <a class="listing-address">
@@ -42,9 +40,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
 
 
                             </div>
@@ -219,7 +214,13 @@
 
                         <div class="property wprt-image-video w50 pro">
                             <h5>{{ $dato->titulo }}</h5>
-                            <iframe width="100%" height="360" src="{{ $dato->url_video }}" frameborder="0" allowfullscreen></iframe>
+
+                            @if($dato->tipo == 1)
+                                <iframe width="100%" height="360" src="{{ $dato->url_video }}" frameborder="0" allowfullscreen></iframe>
+                            @else
+                                {!! $dato->url_video !!}
+                            @endif
+
                         </div>
 
                     @endforeach

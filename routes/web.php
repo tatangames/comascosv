@@ -90,6 +90,11 @@ Route::post('/admin/vendedores/registrar', [RecursosController::class,'registrar
 Route::post('/admin/vendedores/informacion', [RecursosController::class,'informacionVendedor']);
 Route::post('/admin/vendedores/actualizar', [RecursosController::class,'actualizarVendedor']);
 
+Route::post('/admin/vendedores/borrar', [RecursosController::class,'borrarVendedor']);
+
+
+
+
 // --- VENDEDOR CONTACTO ---
 Route::get('/admin/vendedorcontacto/index/{idpropiedad}', [RecursosController::class,'indexVendedorContacto']);
 Route::get('/admin/vendedorcontacto/tabla/{idpropiedad}', [RecursosController::class,'tablaVendedorContacto']);

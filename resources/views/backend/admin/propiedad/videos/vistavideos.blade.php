@@ -69,9 +69,19 @@
                             <div class="row">
                                 <div class="col-md-12">
 
+
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo de Video</label>
+                                        <select class="form-control" id="select-tipo">
+                                            <option value="1">Youtube</option>
+                                            <option value="2">Tik Tok</option>
+                                        </select>
+                                    </div>
+
+
                                     <div class="form-group">
                                         <label>URL</label>
-                                        <input type="text" maxlength="100" class="form-control" id="url-nuevo" autocomplete="off">
+                                        <input type="text"  class="form-control" id="url-nuevo" autocomplete="off">
                                     </div>
 
 
@@ -116,8 +126,16 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="control-label">Ubicación</label>
+                                        <select class="form-control" id="select-tipo-editar">
+                                            <option value="1">Youtube</option>
+                                            <option value="2">Tik Tok</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label>URL</label>
-                                        <input type="text" maxlength="100" class="form-control" id="url-editar" autocomplete="off">
+                                        <input type="text"  class="form-control" id="url-editar" autocomplete="off">
                                     </div>
 
                                     <div class="form-group">
@@ -179,6 +197,7 @@
         }
 
         function nuevo(){
+            var tipo = document.getElementById('select-tipo').value;
             var url = document.getElementById('url-nuevo').value;
             var titulo = document.getElementById('titulo-nuevo').value;
 
@@ -191,6 +210,7 @@
 
             openLoading();
             let formData = new FormData();
+            formData.append('tipo', tipo);
             formData.append('urlvideo', url);
             formData.append('titulo', titulo);
             formData.append('idpropiedad', idpropiedad);
@@ -233,6 +253,14 @@
                         $('#url-editar').val(response.data.info.url_video);
                         $('#titulo-editar').val(response.data.info.titulo);
 
+                        var select = document.getElementById("select-tipo-editar");
+
+                        if(response.data.info.tipo == 1){
+                            select.selectedIndex = 0;
+                        }else{
+                            select.selectedIndex = 1;
+                        }
+
                     }else{
                         toastr.error('Información no encontrada');
                     }
@@ -245,6 +273,7 @@
 
 
         function editar(){
+            var tipo = document.getElementById('select-tipo-editar').value;
             var id = document.getElementById('id-editar').value;
             var url = document.getElementById('url-editar').value;
             var titulo = document.getElementById('titulo-editar').value;
@@ -259,6 +288,7 @@
             formData.append('id', id);
             formData.append('urlvideo', url);
             formData.append('titulo', titulo);
+            formData.append('tipo', tipo);
 
             axios.post('/admin/porpiedadvideo/actualizar', formData, {
             })

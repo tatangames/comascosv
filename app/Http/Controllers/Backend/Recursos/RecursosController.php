@@ -12,8 +12,18 @@ use App\Models\Lugares;
 use App\Models\LugaresInicio;
 use App\Models\PreguntasFrecuentes;
 use App\Models\PresentacionInicio;
+use App\Models\Propiedad;
+use App\Models\Propiedad4Tag;
+use App\Models\PropiedadDetalle;
 use App\Models\PropiedadEtiqueta;
+use App\Models\PropiedadImagen360;
 use App\Models\PropiedadImagen4Tag;
+use App\Models\PropiedadImagenes;
+use App\Models\PropiedadInicio;
+use App\Models\PropiedadItem;
+use App\Models\PropiedadPlanos;
+use App\Models\PropiedadTag;
+use App\Models\PropiedadVideos;
 use App\Models\Recursos;
 use App\Models\TipoContactoVendedor;
 use App\Models\TiposContactos;
@@ -301,6 +311,97 @@ class RecursosController extends Controller
             return ['success' => 1];
         }
     }
+
+
+    public function borrarVendedor(Request $request)
+    {
+
+        $rules = array(
+            'id' => 'required', // id vendedor
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        DB::beginTransaction();
+        try {
+
+
+            $pilaIdPropiedad = array();
+
+            $listaPro = Propiedad::where('id_vendedor', $request->id)->get();
+
+            foreach ($listaPro as $dato){
+                array_push($pilaIdPropiedad, $dato->id);
+            }
+
+
+            // ELIMINAR VIDEOS
+            PropiedadVideos::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR PROPIEDAD TAG
+            PropiedadTag::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR IMAGEN 360
+            PropiedadImagen360::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR PLANOS
+            PropiedadPlanos::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR DETALLE
+            PropiedadDetalle::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR IMAGENES
+            $arrayImagenes = PropiedadImagenes::whereIn('id_propiedad', $pilaIdPropiedad)->get();
+
+            foreach ($arrayImagenes as $dato){
+
+                if($dato->imagen != null) {
+                    if (Storage::disk('archivos')->exists($dato->imagen)) {
+                        Storage::disk('archivos')->delete($dato->imagen);
+                    }
+                }
+
+            }
+
+            PropiedadImagenes::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+
+            // ELIMINAR 4 TAG
+            Propiedad4Tag::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR DE PROPIEDAD INICIO
+            PropiedadInicio::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR ITEM
+            PropiedadItem::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR ETIQUETA
+            PropiedadEtiqueta::whereIn('id_propiedad', $pilaIdPropiedad)->delete();
+
+            // ELIMINAR PROPIEDAD
+            Propiedad::whereIn('id', $pilaIdPropiedad)->delete();
+
+
+
+            ContactoVendedor::where('id_vendedor', $request->id)->delete();
+
+            Vendedores::where('id', $request->id)->delete();
+
+            DB::commit();
+
+            return ['success' => 1];
+        }catch(\Throwable $e){
+            Log::info('error: ' . $e);
+            DB::rollback();
+            return ['success' => 99];
+        }
+
+    }
+
 
 
 

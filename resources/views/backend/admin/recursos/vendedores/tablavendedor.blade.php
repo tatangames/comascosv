@@ -35,6 +35,10 @@
                                             <i class="fas fa-eye" title="Contacto"></i>&nbsp; Contacto
                                         </button>
 
+                                        <button type="button" style="margin: 4px" class="btn btn-danger btn-xs" onclick="vistaBorrar({{ $dato->id }})">
+                                            <i class="fas fa-trash" title="Borrar"></i>&nbsp; Borrar
+                                        </button>
+
                                     </td>
 
                                 </tr>

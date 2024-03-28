@@ -348,6 +348,49 @@
         }
 
 
+        function vistaBorrar(id){
+            Swal.fire({
+                title: 'Borrar?',
+                text: "Esto eliminara al Vendedor y todas sus Propiedades Asignadas",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    solicitarBorrar(id);
+                }
+            })
+        }
+
+        function solicitarBorrar(id){
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('id', id);
+
+            axios.post('/admin/vendedores/borrar', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Borrado correctamente');
+                        recargar();
+                    }
+                    else {
+                        toastr.error('Error al borrar');
+                    }
+
+                })
+                .catch((error) => {
+                    toastr.error('Error al borrar');
+                    closeLoading();
+                });
+        }
+
 
     </script>
 

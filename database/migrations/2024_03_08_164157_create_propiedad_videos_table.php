@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_propiedad')->unsigned();
 
-            $table->string('url_video', 100);
+            $table->text('url_video');
             $table->string('titulo', 300)->nullable();
 
             $table->integer('posicion');
+
+            // 1: youtube
+            // 2: tik tok
+            $table->integer('tipo');
 
             $table->foreign('id_propiedad')->references('id')->on('propiedad');
         });

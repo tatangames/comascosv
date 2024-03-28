@@ -267,7 +267,6 @@ class FrontendRecursosController extends Controller
             }
 
 
-
             $arrayPropiVideo = PropiedadVideos::where('id_propiedad', $infoPropi->id)
                 ->orderBy('posicion', 'ASC')
                 ->get();

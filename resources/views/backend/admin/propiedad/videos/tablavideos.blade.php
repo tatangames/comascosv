@@ -8,8 +8,8 @@
                         <thead>
                         <tr>
                             <th>Posición</th>
-                            <th>URL</th>
                             <th>Título</th>
+                            <th>Tipo</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
@@ -18,8 +18,8 @@
                             <tr class="row1" data-id="{{ $dato->id }}">
 
                                 <td>{{ $dato->posicion }}</td>
-                                <td>{{ $dato->url_video }}</td>
                                 <td>{{ $dato->titulo }}</td>
+                                <td>{{ $dato->tiponombre }}</td>
 
                                 <td>
 
