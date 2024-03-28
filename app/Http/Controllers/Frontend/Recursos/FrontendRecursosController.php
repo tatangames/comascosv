@@ -81,6 +81,9 @@ class FrontendRecursosController extends Controller
 
         if($infoPropi = Propiedad::where('slug', $slug)->first()){
 
+            $nombreImagen = "";
+            $primerVuelta = true;
+
             $arrayImagenes = PropiedadImagenes::where('id_propiedad', $infoPropi->id)
                 ->orderBy('posicion', 'ASC')
                 ->get();
@@ -89,6 +92,12 @@ class FrontendRecursosController extends Controller
             foreach ($arrayImagenes as $dato){
                 $contador++;
                 $dato->contador = $contador;
+
+                if($primerVuelta){
+                    $primerVuelta = false;
+
+                    $nombreImagen = $dato->imagen;
+                }
             }
 
             $precioFormat = '$' . number_format((float)$infoPropi->precio, 2, '.', ',');
@@ -199,6 +208,8 @@ class FrontendRecursosController extends Controller
             $resultsBloque = array();
             $index = 0;
 
+
+
             foreach ($arrayPropiAletorias as $dato){
                 array_push($resultsBloque, $dato);
 
@@ -272,11 +283,16 @@ class FrontendRecursosController extends Controller
                 ->get();
 
 
+
+            $url = "https://comascosv.com/propiedad/$slug";
+
+
+
             return view('frontend.paginas.propiedadslug.vistapropiedadslug', compact('infoPropi',
                 'precioFormat', 'arrayImagenes', 'arrayDetalle1', 'arrayDetalle2', 'datosArray',
                 'arrayPlanos', 'array360', 'infoVendedor', 'arrayContactos', 'arrayTagPopular',
                 'arrayPropiVendedor', 'arrayPropiAletorias', 'filasRecursos', 'arrayEtiquetaInicio',
-                'arrayEtiquetaPopular', 'arrayPropiVideo', 'arrayPropiedadEtiquetas'));
+                'arrayEtiquetaPopular', 'arrayPropiVideo', 'arrayPropiedadEtiquetas', 'slug', 'url', 'nombreImagen'));
         }else{
             return view('errors.404');
         }

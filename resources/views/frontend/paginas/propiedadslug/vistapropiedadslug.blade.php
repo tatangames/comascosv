@@ -1,4 +1,4 @@
-@include('frontend.menu.superior')
+@include('frontend.menu.superiormeta')
 @include('frontend.menu.body.bodypropiedad')
 @include("frontend.menu.navbar")
 
@@ -106,6 +106,20 @@
                             <!-- main slider carousel items -->
                         </div>
 
+
+
+                        <div class="floor-plan property wprt-image-video w50 pro">
+                            <h5>Compartir</h5>
+
+                            <div id="fb-root"></div>
+                            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0" nonce="SuOBFk5k"></script>
+                            <div class="fb-share-button" data-href="{{ $url }}" data-layout="button" data-size="small">
+                                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>" class="fb-xfbml-parse-ignore">Compartir</a>
+                            </div>
+                        </div>
+
+
+
                         @if(count($arrayEtiquetaInicio) > 0)
 
                             <div class="blog-info details mb-30">
@@ -140,7 +154,6 @@
                                         <li class="the-icons col-md-4">
                                             <span style="margin-left: 2px"> {{ $dato->nombre }}</span>
                                         </li>
-
 
                                     @endforeach
                                 </div>
@@ -569,6 +582,14 @@
 
 
 <script>
+
+
+    function compartirEnFacebook(url) {
+        // Abrir ventana emergente para compartir en Facebook
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), 'Compartir en Facebook', 'width=600,height=400');
+    }
+
+
 
     // por nombre de vendedor
     function buscarPropiedad(){

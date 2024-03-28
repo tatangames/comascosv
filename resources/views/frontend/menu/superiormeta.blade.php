@@ -38,8 +38,10 @@
     <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/black.css') }}">
 
 
-
-
+    <meta property="og:title" content="{{ $infoPropi->nombre }}">
+    <meta property="og:description" content="{{ $infoPropi->descripcion }}">
+    <meta property="og:url" content="{{ $url }}">
+    <meta property="og:image" content="{{ asset('storage/archivos/'. $nombreImagen) }}">
 
 </head>
 
