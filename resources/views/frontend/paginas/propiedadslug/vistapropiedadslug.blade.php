@@ -230,9 +230,13 @@
 
                             @if($dato->tipo == 1)
                                 <iframe width="100%" height="360" src="{{ $dato->url_video }}" frameborder="0" allowfullscreen></iframe>
-                            @else
+                            @elseif($dato->tipo == 2)
                                 {!! $dato->url_video !!}
+                            @else
+                                <iframe width="440" height="500" src="{{ $dato->url_video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             @endif
+
+
 
                         </div>
 

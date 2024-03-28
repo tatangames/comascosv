@@ -1170,8 +1170,11 @@ class PropiedadController extends Controller
 
             if($dato->tipo == 1){
                 $dato->tiponombre = "Youtube";
-            }else{
+            }else if($dato->tipo == 2){
                 $dato->tiponombre = "Tik Tok";
+            }
+            else{
+                $dato->tiponombre = "Youtube Short";
             }
 
         }

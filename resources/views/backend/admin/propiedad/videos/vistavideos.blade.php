@@ -75,6 +75,7 @@
                                         <select class="form-control" id="select-tipo">
                                             <option value="1">Youtube</option>
                                             <option value="2">Tik Tok</option>
+                                            <option value="3">Youtube Short</option>
                                         </select>
                                     </div>
 
@@ -130,6 +131,7 @@
                                         <select class="form-control" id="select-tipo-editar">
                                             <option value="1">Youtube</option>
                                             <option value="2">Tik Tok</option>
+                                            <option value="3">Youtube Short</option>
                                         </select>
                                     </div>
 
@@ -257,8 +259,11 @@
 
                         if(response.data.info.tipo == 1){
                             select.selectedIndex = 0;
-                        }else{
+                        }else if(response.data.info.tipo == 2){
                             select.selectedIndex = 1;
+                        }
+                        else{
+                            select.selectedIndex = 2;
                         }
 
                     }else{
