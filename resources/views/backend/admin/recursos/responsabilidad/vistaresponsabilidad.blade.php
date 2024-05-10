@@ -94,10 +94,6 @@
 
             var titulo = document.getElementById('titulo-nuevo').value;
 
-            if(titulo === ''){
-                toastr.error("Título es requerido");
-                return;
-            }
 
             openLoading();
             var formData = new FormData();

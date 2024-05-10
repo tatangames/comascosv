@@ -77,17 +77,6 @@ class OtrosController extends Controller
 
     public function actualizarResponsabilidad(Request $request)
     {
-        $rules = array(
-            'titulo' => 'required',
-        );
-
-        // texto
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return ['success' => 0];
-        }
 
         Recursos::where('id', 1)->update([
             'responsabilidad_titulo' => $request->titulo,
