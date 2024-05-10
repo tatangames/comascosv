@@ -100,32 +100,36 @@
             @foreach($arrayInicio as $dato)
 
                 <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                    <div class="serv-flex">
+                    <div class="serv-flex2">
+
                         <div class="art-1 img-13">
                             <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" style="fill: red" alt="">
-                            <h3>{{ $dato->titulo }}</h3>
+                            <h3 style="text-align: center !important;">{{ $dato->titulo }}</h3>
                         </div>
-                        <div class="service-text">
-                            <p style="color: black !important; text-align: left">
-                                {!! $dato->descripcion !!}
-                            </p>
 
-                            @if($dato->id == 1)
 
-                                @if($infoRecursos->telefono != null)
+                            {!! $dato->descripcion !!}
 
-                                    <p class="text-left">{{ $dato->telefonoFormat }}<a
-                                            href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
-                                                                                   style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
-                                                                                   alt="whatsapp"></a> <br>
-                                    </p>
 
-                                @endif
+                        @if($dato->id == 1)
+
+                            @if($infoRecursos->telefono != null)
+
+                                <p class="text-left">{{ $dato->telefonoFormat }}<a
+                                        href="https://wa.me/503{{$infoRecursos->telefono}}"> <img src="{{ asset('images/logowasap.png') }}"
+                                                                                                  style=" height: 45px !important; width: 50px !important; margin: 0 10px 0 10px"
+                                                                                                  alt="whatsapp"></a> <br>
+                                </p>
 
                             @endif
-                        </div>
+
+                        @endif
+
                     </div>
                 </article>
+
+
+
 
             @endforeach
 
