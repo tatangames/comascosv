@@ -272,6 +272,15 @@ Route::post('/admin/redessociales/actualizar', [OtrosController::class,'actualiz
 Route::get('/admin/responsabilidad/index', [OtrosController::class,'indexResponsabilidad'])->name('admin.responsabilidad');
 Route::post('/admin/responsabilidad/actualizar', [OtrosController::class,'actualizarResponsabilidad']);
 
+// DATOS PARA VISION, MISION, ETC
+
+
+Route::get('/admin/visionmision/index', [RecursosController::class,'indexVision'])->name('admin.vision.inicio');
+Route::get('/admin/visionmision/tabla', [RecursosController::class,'tablaVision']);
+Route::post('/admin/visionmision/informacion', [RecursosController::class,'informacionVision']);
+Route::post('/admin/visionmision/posicion', [RecursosController::class,'presentacionVisionPosicion']);
+Route::post('/admin/visionmision/actualizar', [RecursosController::class,'actualizarVisionInicio']);
+
 
 
 

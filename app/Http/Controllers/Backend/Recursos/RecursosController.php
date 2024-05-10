@@ -25,6 +25,7 @@ use App\Models\PropiedadPlanos;
 use App\Models\PropiedadTag;
 use App\Models\PropiedadVideos;
 use App\Models\Recursos;
+use App\Models\Recursos2;
 use App\Models\TipoContactoVendedor;
 use App\Models\TiposContactos;
 use App\Models\TituloPiePagina;
@@ -1421,6 +1422,91 @@ class RecursosController extends Controller
 
         return ['success' => 1];
     }
+
+
+
+
+    // ************************** VISION Y MISION *******************************
+
+    public function indexVision(){
+        return view('backend.admin.mision.vistamision');
+    }
+
+    public function tablaVision(){
+
+        $listado = Recursos2::orderBy('posicion', 'ASC')->get();
+
+        return view('backend.admin.mision.tablamision', compact('listado'));
+    }
+
+
+    public function informacionVision(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = Recursos2::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function presentacionVisionPosicion(Request $request)
+    {
+        $tasks = Recursos2::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+    public function actualizarVisionInicio(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+            'toggle' => 'required'
+        );
+
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        Recursos2::where('id', $request->id)
+            ->update([
+                'titulo' => $request->titulo,
+                'mensaje' => $request->descripcion,
+                'activo' => $request->toggle
+            ]);
+
+        return ['success' => 1];
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 }

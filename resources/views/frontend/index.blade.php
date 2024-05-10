@@ -92,6 +92,12 @@
 
 
 
+
+
+
+
+
+
 <!-- SECCION - PORQUE ESCOGERNOS-->
 <section class="how-it-works bg-white rec-pro section2">
     <div class="container-fluid">
@@ -138,6 +144,51 @@
     </div>
 </section>
 <!-- END SECCION - PORQUE ESCOGERNOS-->
+
+
+
+    @if($hayMisionActivo)
+
+    <hr>
+
+
+    <!-- PARA VISION, MISION Y VALORES -->
+    <section class="how-it-works bg-white rec-pro section2">
+        <div class="container-fluid">
+
+            <div class="row service-1" style="margin-top: 50px">
+                @foreach($arrayMision as $dato)
+
+                    <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
+                        <div class="serv-flex">
+
+                            <div class="art-1 img-13">
+                                <h3 style="text-align: center !important; font-size: 18px; font-weight: bold">{{ $dato->titulo }}</h3>
+                            </div>
+
+                            <div style="text-align: left !important;">
+                                {!! $dato->mensaje !!}
+                            </div>
+
+                        </div>
+                    </article>
+
+
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+    <!-- END SECCION - PORQUE ESCOGERNOS-->
+
+
+
+    @endif
+
+
+
+
+
 
 
 

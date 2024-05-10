@@ -35,6 +35,13 @@ return new class extends Migration
             $table->string('url_youtube', 200)->nullable();
             $table->string('url_facebook', 200)->nullable();
 
+            $table->string('responsabilidad_titulo', 300)->nullable();
+            $table->text('responsabilidad_mensaje')->nullable();
+
+
+
+
+
         });
     }
 

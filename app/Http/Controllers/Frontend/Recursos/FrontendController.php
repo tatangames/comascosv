@@ -13,6 +13,7 @@ use App\Models\PropiedadImagen4Tag;
 use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
 use App\Models\Recursos;
+use App\Models\Recursos2;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -164,8 +165,20 @@ class FrontendController extends Controller
         $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
 
 
+        // DATOS PARA MISION, VISION
+        $arrayMision = Recursos2::orderBy('posicion', 'ASC')->get();
+
+        $hayMisionActivo = false;
+        foreach ($arrayMision as $dato){
+            if($dato->activo == 1){
+                $hayMisionActivo = true;
+                break;
+            }
+        }
+
+
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
-            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos'));
+            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo'));
     }
 
 
