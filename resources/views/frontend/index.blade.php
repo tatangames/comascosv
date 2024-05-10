@@ -100,16 +100,16 @@
             @foreach($arrayInicio as $dato)
 
                 <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                    <div class="serv-flex2">
+                    <div class="serv-flex">
 
                         <div class="art-1 img-13">
                             <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" style="fill: red" alt="">
                             <h3 style="text-align: center !important;">{{ $dato->titulo }}</h3>
                         </div>
 
-
+                            <div style="text-align: left !important;">
                             {!! $dato->descripcion !!}
-
+                            </div>
 
                         @if($dato->id == 1)
 
