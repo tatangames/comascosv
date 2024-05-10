@@ -159,20 +159,23 @@
             <div class="row service-1" style="margin-top: 50px">
                 @foreach($arrayMision as $dato)
 
-                    <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
-                        <div class="serv-flex">
+                    @if($dato->activo == 1)
 
-                            <div class="art-1 img-13">
-                                <h3 style="text-align: center !important; font-size: 18px; font-weight: bold">{{ $dato->titulo }}</h3>
+                        <article class="col-lg-3 col-md-6 col-xs-12 serv" data-aos="fade-up" data-aos-delay="150">
+                            <div class="serv-flex">
+
+                                <div class="art-1 img-13">
+                                    <h3 style="text-align: center !important; font-size: 18px; font-weight: bold">{{ $dato->titulo }}</h3>
+                                </div>
+
+                                <div style="text-align: left !important;">
+                                    {!! $dato->mensaje !!}
+                                </div>
+
                             </div>
+                        </article>
 
-                            <div style="text-align: left !important;">
-                                {!! $dato->mensaje !!}
-                            </div>
-
-                        </div>
-                    </article>
-
+                    @endif
 
                 @endforeach
 
