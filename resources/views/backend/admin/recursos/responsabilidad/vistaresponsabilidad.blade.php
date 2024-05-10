@@ -19,47 +19,28 @@
             <div class="col-md-10">
                 <div class="card card-green">
                     <div class="card-header">
-                        <h3 class="card-title">Varios Recursos</h3>
+                        <h3 class="card-title">Responsabilidad</h3>
                     </div>
                     <form>
 
+
                         <div class="card-body">
-                            <p>Utilizado en Página Quienes Somos</p>
-                            <div class="form-group">
-                                <textarea class="form-control" id="editor" rows="12" cols="50">{{ $infoRecursos->quienes_somos }}</textarea>
+                            <p style="font-weight: bold">Título</p>
+                            <div class="form-group" style="width: 75%">
+                                <input type="text" maxlength="300" class="form-control" id="titulo-nuevo" value="{{ $infoRecursos->responsabilidad_titulo }}">
                             </div>
                         </div>
 
                         <br>
                         <hr>
 
-                        <div class="card-body">
-                            <p style="font-weight: bold">Teléfono para mostrar WhatsApp en varias partes de la Web</p>
-                            <p style="color: red; font-weight: bold">No agregar giones (-)</p>
-                            <div class="form-group" style="width: 25%">
-                                <input type="text" maxlength="25" class="form-control" id="telefono" value="{{ $infoRecursos->telefono }}">
-                            </div>
-                        </div>
-
-
-                        <hr>
 
                         <div class="card-body">
-                            <p style="font-weight: bold">Descripción para Pie de Página (Debajo del Logo)</p>
-                            <div class="form-group" style="width: 75%">
-                                <input type="text" maxlength="200" class="form-control" id="descripcion-pagina" value="{{ $infoRecursos->descripcion_pagina }}">
+                            <p>Descripción</p>
+                            <div class="form-group">
+                                <textarea class="form-control" id="editor" rows="12" cols="50">{{ $infoRecursos->responsabilidad_mensaje }}</textarea>
                             </div>
                         </div>
-
-
-                        <hr>
-                        <div class="card-body">
-                            <p style="font-weight: bold">Texto para página Contacto</p>
-                            <div class="form-group" style="width: 25%">
-                                <input type="text" maxlength="300" class="form-control" id="texto-contacto" value="{{ $infoRecursos->texto_contacto }}">
-                            </div>
-                        </div>
-
 
 
                         <div class="card-footer" style="float: right;">
@@ -110,23 +91,20 @@
 
         function actualizar(){
             const editorData = varGlobalEditorNuevo.getData();
-            var telefono = document.getElementById('telefono').value;
-            var descripcionPagina = document.getElementById('descripcion-pagina').value;
-            var textoContacto = document.getElementById('texto-contacto').value;
 
-            if (editorData.trim() === '') {
-                toastr.error("Descripción es requerida");
+            var titulo = document.getElementById('titulo-nuevo').value;
+
+            if(titulo === ''){
+                toastr.error("Título es requerido");
                 return;
             }
 
             openLoading();
             var formData = new FormData();
             formData.append('texto', editorData);
-            formData.append('telefono', telefono);
-            formData.append('descripcion', descripcionPagina);
-            formData.append('textocontacto', textoContacto);
+            formData.append('titulo', titulo);
 
-            axios.post('/admin/otrosrecursos/actualizar', formData, {
+            axios.post('/admin/responsabilidad/actualizar', formData, {
             })
                 .then((response) => {
                     closeLoading()

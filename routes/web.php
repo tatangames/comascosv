@@ -268,6 +268,14 @@ Route::get('/admin/redessociales/index', [OtrosController::class,'indexRedesFoot
 Route::post('/admin/redessociales/actualizar', [OtrosController::class,'actualizarRedesFooter']);
 
 
+// DATOS PARA RESPONSABILIDAD
+Route::get('/admin/responsabilidad/index', [OtrosController::class,'indexResponsabilidad'])->name('admin.responsabilidad');
+Route::post('/admin/responsabilidad/actualizar', [OtrosController::class,'actualizarResponsabilidad']);
+
+
+
+
+
 
 
 // ************************** FRONTEND ***********************

@@ -105,8 +105,8 @@
                             <img src="{{ asset('storage/archivos/'.$dato->imagen) }}" style="fill: red" alt="">
                             <h3>{{ $dato->titulo }}</h3>
                         </div>
-                        <div class="service-text-p">
-                            <p class="text-center" style="color: black !important;">
+                        <div class="service-text">
+                            <p style="color: black !important; text-align: left">
                                 {!! $dato->descripcion !!}
                             </p>
 
@@ -210,9 +210,6 @@
 
 
 
-
-
-
                                     <div class="compare">
                                         <a href="{{ url('propiedad/'.$dato->slug) }}" title="Ver">
                                             <i class="fa fa-eye" style="font-size:28px"></i>
@@ -224,9 +221,7 @@
                         </div>
                     </div>
 
-
                 @endforeach
-
 
 
 
@@ -266,6 +261,29 @@
                         </div>
 
                     @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+
+    @if($infoRecursos->responsabilidad_titulo != null)
+        <section class="feature-categories bg-white rec-pro section4">
+            <div class="container-fluid">
+                <div class="sec-title">
+                    <h2>{{ $infoRecursos->responsabilidad_titulo }}</h2>
+
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-sm-12" data-aos="fade-up" data-aos-delay="150">
+
+                        <div class="card-body">
+                            <!-- Contenido de la tarjeta -->
+                            <p>
+                                {!! $infoRecursos->responsabilidad_mensaje !!}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

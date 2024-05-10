@@ -57,8 +57,6 @@ class OtrosController extends Controller
 
     public function actualizarRedesFooter(Request $request)
     {
-
-
         Recursos::where('id', 1)->update([
             'url_youtube' => $request->youtube,
             'url_facebook' => $request->facebook,
@@ -66,5 +64,40 @@ class OtrosController extends Controller
 
         return ['success' => 1];
     }
+
+
+    public function indexResponsabilidad()
+    {
+
+        $infoRecursos = Recursos::where('id', 1)->first();
+
+        return view('backend.admin.recursos.responsabilidad.vistaresponsabilidad', compact('infoRecursos'));
+    }
+
+
+    public function actualizarResponsabilidad(Request $request)
+    {
+        $rules = array(
+            'titulo' => 'required',
+        );
+
+        // texto
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        Recursos::where('id', 1)->update([
+            'responsabilidad_titulo' => $request->titulo,
+            'responsabilidad_mensaje' => $request->texto,
+        ]);
+
+        return ['success' => 1];
+    }
+
+
+
 
 }
