@@ -6,6 +6,26 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
+
+<style>
+
+    .whatsapp-button button {
+        background-color: #25D366;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+
+</style>
+
 <!-- START SECTION PROPERTIES LISTING -->
 <section class="single-proper blog details">
     <div class="container">
@@ -116,6 +136,12 @@
                             <div class="fb-share-button" data-href="{{ $url }}" data-layout="button" data-size="small">
                                 <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>" class="fb-xfbml-parse-ignore">Compartir</a>
                             </div>
+
+
+                            <a href="https://wa.me/?text={{ urlencode($url) }}" target="_blank" class="whatsapp-button">
+                                <button type="button">Compartir en WhatsApp</button>
+                            </a>
+
                         </div>
 
 
