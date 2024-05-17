@@ -131,22 +131,29 @@
                         <div class="floor-plan property wprt-image-video w50 pro">
                             <h5>Compartir</h5>
 
-                            <div id="fb-root"></div>
-                            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0" nonce="SuOBFk5k"></script>
-                            <div class="fb-share-button" data-href="{{ $url }}" data-layout="button" data-size="small">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>" target="_blank" class="fb-xfbml-parse-ignore" style="margin-left: 15px">
-                                    <button type="button"><img src="{{ asset('images/logowasap.png') }}"
-                                                               style=" height: 20px !important; width: 20px !important; "
-                                                               alt="whatsapp"> WhatsApp</button>
-                                </a>
-                            </div>
 
 
-                            <a href="https://wa.me/?text={{ urlencode($url) }}" target="_blank" class="whatsapp-button" style="margin-left: 15px">
-                                <button style="outline: none"><img src="{{ asset('images/logowasap.png') }}"
-                                                                                 style=" height: 20px !important; width: 20px !important; "
-                                                                                 alt="whatsapp"> WhatsApp</button>
-                            </a>
+                            <section class="content-header">
+                                <div class="row mb-6">
+                                    <div id="fb-root"></div>
+                                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0" nonce="SuOBFk5k"></script>
+                                    <div class="fb-share-button" data-href="{{ $url }}" data-layout="button" data-size="small" style="margin-top: 15px">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>" target="_blank" class="fb-xfbml-parse-ignore" style="margin-left: 15px">
+                                            <button type="button"><img src="{{ asset('images/logowasap.png') }}"
+                                                                       style=" height: 20px !important; width: 20px !important; "
+                                                                       alt="whatsapp"> WhatsApp</button>
+                                        </a>
+                                    </div>
+
+                                    <a href="https://wa.me/?text={{ urlencode($url) }}" target="_blank" class="whatsapp-button" style="margin-left: 15px">
+                                        <button style="outline: none"><img src="{{ asset('images/logowasap.png') }}"
+                                                                           style=" height: 20px !important; width: 20px !important; "
+                                                                           alt="whatsapp"> WhatsApp</button>
+                                    </a>
+
+                                </div>
+                            </section>
+
 
                         </div>
 
