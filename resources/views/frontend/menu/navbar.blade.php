@@ -23,7 +23,7 @@
             <div class="left-side">
                 <!-- Logo -->
                 <div id="logo">
-                    <a href="{{ route('inicio') }}"><img src="{{ asset('images/icono-sistema.png') }}" alt=""></a>
+                    <a href="{{ route('inicio') }}"><img src="{{ asset('images/iconlogo.png') }}" alt=""></a>
                 </div>
                 <!-- Mobile Navigation -->
                 <div class="mmenu-trigger">
