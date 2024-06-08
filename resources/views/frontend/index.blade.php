@@ -376,39 +376,20 @@
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
 
-<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"/>
-
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
-
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-YC9JVQ7Y2Y');
-</script>
+<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
 
 
 <script>
-
 
     document.addEventListener("DOMContentLoaded", function() {
 
         dataLayer = [];
 
-
-
         // Comprobar si la cookie de aceptación ya existe
         if (!getCookie("cookiesAccepted")) {
             document.getElementById("cookieBanner").style.display = "block";
         }else{
-            // COOKIES, ADS ACEPTADOS
+            // COOKIES, ADA
             dataLayer.push({'event': 'cookies-aceptadas'});
         }
 

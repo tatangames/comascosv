@@ -26,6 +26,8 @@
 
                                 </div>
                             </li>
+
+
                         </ul>
                     </div>
                 </div>
@@ -79,6 +81,35 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="widget">
+                        <h3>Políticas</h3>
+                        <div class="twitter-widget contuct">
+                            <div class="twitter-area">
+
+
+
+                                    <div class="single-item">
+                                        <div class="icon-holder">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="text">
+                                            <a href="{{ url('aviso/cookies') }}"><h5>Política de cookies</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
