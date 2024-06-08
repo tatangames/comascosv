@@ -102,7 +102,15 @@
                                     </div>
 
 
-
+                                <div class="single-item">
+                                    <div class="icon-holder">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="text">
+                                        <a href="{{ url('politica-privacidad') }}"><h5>Política de privacidad</h5>
+                                        </a>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

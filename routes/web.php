@@ -312,7 +312,8 @@ Route::get('/mapa', [FrontendRecursosController::class,'mapaPropiedades'])->name
 // --- AVISO DE COOKIES
 Route::get('/aviso/cookies', [FrontendRecursosController::class,'indexAvisoCookies'])->name('aviso.cookies');
 
-
+// --- POLITICA DE PRIVACIDAD ---
+Route::get('/politica-privacidad', [FrontendRecursosController::class,'indexPoliticaPrivacidad'])->name('politica.privacidad');
 
 
 
