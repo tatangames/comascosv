@@ -6,7 +6,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="netabout">
                         <a href="{{ route('inicio') }}" class="logo">
-                            <img src="{{ asset('images/logocomasco.png') }}" style="width: 65px !important; height: 65px !important;" alt="Comascosv">
+                            <img src="{{ asset('images/icono-sistema.png') }}" style="width: 65px !important; height: 65px !important;" alt="Comascosv">
                         </a>
                         <p>{{ $filasRecursos['descripcionPagina'] }}</p>
                     </div>
