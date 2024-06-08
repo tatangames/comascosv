@@ -25,6 +25,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/iconlogo.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">
 
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6402182700266251"
+            crossorigin="anonymous"></script>
+
+
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i%7CMontserrat:600,800" rel="stylesheet">
     <!-- FONT AWESOME -->

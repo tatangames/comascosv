@@ -561,7 +561,6 @@ class FrontendRecursosController extends Controller
     }
 
 
-
     public function indexAvisoCookies()
     {
 
