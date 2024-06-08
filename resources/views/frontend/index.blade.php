@@ -294,66 +294,6 @@
 
 
 
-    @if($hasData)
-        <section class="blog-section bg-white">
-            <div class="container">
-                <div class="sec-title">
-                    <h2>Solicitudes</h2>
-                    <p></p>
-                </div>
-                <div class="news-wrap">
-
-
-                    @foreach($multiple as $bloque)
-                        <div class="row">
-                            @foreach($bloque as $fila)
-                                <div class="col-xl-4 col-md-6 col-xs-12">
-                                    <div class="news-item" data-aos="fade-up" data-aos-delay="150">
-                                        <a href="blog-details.html" class="news-img-link">
-                                            <div class="news-item-img">
-                                                <img class="img-responsive" src="images/blog/b-10.jpg" alt="blog image">
-                                            </div>
-                                        </a>
-                                        <div class="news-item-text">
-                                            <a href="blog-details.html"><h3>Explore The World</h3></a>
-                                            <div class="dates">
-                                                <span class="date">April 11, 2020 &nbsp;/</span>
-                                                <ul class="action-list pl-0">
-                                                    <li class="action-item pl-2"><i class="fa fa-heart"></i> <span>306</span></li>
-                                                    <li class="action-item"><i class="fa fa-comment"></i> <span>34</span></li>
-                                                    <li class="action-item"><i class="fa fa-share-alt"></i> <span>122</span></li>
-                                                </ul>
-                                            </div>
-                                            <div class="news-item-descr big-news">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ipsum dolor sit amet, consectetur.</p>
-                                            </div>
-                                            <div class="news-item-bottom">
-                                                <a href="blog-details.html" class="news-link">Read more...</a>
-                                                <div class="admin">
-                                                    <p>By, Karl Smith</p>
-                                                    <img src="images/testimonials/ts-6.jpg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        <br><br>
-                    @endforeach
-
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </section>
-    @endif
-
 
 
 

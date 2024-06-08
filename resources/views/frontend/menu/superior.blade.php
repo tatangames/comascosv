@@ -19,8 +19,9 @@
     <!-- End Google Tag Manager -->
 
 
-    <!-- IDENTIFICADOR DE GOOGLE ADSENSE SE ACTIVA AL ACEPTAR LAS COOKIES, IGUALMENTE CON ANALYTICS -->
-
+    <!-- IDENTIFICADOR DE GOOGLE ADSENSE -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6402182700266251"
+            crossorigin="anonymous"></script>
 
 
 

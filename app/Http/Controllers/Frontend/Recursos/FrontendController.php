@@ -178,7 +178,7 @@ class FrontendController extends Controller
         }
 
 
-        $arraySolicitudes = Solicitudes::where('activo', 1)
+       /* $arraySolicitudes = Solicitudes::where('activo', 1)
             ->orderBy('posicion', 'ASC')
             ->get();
 
@@ -217,12 +217,14 @@ class FrontendController extends Controller
             $multiple[] = $block;
         }
 
-        $hasData = !empty($multiple);
+        $hasData = !empty($multiple);*/
 
+
+        // 'multiple','hasData', 'arraySolicitudes'
 
 
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
-            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo', 'multiple','hasData', 'arraySolicitudes'));
+            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo'));
     }
 
 
