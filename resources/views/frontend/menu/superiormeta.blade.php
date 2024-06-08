@@ -8,6 +8,8 @@
     <meta name="description" content="Servicios y proyectos inmobiliarios">
     <meta name="author" content="Comascosv">
     <title>Comascosv</title>
+
+
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/iconlogo.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">

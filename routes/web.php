@@ -19,7 +19,7 @@ use App\Http\Controllers\Backend\Recursos\OtrosController;
 
 
 // vista inicio
-Route::get('/', [FrontendController::class,'vistaInicio'])->name('inicio');
+Route::get('/', [FrontendController::class,'vistaInicio'])->name('inicio')->middleware('cookies.accepted');
 
 Route::get('/admin', [FrontendController::class,'vistaLogin'])->name('login.admin');
 
@@ -309,8 +309,8 @@ Route::get('/busqueda', [FrontendRecursosController::class,'paginaBusqueda'])->n
 // --- MAPA DE PROPIEDADES ---
 Route::get('/mapa', [FrontendRecursosController::class,'mapaPropiedades'])->name('propiedad.mapa');
 
-
-
+// --- AVISO DE COOKIES
+Route::get('/aviso/cookies', [FrontendRecursosController::class,'indexAvisoCookies'])->name('aviso.cookies');
 
 
 

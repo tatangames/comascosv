@@ -562,6 +562,17 @@ class FrontendRecursosController extends Controller
 
 
 
+    public function indexAvisoCookies()
+    {
+
+        // DATOS PARA PIE DE PAGINA
+        $datosRecursosGet = new InfoRecursosGet();
+        $filasRecursos = $datosRecursosGet->retornoDatosPiePagina();
+
+        return view('frontend.paginas.cookies.vistacookies', compact('filasRecursos'));
+    }
+
+
 
 
 

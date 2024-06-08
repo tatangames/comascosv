@@ -8,6 +8,19 @@
     <meta name="description" content="Servicios y proyectos inmobiliarios">
     <meta name="author" content="Comascosv">
     <title>Comascosv</title>
+
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-W7QVBLMK');</script>
+    <!-- End Google Tag Manager -->
+
+
+
+
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/iconlogo.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.css') }}">
@@ -36,6 +49,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/maps.css') }}">
 
     <link rel="stylesheet" id="color" href="{{ asset('frontend/css/colors/black.css') }}">
+
+    <link rel="stylesheet" id="color" href="{{ asset('css/estilos.css') }}">
 
 
 

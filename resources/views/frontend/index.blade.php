@@ -350,22 +350,101 @@
 
 
 
+
+
+
+
 </div> <!-- END CAJA -->
 
 
 
+<div id="cookieBanner" style="display: none">
 
+    <div class="aviso-cookies activo" id="aviso-cookies">
+        <img class="galleta" src="{{ asset('images/cookie.svg') }}" alt="Galleta">
+        <h3 class="titulo">Cookies</h3>
+        <p class="parrafo">Utilizamos cookies propias y de terceros para mejorar nuestros servicios.</p>
+        <button class="boton" id="acceptCookies">De acuerdo</button>
+        <a class="enlace" href="{{ url('aviso/cookies') }}">Aviso de Cookies</a>
+    </div>
+    <div class="fondo-aviso-cookies activo" id="fondo-aviso-cookies"></div>
 
-
+</div>
 
 
 @include("frontend.menu.footer")
 @include("frontend.menu.footer-js")
 @include("frontend.menu.final")
 
-<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/axios.min.js') }}" type="text/javascript"/>
+
+
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YC9JVQ7Y2Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YC9JVQ7Y2Y');
+</script>
+
+
+<script>
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        dataLayer = [];
+
+
+
+        // Comprobar si la cookie de aceptación ya existe
+        if (!getCookie("cookiesAccepted")) {
+            document.getElementById("cookieBanner").style.display = "block";
+        }else{
+            // COOKIES, ADS ACEPTADOS
+            dataLayer.push({'event': 'cookies-aceptadas'});
+        }
+
+        // Manejar la aceptación de cookies
+        document.getElementById("acceptCookies").addEventListener("click", function() {
+            setCookie("cookiesAccepted", "true", 365);
+            document.getElementById("cookieBanner").style.display = "none";
+
+            dataLayer.push({'event': 'cookies-aceptadas'});
+        });
+
+        // Función para establecer una cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        // Función para obtener una cookie
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+    });
+
+</script>
 
 
 <script>
