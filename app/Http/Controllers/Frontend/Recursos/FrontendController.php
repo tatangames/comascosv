@@ -14,6 +14,7 @@ use App\Models\PropiedadImagenes;
 use App\Models\PropiedadInicio;
 use App\Models\Recursos;
 use App\Models\Recursos2;
+use App\Models\Solicitudes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,8 +178,51 @@ class FrontendController extends Controller
         }
 
 
+        $arraySolicitudes = Solicitudes::where('activo', 1)
+            ->orderBy('posicion', 'ASC')
+            ->get();
+
+
+        $count = 0; // Contador para las filas en el bloque actual
+        $block = []; // Array para el bloque actual
+
+        foreach ($arraySolicitudes as $item) {
+
+            $fechaFormat = '';
+            if($item->fecha != null) {
+                $fechaFormat = date("d-m-Y", strtotime($item->fecha));
+            }
+
+            // Agregar los datos del modelo al bloque actual
+            $block[] = [
+                'id' => $item->id,
+                'nombre' => $item->nombre,
+                'imagen' => $item->imagen,
+                'fecha' => $fechaFormat
+                // Agrega aquí más campos según sea necesario
+            ];
+
+            $count++; // Incrementar el contador de filas
+
+            // Si se llega al límite de tres filas por bloque, agregar el bloque al array múltiple y reiniciar el bloque y el contador
+            if ($count === 3) {
+                $multiple[] = $block;
+                $block = [];
+                $count = 0;
+            }
+        }
+
+        // Si hay filas restantes en el último bloque incompleto, agregarlo al array múltiple
+        if (!empty($block)) {
+            $multiple[] = $block;
+        }
+
+        $hasData = !empty($multiple);
+
+
+
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
-            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo'));
+            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo', 'multiple','hasData', 'arraySolicitudes'));
     }
 
 

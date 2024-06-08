@@ -282,7 +282,15 @@ Route::post('/admin/visionmision/posicion', [RecursosController::class,'presenta
 Route::post('/admin/visionmision/actualizar', [RecursosController::class,'actualizarVisionInicio']);
 
 
+// --- SOLICITUDES ---
 
+Route::get('/admin/solicitudes/index', [RecursosController::class,'indexSolicitudes'])->name('admin.solicitudes');
+Route::get('/admin/solicitudes/tabla', [RecursosController::class,'tablaSolicitudes']);
+Route::post('/admin/solicitudes/registrar', [RecursosController::class,'registrarSolicitudes']);
+Route::post('/admin/solicitudes/informacion', [RecursosController::class,'infoSolicitudes']);
+Route::post('/admin/solicitudes/posicion', [RecursosController::class,'posicionSolicitudes']);
+Route::post('/admin/solicitudes/actualizar', [RecursosController::class,'actualizarSolicitudes']);
+Route::post('/admin/solicitudes/borrar', [RecursosController::class,'borrarSolicitudes']);
 
 
 

@@ -26,6 +26,7 @@ use App\Models\PropiedadTag;
 use App\Models\PropiedadVideos;
 use App\Models\Recursos;
 use App\Models\Recursos2;
+use App\Models\Solicitudes;
 use App\Models\TipoContactoVendedor;
 use App\Models\TiposContactos;
 use App\Models\TituloPiePagina;
@@ -1500,11 +1501,202 @@ class RecursosController extends Controller
 
 
 
+    // ************* VISTA DE SOLICITUDES *******************************
+
+
+    public function indexSolicitudes(){
+        return view('backend.admin.recursos.solicitudes.vistasolicitudes');
+    }
+
+    public function tablaSolicitudes(){
+
+        $listado = Solicitudes::orderBy('posicion', 'ASC')->get();
+
+        foreach ($listado as $dato){
+
+            $fechaFormat = '';
+            if($dato->fecha != null){
+                $fechaFormat = date("d-m-Y", strtotime($dato->fecha));
+            }
+
+            $dato->fechaFormat = $fechaFormat;
+        }
+
+        return view('backend.admin.recursos.solicitudes.tablasolicitudes', compact('listado'));
+    }
+
+
+    public function registrarSolicitudes(Request $request)
+    {
+        $regla = array(
+            'nombre' => 'required',
+        );
+
+        // imagen, fecha
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        $cadena = Str::random(15);
+        $tiempo = microtime();
+        $union = $cadena . $tiempo;
+        $nombre = str_replace(' ', '_', $union);
+
+        $extension = '.' . $request->imagen->getClientOriginalExtension();
+        $nombreFoto = $nombre . strtolower($extension);
+        $avatar = $request->file('imagen');
+        $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+        if ($upload) {
+
+            if($info = Solicitudes::orderBy('posicion', 'DESC')->first()){
+                $nuevaPosicion = $info->posicion + 1;
+            }else{
+                $nuevaPosicion = 1;
+            }
+
+            $nuevo = new Solicitudes();
+            $nuevo->nombre = $request->nombre;
+            $nuevo->posicion = $nuevaPosicion;
+            $nuevo->imagen = $nombreFoto;
+            $nuevo->fecha = $request->fecha;
+            $nuevo->save();
+
+            return ['success' => 1];
+
+        } else {
+            // error al subir imagen
+            return ['success' => 99];
+        }
+    }
+
+
+    public function infoSolicitudes(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = Solicitudes::where('id', $request->id)->first()){
+
+            return ['success' => 1, 'info' => $info];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+
+    public function posicionSolicitudes(Request $request)
+    {
+        $tasks = Solicitudes::all();
+
+        foreach ($tasks as $task) {
+            $id = $task->id;
+
+            foreach ($request->order as $order) {
+                if ($order['id'] == $id) {
+                    $task->update(['posicion' => $order['posicion']]);
+                }
+            }
+        }
+        return ['success' => 1];
+    }
+
+
+    public function actualizarSolicitudes(Request $request){
+
+        $rules = array(
+            'nombre' => 'required',
+            'toggle' => 'required'
+        );
+
+        // imagen, fecha
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return ['success' => 0];
+        }
+
+        if ($request->hasFile('imagen')) {
+
+            $infoLugar = Solicitudes::where('id', $request->id)->first();
+
+            $imagenOld = $infoLugar->imagen;
+
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena . $tiempo;
+            $nombre = str_replace(' ', '_', $union);
+
+            $extension = '.' . $request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre . strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('archivos')->put($nombreFoto, \File::get($avatar));
+
+            if ($upload) {
+
+                Solicitudes::where('id', $request->id)
+                    ->update([
+                        'nombre' => $request->nombre,
+                        'imagen' => $nombreFoto,
+                        'activo' => $request->toggle,
+                        'fecha' => $request->fecha
+                    ]);
+
+                if(Storage::disk('archivos')->exists($imagenOld)){
+                    Storage::disk('archivos')->delete($imagenOld);
+                }
+
+                return ['success' => 1];
+            } else {
+                // error al subir imagen
+                return ['success' => 99];
+            }
+        } else {
+            Solicitudes::where('id', $request->id)
+                ->update([
+                    'nombre' => $request->nombre,
+                    'activo' => $request->toggle,
+                    'fecha' => $request->fecha
+                ]);
+
+            return ['success' => 1];
+        }
+    }
 
 
 
+    public function borrarSolicitudes(Request $request)
+    {
+        $regla = array(
+            'id' => 'required',
+        );
 
+        $validar = Validator::make($request->all(), $regla);
 
+        if ($validar->fails()){ return ['success' => 0];}
+
+        if($info = Solicitudes::where('id', $request->id)->first()){
+
+            $imagenOld = $info->imagen;
+
+            if(Storage::disk('archivos')->exists($imagenOld)){
+                Storage::disk('archivos')->delete($imagenOld);
+            }
+
+            Solicitudes::where('id', $request->id)->delete();
+
+            return ['success' => 1];
+        }else{
+            return ['success' => 1];
+        }
+    }
 
 
 
