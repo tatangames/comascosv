@@ -74,7 +74,7 @@
                                     <div class="form-group">
 
                                         <div class="form-group">
-                                            <label>Fecha</label>
+                                            <label>Fecha (Opcional)</label>
                                             <input type="date" class="form-control" id="fecha-nuevo" autocomplete="off">
                                         </div>
 
@@ -133,7 +133,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label>Fecha</label>
+                                            <label>Fecha (Opcional)</label>
                                             <input type="date" class="form-control" id="fecha-editar" autocomplete="off">
                                         </div>
 

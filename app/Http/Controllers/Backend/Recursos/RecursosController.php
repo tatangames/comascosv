@@ -1561,6 +1561,7 @@ class RecursosController extends Controller
             $nuevo->posicion = $nuevaPosicion;
             $nuevo->imagen = $nombreFoto;
             $nuevo->fecha = $request->fecha;
+            $nuevo->activo = 1;
             $nuevo->save();
 
             return ['success' => 1];

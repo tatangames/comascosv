@@ -178,7 +178,7 @@ class FrontendController extends Controller
         }
 
 
-       /* $arraySolicitudes = Solicitudes::where('activo', 1)
+        $arraySolicitudes = Solicitudes::where('activo', 1)
             ->orderBy('posicion', 'ASC')
             ->get();
 
@@ -194,7 +194,7 @@ class FrontendController extends Controller
             }
 
             // Agregar los datos del modelo al bloque actual
-            $block[] = [
+           /* $block[] = [
                 'id' => $item->id,
                 'nombre' => $item->nombre,
                 'imagen' => $item->imagen,
@@ -209,7 +209,7 @@ class FrontendController extends Controller
                 $multiple[] = $block;
                 $block = [];
                 $count = 0;
-            }
+            }*/
         }
 
         // Si hay filas restantes en el último bloque incompleto, agregarlo al array múltiple
@@ -217,14 +217,14 @@ class FrontendController extends Controller
             $multiple[] = $block;
         }
 
-        $hasData = !empty($multiple);*/
+        $hasData = !empty($multiple);
 
-
-        // 'multiple','hasData', 'arraySolicitudes'
+        $tituloSolicitud = $infoRecursos->titulo_solicitud;
 
 
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
-            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo'));
+            'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo',
+            'hasData', 'arraySolicitudes', 'tituloSolicitud'));
     }
 
 

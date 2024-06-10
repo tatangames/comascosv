@@ -16,8 +16,6 @@
 
 
 
-
-
     /* Estilos para la sección 1 */
     .section1 {
         background-color: #f0f0f0;
@@ -133,9 +131,6 @@
 
                     </div>
                 </article>
-
-
-
 
             @endforeach
 
@@ -290,6 +285,65 @@
         </div>
     </section>
     <!-- END SECTION FEATURED PROPERTIES -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- SECCION - SOLICITUDES -->
+    <section class="how-it-works bg-white rec-pro section2">
+        <div class="container-fluid">
+            <div class="sec-title">
+                <h2>{{ $tituloSolicitud }}</h2>
+                <p></p>
+            </div>
+
+            <div class="row service-1" style="margin-top: 50px">
+                @php
+                    $contador = 0; // Inicializar el contador
+                @endphp
+                @foreach($arraySolicitudes as $fila)
+                    @php
+                        $contador++;
+                    @endphp
+
+                        <article class="col-lg-3 col-md-6 col-xs-12 serv"
+
+
+                        data-aos="fade-up" data-aos-delay="150">
+                            <div class="serv-flex">
+
+                                <div class="art-1 img-13">
+                                    <img src="{{ asset('storage/archivos/'.$fila->imagen) }}" style="fill: red;
+                                    width: 250px !important; height: 250px !important;" alt="">
+                                </div>
+
+                                <div style="text-align: left !important;">
+                                    {{ $fila->nombre }}
+                                </div>
+
+                            </div>
+                        </article>
+
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
 
 
 

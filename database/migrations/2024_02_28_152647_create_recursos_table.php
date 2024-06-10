@@ -39,7 +39,8 @@ return new class extends Migration
             $table->text('responsabilidad_mensaje')->nullable();
 
 
-
+            // TITULO PARA SOLICITUDES DE PERSONA DE UN TERRENO
+            $table->string('titulo_solicitud', 100);
 
 
         });
