@@ -20,19 +20,33 @@
 
     <section class="content-header">
         <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <button type="button" onclick="modalAgregar()" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus-square"></i>
                     Registrar
                 </button>
+
+                <br><br>
+
+
+
+
+                <div class="row">
+                    <div class="input-group input-group col-md-4" style="width: 25% !important;">
+                        <input type="text" maxlength="100" class="form-control" value="{{ $infoRe->titulo_solicitud }}" id="titulo" autocomplete="off">
+
+                        <span class="input-group-append">
+                                        <button type="button" class="btn btn-info btn-sm" onclick="actualizarTitulo()">Actualizar</button>
+                                            </span>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Solicitudes</li>
-                    <li class="breadcrumb-item active">Listado</li>
-                </ol>
-            </div>
+
+
+
+
 
         </div>
     </section>
@@ -392,6 +406,37 @@
         }
 
 
+        function actualizarTitulo(){
+
+            var nombre = document.getElementById('titulo').value;
+
+            if(nombre === ''){
+                toastr.error('Título es requerido')
+                return;
+            }
+
+            openLoading();
+            let formData = new FormData();
+            formData.append('titulo', nombre);
+
+            axios.post('/admin/solicitudes/actualizartitulo', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+
+                    if(response.data.success === 1){
+                        toastr.success('Actualizado correctamente');
+                    }
+                    else {
+                        toastr.error('Error al actualizar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al actualizar');
+                    closeLoading();
+                });
+
+        }
 
 
 

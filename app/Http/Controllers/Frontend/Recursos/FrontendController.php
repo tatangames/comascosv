@@ -193,6 +193,8 @@ class FrontendController extends Controller
                 $fechaFormat = date("d-m-Y", strtotime($item->fecha));
             }
 
+            $item->fechaFormat = $fechaFormat;
+
             // Agregar los datos del modelo al bloque actual
            /* $block[] = [
                 'id' => $item->id,
@@ -213,18 +215,18 @@ class FrontendController extends Controller
         }
 
         // Si hay filas restantes en el último bloque incompleto, agregarlo al array múltiple
-        if (!empty($block)) {
+        /*if (!empty($block)) {
             $multiple[] = $block;
         }
 
-        $hasData = !empty($multiple);
+        $hasData = !empty($multiple);*/
 
         $tituloSolicitud = $infoRecursos->titulo_solicitud;
 
 
         return view('frontend.index', compact( 'arrayInicio', 'infoRecursos',
             'arrayPropiedades', 'arrayLugarInicio', 'filasRecursos', 'arrayMision', 'hayMisionActivo',
-            'hasData', 'arraySolicitudes', 'tituloSolicitud'));
+            'arraySolicitudes', 'tituloSolicitud'));
     }
 
 

@@ -1505,7 +1505,11 @@ class RecursosController extends Controller
 
 
     public function indexSolicitudes(){
-        return view('backend.admin.recursos.solicitudes.vistasolicitudes');
+
+        $infoRe = Recursos::where('id', 1)->first();
+
+
+        return view('backend.admin.recursos.solicitudes.vistasolicitudes', compact('infoRe'));
     }
 
     public function tablaSolicitudes(){
@@ -1699,6 +1703,25 @@ class RecursosController extends Controller
         }
     }
 
+
+    public function actualizarSolicitudesTitulo(Request $request){
+
+        $regla = array(
+            'titulo' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){ return ['success' => 0];}
+
+
+        Recursos::where('id', 1)
+            ->update([
+                'titulo_solicitud' => $request->titulo,
+            ]);
+
+        return ['success' => 1];
+    }
 
 
 

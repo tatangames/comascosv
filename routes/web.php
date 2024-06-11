@@ -291,6 +291,7 @@ Route::post('/admin/solicitudes/informacion', [RecursosController::class,'infoSo
 Route::post('/admin/solicitudes/posicion', [RecursosController::class,'posicionSolicitudes']);
 Route::post('/admin/solicitudes/actualizar', [RecursosController::class,'actualizarSolicitudes']);
 Route::post('/admin/solicitudes/borrar', [RecursosController::class,'borrarSolicitudes']);
+Route::post('/admin/solicitudes/actualizartitulo', [RecursosController::class,'actualizarSolicitudesTitulo']);
 
 
 

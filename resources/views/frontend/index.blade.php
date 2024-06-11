@@ -298,7 +298,7 @@
 
 
 
-
+    @if(count($arraySolicitudes) > 0)
     <!-- SECCION - SOLICITUDES -->
     <section class="how-it-works bg-white rec-pro section2">
         <div class="container-fluid">
@@ -308,13 +308,8 @@
             </div>
 
             <div class="row service-1" style="margin-top: 50px">
-                @php
-                    $contador = 0; // Inicializar el contador
-                @endphp
+
                 @foreach($arraySolicitudes as $fila)
-                    @php
-                        $contador++;
-                    @endphp
 
                         <article class="col-lg-3 col-md-6 col-xs-12 serv"
 
@@ -340,7 +335,7 @@
         </div>
     </section>
 
-
+    @endif
 
 
 
