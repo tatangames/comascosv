@@ -44,7 +44,8 @@ class FrontendController extends Controller
             $dato->telefonoFormat = $telefonoFormat;
         }
 
-        // listado de propiedades
+        // LISTADO DE PROPIEDADES INICIO, NECESITO SABER SI ESTAMOS ENTRE FECHA INIO Y FECHA FIN
+        // PARA SER MOSTRADO
         $arrayPropiDato = PropiedadInicio::all();
 
         // guardar id propiedad inicio y despues buscar por posicion
@@ -54,23 +55,15 @@ class FrontendController extends Controller
 
             $infoPropi = Propiedad::where('id', $info->id_propiedad)->first();
 
-            // verificar que este disponible
+            // LA PROPIEDAD DEBE ESTAR VISIBLE
             if($infoPropi->visible == 1){
 
                 $fechaInicio = Carbon::parse($infoPropi->fecha_inicio);
                 $fechaFin = Carbon::parse($infoPropi->fecha_fin);
+                $fechaActual = Carbon::now();
 
-                // Verificar si son el mismo dia
-                if($fechaInicio->equalTo($fechaFin)){
-
-                    // solo camparar con fecha actual
-                    if ($fechaActual->equalTo($fechaInicio)) {
-                        array_push($pilaIdPropiInicio, $info->id);
-                    }
-                }else{
-                    if ($fechaActual->between($fechaInicio, $fechaFin)) {
-                        array_push($pilaIdPropiInicio, $info->id);
-                    }
+                if ($fechaActual->between($fechaInicio, $fechaFin)) {
+                    array_push($pilaIdPropiInicio, $info->id);
                 }
             }
 
