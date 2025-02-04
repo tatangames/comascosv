@@ -397,7 +397,7 @@ class FrontendRecursosController extends Controller
 
         if ($nombre != null) {
 
-            $arrayPropiedadQuery = DB::table('propiedad AS p')
+            /*$arrayPropiedadQuery = DB::table('propiedad AS p')
                 ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
                 ->join('lugares AS l', 'p.id_lugar', '=', 'l.id')
                 ->select( 'p.id', 'p.id_lugar', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion',
@@ -409,8 +409,28 @@ class FrontendRecursosController extends Controller
                         ->orWhere('l.nombre', 'like', '%' . $nombre . '%')
                         ->orWhere('p.direccion', 'like', '%' . $nombre . '%');
               })
-                ->orderBy('precio', $formaOrdenado);
+                ->orderBy('precio', $formaOrdenado);*/
                // ->paginate(12);
+
+            $arrayPropiedadQuery = DB::table('propiedad AS p')
+                ->join('vendedores AS v', 'p.id_vendedor', '=', 'v.id')
+                ->join('lugares AS l', 'p.id_lugar', '=', 'l.id')
+                ->select('p.id', 'p.id_lugar', 'p.nombre', 'v.nombre AS nombrevendedor', 'p.slug', 'p.precio', 'p.direccion', 'v.imagen AS imagenvendedor')
+                ->whereIn('p.id', $pilaIdPropiedad)
+                ->where(function($query) use ($nombre) {
+                    // Divide la cadena de búsqueda en palabras individuales
+                    $palabras = explode(' ', $nombre);
+
+                    foreach ($palabras as $palabra) {
+                        $query->orWhere('p.nombre', 'like', '%' . $palabra . '%')
+                            ->orWhere('v.nombre', 'like', '%' . $palabra . '%')
+                            ->orWhere('l.nombre', 'like', '%' . $palabra . '%')
+                            ->orWhere('p.direccion', 'like', '%' . $palabra . '%');
+                    }
+                })
+                ->orderBy('precio', $formaOrdenado);
+
+
         }else{
 
             $arrayPropiedadQuery = DB::table('propiedad AS p')

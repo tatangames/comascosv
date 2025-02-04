@@ -48,6 +48,8 @@ class FrontendController extends Controller
         // PARA SER MOSTRADO
         $arrayPropiDato = PropiedadInicio::all();
 
+
+
         // guardar id propiedad inicio y despues buscar por posicion
         $pilaIdPropiInicio = array();
 
@@ -72,6 +74,7 @@ class FrontendController extends Controller
         $arrayPropiedades = PropiedadInicio::whereIn('id', $pilaIdPropiInicio)
             ->orderBy('posicion', 'ASC')
             ->get();
+
 
         $resultsBloque = array();
         $index = 0;
