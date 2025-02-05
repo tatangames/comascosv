@@ -68,6 +68,8 @@
         }
     });
 
+    var marcadores = @json($marcadores);
+
     function buscarPropiedad(){
         var nombre = document.getElementById('nombre-propiedad').value;
         var url = '/busqueda?nombre=' + encodeURIComponent(nombre);
@@ -84,27 +86,23 @@
             center: {lat: 14.33202641066866, lng: -89.44123588597019} // Ajusta el centro y el zoom según tus necesidades
         });
 
-        // Itera sobre los marcadores
-        @foreach($marcadores as $marcador)
-
+        marcadores.forEach(function(marcador) {
             var marker = new google.maps.Marker({
-                position: {lat: {{ $marcador->latitud }}, lng: {{ $marcador->longitud }}},
+                position: { lat: parseFloat(marcador.latitud), lng: parseFloat(marcador.longitud) },
                 map: map,
                 title: "Propiedad",
                 icon: {
-                    url: '{{ asset("images/marcadorgoogle.png") }}', // Ruta a tu icono personalizado
-                    scaledSize: new google.maps.Size(50, 70) // Ajusta el tamaño del icono según tu preferencia
+                    url: '{{ asset("images/marcadorgoogle.png") }}',
+                    scaledSize: new google.maps.Size(50, 70)
                 },
-                id: "{{ $marcador->slug }}"
+                id: marcador.slug // Usamos la propiedad slug del objeto marcador
             });
 
             // Agregar evento click al marcador
             marker.addListener('click', function() {
-                // Llama a la función handleClickMarker con el ID del marcador
-               redireccionar(this.id)
+                redireccionar(this.id);
             });
-
-        @endforeach
+        });
     }
 
     function redireccionar(slug){
