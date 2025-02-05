@@ -133,7 +133,7 @@
                                     <br>
                                     <hr>
 
-                                    <p>Coordenadas (Opcional)</p>
+                                    <p>Coordenadas (Ejemplo sera: 14.329802163856673, -89.4425103377102)</p>
 
                                     <div class="form-group">
                                         <label>Latitud (Opcional)</label>
@@ -234,7 +234,7 @@
                                     <br>
                                     <hr>
 
-                                    <p>Coordenadas (Opcional)</p>
+                                    <p>Coordenadas (Ejemplo sera: 14.329802163856673, -89.4425103377102)</p>
 
                                     <div class="form-group">
                                         <label>Latitud (Opcional)</label>
