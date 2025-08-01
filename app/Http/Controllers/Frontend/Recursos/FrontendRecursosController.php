@@ -81,6 +81,14 @@ class FrontendRecursosController extends Controller
 
         if($infoPropi = Propiedad::where('slug', $slug)->first()){
 
+
+            if($infoPropi->visible == 0){
+                return view('errors.404');
+            }
+
+
+
+
             $nombreImagen = "";
             $primerVuelta = true;
 
