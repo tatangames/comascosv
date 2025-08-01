@@ -187,6 +187,7 @@ class FrontendRecursosController extends Controller
             // PROPIEDADES DEL MISMO VENDEDOR
             $arrayPropiVendedor = Propiedad::where('id_vendedor', $infoPropi->id_vendedor)
                 ->where('id', '!=', $infoPropi->id)
+                ->where('visible', 1)
                 ->inRandomOrder()
                 ->take(3)
                 ->orderBy('nombre', 'ASC')
