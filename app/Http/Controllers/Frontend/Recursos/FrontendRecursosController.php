@@ -209,6 +209,7 @@ class FrontendRecursosController extends Controller
             // PROPIEDADES ALEATORIAS
 
             $arrayPropiAletorias = Propiedad::where('id', '!=', $infoPropi->id)
+                ->where('visible', 1)
                 ->inRandomOrder()
                 ->take(3)
                 ->orderBy('nombre', 'ASC')
@@ -557,7 +558,7 @@ class FrontendRecursosController extends Controller
             }
         }
 
-        $marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
+        //$marcadores = Propiedad::whereIn('id', $pilaIdPropiedad)->get();
 
         foreach ($arrayValidos as $dato) {
 
