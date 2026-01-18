@@ -136,21 +136,60 @@
                             <section class="content-header">
                                 <div class="row mb-6">
                                     <div id="fb-root"></div>
-                                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0" nonce="SuOBFk5k"></script>
-                                    <div class="fb-share-button" data-href="{{ $url }}" data-layout="button" data-size="small" style="margin-top: 15px">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url); ?>" target="_blank" class="fb-xfbml-parse-ignore" style="margin-left: 15px">
-                                            <button type="button"><img src="{{ asset('images/logowasap.png') }}"
-                                                                       style=" height: 20px !important; width: 20px !important; "
-                                                                       alt="whatsapp"> WhatsApp</button>
+                                    <script async defer crossorigin="anonymous"
+                                            src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0"
+                                            nonce="SuOBFk5k"></script>
+
+                                    <div style="display: flex; gap: 8px; align-items: center; margin-top: 10px;">
+                                        <!-- Botón de Facebook -->
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}"
+                                           target="_blank"
+                                           class="fb-xfbml-parse-ignore"
+                                           style="text-decoration: none;">
+                                            <button type="button"
+                                                    style="background-color: #1877F2;
+                               color: white;
+                               border: none;
+                               padding: 6px 12px;
+                               border-radius: 4px;
+                               cursor: pointer;
+                               display: flex;
+                               align-items: center;
+                               gap: 6px;
+                               font-size: 12px;
+                               font-weight: 500;
+                               height: 28px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                                </svg>
+                                                Compartir
+                                            </button>
+                                        </a>
+
+                                        <!-- Botón de WhatsApp -->
+                                        <a href="https://wa.me/?text={{ urlencode($url) }}"
+                                           target="_blank"
+                                           style="text-decoration: none;">
+                                            <button type="button"
+                                                    style="background-color: #25D366;
+                               color: white;
+                               border: none;
+                               padding: 6px 12px;
+                               border-radius: 4px;
+                               cursor: pointer;
+                               display: flex;
+                               align-items: center;
+                               gap: 6px;
+                               font-size: 12px;
+                               font-weight: 500;
+                               height: 28px;">
+                                                <img src="{{ asset('images/logowasap.png') }}"
+                                                     style="height: 14px; width: 14px;"
+                                                     alt="whatsapp">
+                                                WhatsApp
+                                            </button>
                                         </a>
                                     </div>
-
-                                    <a href="https://wa.me/?text={{ urlencode($url) }}" target="_blank" class="whatsapp-button" style="margin-left: 15px">
-                                        <button style="outline: none"><img src="{{ asset('images/logowasap.png') }}"
-                                                                           style=" height: 20px !important; width: 20px !important; "
-                                                                           alt="whatsapp"> WhatsApp</button>
-                                    </a>
-
                                 </div>
                             </section>
 
