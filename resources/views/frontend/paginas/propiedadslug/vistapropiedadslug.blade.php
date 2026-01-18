@@ -24,6 +24,28 @@
     }
 
 
+    .recent-main {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .recent-img {
+        width: 90px;        /* tamaño del cuadro */
+        height: 90px;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 6px; /* opcional */
+    }
+
+    .recent-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;  /* CLAVE: recorta sin deformar */
+        display: block;
+    }
+
+
 </style>
 
 <!-- START SECTION PROPERTIES LISTING -->
@@ -33,10 +55,10 @@
             <div class="col-lg-8 col-md-12 blog-pots">
                 <div class="row">
                     <div class="col-md-12">
+
+
                         <section class="headings-2 pt-0">
                             <div>
-
-
                                 <div class="row" style="float: right; padding-left: 15px; padding-right: 5px">
 
                                     <h4 style="color: #FF385C !important; font-size: 20px">{{ $precioFormat }}</h4>
@@ -60,10 +82,11 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </section>
+
+
+
                         <!-- main slider carousel items -->
                         <div id="listingDetailsSlider" class="carousel listing-details-sliders slide mb-30">
                             <h5 class="mb-4">Galería</h5>
@@ -471,7 +494,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
 
                         @endif
 
@@ -531,7 +554,7 @@
 
                         </div>
                     </div>
-                </div>
+
             </aside>
         </div>
 
